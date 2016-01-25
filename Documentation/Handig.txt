@@ -1,0 +1,15 @@
+heb is inprinciepe best simpel. 
+Je moet eerst een punt instellen vanaf waar die moet beginnen met de orginele texture te tonen. 
+Vervolgens moet je een radius instellen en die radius geeft aan hoe ver die ingekleurd moet worden
+
+de point zet je zo: 
+				meshRenderer.material.SetFloat("ColorRadius", radius);
+uhh de radius
+en het begin punt zo: 
+			meshRenderer.material.SetVector("ColorOrigen", vector3));
+
+maar stel je wilt dus dat die begint met kleuren vanaf het punt waar jij naar kijkt kan je dus een raycast.point 
+doen om vervolgens de transform.position te pakken van je raycast hit
+en die kun je dan instellen als origin
+
+oh zie net dat je regel 3 en 26 eruit kan slopen, want die doen niets.

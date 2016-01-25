@@ -1,0 +1,16 @@
+Must have
+- Squirrel idle
+- Squirrel walk (walk/hopping)
+- Bunny idle
+- Bunny walk (walk/hopping)
+- Crow idle
+- Crow walk (walk/hopping)
+Should have
+- Hedgehog idle
+- Hedgehog walk
+- Turtle swimming
+- Duck 1 swimming
+- Duck 2 swimming
+Could have
+
+Would have

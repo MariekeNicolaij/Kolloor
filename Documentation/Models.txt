@@ -1,0 +1,41 @@
+Must have
+- Squirrel
+- Bunny
+- Crow
+- Portals
+Should have
+- Hedgehog
+- Environment
+Could have
+- Turtle
+- Duck 1
+- Duck 2
+Would have
+
+
+
+AI
+- Squirrel (cubic, cute)
+- Bunny (cubic, cute)
+- Hedgehog (cubic, cute)
+- Crow (cubic, cute)
+- Turtle (cubic)
+- Duck 1 (cubic)
+- Duck 2 (cubic)
+
+Portals
+- Orange
+- Red
+- Yellow
+- Green
+- Blue
+- Purple
+- Pink
+- Brown
+- Black
+
+Environment
+- Tree 1
+- Tree 2
+- Tree 3
+- Flowers

@@ -1,0 +1,27 @@
+COMMENTS
+Must have:
+* Tutorial level (klein)
+* Puzzle object automatisch lerpen als ie in de buurt van zijn 
+	plek is (uitstekende cube collider vanuit puzzleobject eindplek)
+* Sun shafts & Bloom
+- Cute little Animals
+* Controller support
+- Animals(Bunny, Crow, Duck, Hedgehog, Squirrel, Turtle)
+- Sound
+
+
+Should have:
+* Portal for next level
+- Shoot portal object with light effects
+* Level 1
+* UI menus
+
+
+Could have:
+- Level 2,3,4
+- Control settings
+- Ducks and turtles swimming in water
+
+
+Would have:
+- Animals that runs to cubical hole as a pointer
