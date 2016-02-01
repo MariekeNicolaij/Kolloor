@@ -53,7 +53,7 @@ public class Wander : State
         if (owner.agent)
         {
             owner.agent.SetDestination(owner.transform.position + owner.direction * owner.moveSpeed * Time.smoothDeltaTime);
-            Debug.Log(owner.transform.position + owner.direction * owner.moveSpeed * Time.smoothDeltaTime);
+            //Debug.Log(owner.transform.position + owner.direction * owner.moveSpeed * Time.smoothDeltaTime);
         }
     }
 

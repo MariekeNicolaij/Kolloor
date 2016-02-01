@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         instance = this;
         characterController = GetComponent<CharacterController>();
         startPosition = transform.position;
+        gravity = Physics.gravity.y;
     }
 
     void Update()
@@ -80,7 +81,7 @@ public class Player : MonoBehaviour
 
     void Gravity()
     {
-        moveDirection.y -= gravity * Time.smoothDeltaTime;
+        moveDirection.y += gravity * Time.smoothDeltaTime;
         characterController.Move(moveDirection * Time.smoothDeltaTime);
     }
 
