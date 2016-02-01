@@ -1,0 +1,12 @@
+Footsteps
+UI
+Shoot laser
+Hit Puzzle Object with shooting
+Puzzle Object full size
+Puzzle slot lerp down
+Puzzle slot lerp down finished
+Puzzle Object in Puzzle Slot
+Animals
+Environment(Wind, Water)
+Background (Optional)
+Start menu (wacky waiting)
