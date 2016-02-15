@@ -1,49 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AI.States;
 
-public class BaseAI : MonoBehaviour
+namespace AI
 {
-    public StateManager stateManager = new StateManager();
-    [HideInInspector]   public NavMeshAgent agent;
-
-    [HideInInspector]   public Vector3 direction;
-
-    public bool isUnderWater;
-
-    [Range(1, 10)] public float moveSpeed = 2;
-    [Range(1, 10)]      public float hoppiness = 5.5f;
-    [HideInInspector]   public float turnTime = 4;
-    [Range(1, 10)]      public float minWaitTurnTime = 2;
-    [Range(1, 20)]      public float maxWaitTurnTime = 8;
-
-    public bool help;
-    float activateHelpTime = 60;
-
-
-    protected virtual void Start()
+    public class BaseAI : MonoBehaviour
     {
-        stateManager.Start();
-    }
+        protected StateManager stateManager;
 
-    protected virtual void Update()
-    {
-        stateManager.Update();
+        [HideInInspector]
+        public NavMeshAgent agent;
 
-        HelpTimer();
-        HelpPlayer();
-    }
+        protected virtual void Start()
+        {
+            agent = this.GetComponent<NavMeshAgent>();
+            stateManager = new StateManager(this, new WanderState());
+        }
 
-    void HelpPlayer()
-    {
-        if (help)
-            stateManager.ChangeState(new Help());
-    }
+        protected virtual void Update()
+        {
+            stateManager.Update();
+        }
 
-    void HelpTimer()
-    {
-        activateHelpTime -= Time.smoothDeltaTime;
+        public void GoTo(Vector3 position)
+        {
+            agent.SetDestination(position);
+        }
 
-        if (activateHelpTime < 0)
-            help = true;
+        public void Move(Vector3 dir)
+        {
+            agent.Move(dir);
+        }
     }
 }

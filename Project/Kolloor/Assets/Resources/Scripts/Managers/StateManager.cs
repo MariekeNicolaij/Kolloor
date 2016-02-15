@@ -1,30 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AI.States;
+using AI;
 
 [System.Serializable]
 public class StateManager
 {
+<<<<<<< HEAD
     public BaseAI owner;
     public State currentState;
+=======
+    private State currentState;
+>>>>>>> 3c93cf62f4023bf64b86420fb15a4de3f6353500
 
-    public void Start()
+    private State defaultState;
+    private BaseAI owner;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="owner"> the owner of this StateManager </param>
+    /// <param name="defaultState"> the default state in which the owner will start</param>
+    public StateManager(BaseAI owner, State defaultState)
     {
-        ChangeState(new Wander());
+        this.defaultState = defaultState;
+        this.defaultState.owner = owner;
+        this.owner = owner;
+        this.currentState = defaultState;
     }
 
     public void Update()
     {
-        if (currentState != null)
-            currentState.Update();
+        currentState.Execute();
     }
 
-    public void ChangeState(State state)
+    /// <summary>
+    /// change the state to a new state
+    /// </summary>
+    /// <param name="newState"> the new state</param>
+    public void ChangeState(State newState)
     {
-        if (state == null && currentState == null)
+        if (newState == null)
             return;
 
+<<<<<<< HEAD
         state.owner = owner;
         currentState = state;
         currentState.Start();
+=======
+        newState.owner = owner;
+        currentState.Exit();
+        currentState = newState;
+        currentState.Enter();
+>>>>>>> 3c93cf62f4023bf64b86420fb15a4de3f6353500
     }
 }
