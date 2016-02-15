@@ -4,8 +4,6 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public static Player instance;
-    public InGameUI inGameUI;
-
     PuzzleObject puzzleObject;
     CharacterController characterController;
 
@@ -57,7 +55,6 @@ public class Player : MonoBehaviour
 
         if (puzzleObject.active)
         {
-            inGameUI.ActivateInteractHelp(true);
             canPickup = true;
         }
     }
@@ -66,8 +63,6 @@ public class Player : MonoBehaviour
     {
         if (pickedUp)
             return;
-
-        inGameUI.ActivateInteractHelp(false);
 
         puzzleObject = null;
         canPickup = false;
@@ -130,7 +125,6 @@ public class Player : MonoBehaviour
 
     void Pickup()
     {
-        inGameUI.ActivateInteractHelp(false);
         puzzleObject.GetComponent<Rigidbody>().useGravity = false;
         puzzleObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         puzzleObject.GetComponent<SphereCollider>().radius = 0.5f;

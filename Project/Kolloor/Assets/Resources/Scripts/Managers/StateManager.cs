@@ -6,15 +6,10 @@ using AI;
 [System.Serializable]
 public class StateManager
 {
-<<<<<<< HEAD
     public BaseAI owner;
-    public State currentState;
-=======
     private State currentState;
->>>>>>> 3c93cf62f4023bf64b86420fb15a4de3f6353500
 
     private State defaultState;
-    private BaseAI owner;
 
     /// <summary>
     /// Constructor
@@ -43,15 +38,9 @@ public class StateManager
         if (newState == null)
             return;
 
-<<<<<<< HEAD
-        state.owner = owner;
-        currentState = state;
-        currentState.Start();
-=======
         newState.owner = owner;
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
->>>>>>> 3c93cf62f4023bf64b86420fb15a4de3f6353500
     }
 }
