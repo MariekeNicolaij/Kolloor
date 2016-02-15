@@ -8,16 +8,6 @@
     PuzzleSlot = 12
 }
 
-public enum Animal
-{
-    Bunny,
-    Crow,
-    Duck,
-    Hedgehog,
-    Squirrel,
-    Turtle
-}
-
 public enum PuzzleColors
 {
     Orange,

@@ -4,7 +4,6 @@ using System.Collections;
 [System.Serializable]
 public class StateManager
 {
-    public Animal animal;
     public BaseAI owner;
     public State currentState;
 
@@ -25,7 +24,6 @@ public class StateManager
             return;
 
         state.owner = owner;
-        state.animal = animal;
         currentState = state;
         currentState.Start();
     }

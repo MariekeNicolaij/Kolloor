@@ -3,11 +3,11 @@ using System.Collections;
 
 public class InGameUI : MonoBehaviour
 {
-    public GameObject interactHandImage;
+    public GameObject interactImage;
 
-    
-    public void ActivateInteractHand(bool activate)
+
+    public void ActivateInteractHelp(bool activate)
     {
-        interactHandImage.SetActive(activate);
+        interactImage.SetActive(activate);
     }
 }

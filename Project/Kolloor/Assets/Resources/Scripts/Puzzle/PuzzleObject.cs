@@ -17,7 +17,7 @@ public class PuzzleObject : MonoBehaviour
     [HideInInspector]
     public bool active = true;
 
-    float maxDepth = -10;
+    float maxFallDepth = -10;
     float maxLerpDistance = 0.025f;
 
 
@@ -55,7 +55,7 @@ public class PuzzleObject : MonoBehaviour
 
     void Respawn()
     {
-        if (transform.position.y < maxDepth)
+        if (transform.position.y < maxFallDepth)
         {
             transform.position = startPosition;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -64,6 +64,7 @@ public class PuzzleObject : MonoBehaviour
 
     void LerpToSlot()
     {
+        Debug.Log("Lerp met eigen variable");
         transform.localPosition = Vector3.Lerp(transform.localPosition, positionInSlot, Time.smoothDeltaTime);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(Vector3.zero), Time.smoothDeltaTime);
 

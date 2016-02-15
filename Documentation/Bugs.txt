@@ -2,3 +2,7 @@
 - Puzzle Object rotates strangly stuttering when picking up
 - Can't kick Puzzle Object in to Puzzle Slot (Nothing happens and can't pick it up)
 - Puzzle Object stutter rotates
+
+* Water
+- Underwatershader check delayes
+- Underwater horizon glitch

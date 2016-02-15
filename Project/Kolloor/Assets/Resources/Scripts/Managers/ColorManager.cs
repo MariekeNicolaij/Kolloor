@@ -27,7 +27,6 @@ public class ColorManager : MonoBehaviour
 
     public bool allColorsUnlocked;
 
-    float max = 2;
     float colorSpreadSpeed = 10;
     int unlockedColorsCount = 0;
 

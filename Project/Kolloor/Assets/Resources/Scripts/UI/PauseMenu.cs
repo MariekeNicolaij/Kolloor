@@ -34,11 +34,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         Pause(false);
     }
 
     public void Restart()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         pauseObject.SetActive(false);
         restartObject.SetActive(true);
     }
@@ -46,18 +48,21 @@ public class PauseMenu : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         PlayerPrefs.SetString("LoadLevel", Application.loadedLevelName);
         Application.LoadLevel("Loading");
     }
 
     public void Options()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         pauseObject.SetActive(false);
         optionsObject.SetActive(true);
     }
 
-    public void BackToPauseMenu()
+    public void Back()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         restartObject.SetActive(false);
         optionsObject.SetActive(false);
         mainMenuObject.SetActive(false);
@@ -66,6 +71,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         pauseObject.SetActive(false);
         mainMenuObject.SetActive(true);
     }
@@ -73,6 +79,7 @@ public class PauseMenu : MonoBehaviour
     public void ActivateMainMenu()
     {
         Time.timeScale = 1;
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         PlayerPrefs.SetString("LoadLevel", "Start");
         Application.LoadLevel("Loading");
     }
