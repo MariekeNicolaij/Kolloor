@@ -15,10 +15,6 @@ public class ColorManager : MonoBehaviour
         public Vector3 startPoint;
         public bool unlocked;
         public float radius;
-        [Range(0, 1)]
-        public float metallicness;
-        [Range(0, 1)]
-        public float smoothness = 0.5f;
     }
 
     public List<ColorSpreadData> colorSpreadList;

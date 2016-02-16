@@ -21,7 +21,7 @@ public class Rainbow : MonoBehaviour
 
     void GetColors()
     {
-        foreach (Material mat in ColorManager.instance.colorMaterials)
+        foreach (Material mat in Resources.LoadAll("Materials/Rainbow"))
             lerpColors.Add(mat.color);
     }
 
