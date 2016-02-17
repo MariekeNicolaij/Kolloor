@@ -17,6 +17,7 @@ public class PuzzleObject : MonoBehaviour
     [HideInInspector]
     public bool active = true;
 
+    float lerpTime = 0, lerpSpeed = 0.001f;
     float maxFallDepth = -10;
     float maxLerpDistance = 0.025f;
 
@@ -64,34 +65,37 @@ public class PuzzleObject : MonoBehaviour
 
     void LerpToSlot()
     {
-        Debug.Log("Lerp met eigen variable");
-        transform.localPosition = Vector3.Lerp(transform.localPosition, positionInSlot, Time.smoothDeltaTime);
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(Vector3.zero), Time.smoothDeltaTime);
+        lerpTime += lerpSpeed;
+        transform.localPosition = Vector3.Lerp(transform.localPosition, positionInSlot, lerpTime);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(Vector3.zero), lerpTime);
 
         if (Vector3.Distance(transform.localPosition, positionInSlot) < maxLerpDistance)
         {
             transform.localPosition = positionInSlot;
             transform.localRotation = Quaternion.identity;
-            transform.localScale = Vector3.Lerp(transform.localScale, scaleInSlot, Time.smoothDeltaTime);
+            transform.localScale = Vector3.Lerp(transform.localScale, scaleInSlot, lerpTime);
         }
         if (Vector3.Distance(transform.localScale, scaleInSlot) < maxLerpDistance)
         {
             transform.localScale = scaleInSlot;
             puzzleSlot.lerpToGround = true;
             lerpToSlot = false;
+            lerpTime = 0;
         }
     }
 
     void LerpToPlayer()
     {
-        transform.localPosition = Vector3.Lerp(transform.localPosition, positionInPlayer, Time.smoothDeltaTime);
-        transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, Vector3.zero, Time.smoothDeltaTime);
+        lerpTime += lerpSpeed;
+        transform.localPosition = Vector3.Lerp(transform.localPosition, positionInPlayer, lerpTime);
+        transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, Vector3.zero, lerpTime);
 
         if (Vector3.Distance(transform.localPosition, positionInPlayer) < maxLerpDistance)
         {
             transform.localPosition = positionInPlayer;
             transform.localRotation = Quaternion.identity;
             lerpToPlayer = false;
+            lerpTime = 0;
         }
     }
 

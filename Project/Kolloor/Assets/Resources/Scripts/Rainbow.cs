@@ -11,7 +11,7 @@ public class Rainbow : MonoBehaviour
 
     float time = 0;
     int curIndex = 0, nextIndex;
-
+    
 
     void Start()
     {
