@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
 
     void Pickup()
     {
+        AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
         puzzleObject.GetComponent<Rigidbody>().useGravity = false;
         puzzleObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         puzzleObject.GetComponent<SphereCollider>().radius = 0.5f;

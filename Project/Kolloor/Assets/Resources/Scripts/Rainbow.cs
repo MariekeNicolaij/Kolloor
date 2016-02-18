@@ -29,7 +29,7 @@ public class Rainbow : MonoBehaviour
     {
         time += Time.smoothDeltaTime;
 
-        if (time > speed)
+        if (time > speed) 
         {
             curIndex = IndexCheck(lerpColors, curIndex + 1);        // Set current index
             nextIndex = IndexCheck(lerpColors, curIndex + 1);       // Set next index
