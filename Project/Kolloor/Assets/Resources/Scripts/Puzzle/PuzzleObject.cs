@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Managers;
 
 public class PuzzleObject : MonoBehaviour
 {
     public PuzzleColors puzzleColor;
+
+    public PuzzleObjectManager Manager;
 
     PuzzleSlot puzzleSlot;
 
@@ -20,9 +23,17 @@ public class PuzzleObject : MonoBehaviour
     float maxDepth = -10;
     float maxLerpDistance = 0.025f;
 
+    int ID;
 
     void Start()
     {
+        if (Manager == null)
+        {
+            Manager = PuzzleObjectManager.instance;
+        }
+
+        ID = Manager.Register(this);
+
         startPosition = transform.position;
     }
 
@@ -64,6 +75,8 @@ public class PuzzleObject : MonoBehaviour
 
     void LerpToSlot()
     {
+        Manager.Remove(ID);
+
         transform.localPosition = Vector3.Lerp(transform.localPosition, positionInSlot, Time.smoothDeltaTime);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(Vector3.zero), Time.smoothDeltaTime);
 

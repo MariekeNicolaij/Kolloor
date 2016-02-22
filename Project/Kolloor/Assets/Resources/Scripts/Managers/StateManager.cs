@@ -3,44 +3,60 @@ using System.Collections;
 using AI.States;
 using AI;
 
-[System.Serializable]
-public class StateManager
+namespace Managers
 {
-    private State currentState;
-
-    private State defaultState;
-    private BaseAI owner;
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="owner"> the owner of this StateManager </param>
-    /// <param name="defaultState"> the default state in which the owner will start</param>
-    public StateManager(BaseAI owner, State defaultState)
+    [System.Serializable]
+    public class StateManager
     {
-        this.defaultState = defaultState;
-        this.defaultState.owner = owner;
-        this.owner = owner;
-        this.currentState = defaultState;
-    }
+        private State currentState;
 
-    public void Update()
-    {
-        currentState.Execute();
-    }
+        private State defaultState;
+        private BaseAI owner;
 
-    /// <summary>
-    /// change the state to a new state
-    /// </summary>
-    /// <param name="newState"> the new state</param>
-    public void ChangeState(State newState)
-    {
-        if (newState == null)
-            return;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="owner"> the owner of this StateManager </param>
+        /// <param name="defaultState"> the default state in which the owner will start</param>
+        public StateManager(BaseAI owner, State defaultState)
+        {
+            this.defaultState = defaultState;
+            this.defaultState.Owner = owner;
+            this.owner = owner;
+            currentState = defaultState;
+        }
 
-        newState.owner = owner;
-        currentState.Exit();
-        currentState = newState;
-        currentState.Enter();
+        public void start()
+        {
+            currentState.Enter();
+        }
+
+        public void Update()
+        {
+            currentState.Execute();
+        }
+
+        /// <summary>
+        /// change the state to a new state
+        /// </summary>
+        /// <param name="newState"> the new state</param>
+        public void ChangeState(State newState)
+        {
+            if (newState == null)
+                return;
+
+            newState.Owner = owner;
+            currentState.Exit();
+            currentState = newState;
+            currentState.Enter();
+        }
+
+        public void SwitchToDefault()
+        {
+            currentState.Exit();
+            currentState = defaultState;
+            currentState.Owner = owner;
+            currentState.Enter();
+        }
     }
 }

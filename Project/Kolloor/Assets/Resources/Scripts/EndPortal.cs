@@ -63,7 +63,7 @@ public class EndPortal : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel")+1);
+            PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
             PlayerPrefs.SetString("LoadLevel", LevelName(levelNames));
             Application.LoadLevel("Loading");
         }

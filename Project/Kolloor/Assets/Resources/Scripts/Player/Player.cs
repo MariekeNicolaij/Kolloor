@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Managers;
 
 public class Player : MonoBehaviour
 {
+    public LaserGun MajorLazer;
+
+    public int AILayer, PuzzleObjectsLayer;
+
     public static Player instance;
     public InGameUI inGameUI;
 
@@ -29,12 +34,15 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         startPosition = transform.position;
         gravity = Physics.gravity.y;
+
+        MajorLazer.Start(this);
     }
 
     void Update()
     {
         Gravity();
         Respawn();
+        MajorLazer.Update();
     }
 
     void OnTriggerEnter(Collider other)
@@ -109,13 +117,20 @@ public class Player : MonoBehaviour
 
     public void Interact()
     {
-        if (!puzzleObject)
-            return;
+        MajorLazer.Shoot();
 
-        if (canPickup && !pickedUp)
-            Pickup();
-        else if (pickedUp)
-            Drop(true);
+        //if (!puzzleObject)
+        //    return;
+
+        //if (canPickup && !pickedUp)
+        //{
+        //    Pickup();
+
+        //    // stop timer from when last interacted with puzzleobject
+        //    AIManager.instance.SetTimer(false);
+        //}
+        //else if (pickedUp)
+        //    Drop(true);
     }
 
     public void Pause()
@@ -147,5 +162,8 @@ public class Player : MonoBehaviour
         pickedUp = false;
         puzzleObject.lerpToPlayer = false;
         puzzleObject = null;
+
+        // start timer from when last interacted with puzzleobject
+        AIManager.instance.SetTimer(true);
     }
 }
