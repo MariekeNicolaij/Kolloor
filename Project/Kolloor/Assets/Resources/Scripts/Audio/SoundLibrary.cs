@@ -59,6 +59,7 @@ public class SoundLibrary : MonoBehaviour
 public enum AudioCategory
 {
     Background,
+    InSlot,
     Pickup,
     PuzzleSlot,
     UI

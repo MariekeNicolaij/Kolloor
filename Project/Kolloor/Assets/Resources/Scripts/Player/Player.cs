@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     Vector3 startPosition;
     Vector3 moveDirection = Vector3.zero;
 
+    public bool underwater;
+    float underwaterSpeedDivider = 2;
+
     public bool pickedUp;
     bool canPickup;
     bool interact;
@@ -82,20 +85,26 @@ public class Player : MonoBehaviour
 
     public void Move(float horizontalAxis, float verticalAxis)
     {
-        transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * moveSpeed / 2);
-        transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * moveSpeed);
+        if (underwater)
+        {
+            transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * moveSpeed / underwaterSpeedDivider / 2);
+            transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * moveSpeed / underwaterSpeedDivider);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * moveSpeed / 2);
+            transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * moveSpeed);
+        }
     }
 
     public void Jump()
     {
-        Debug.Log("Jump");
         if (characterController.isGrounded)
             moveDirection.y = jumpSpeed;
     }
 
     public void Sprint()
     {
-        Debug.Log("Sprint");
         moveSpeed = 12;
     }
 
@@ -106,8 +115,6 @@ public class Player : MonoBehaviour
 
     public void Interact()
     {
-        Debug.Log("Interact");
-
         if (!puzzleObject)
             return;
 

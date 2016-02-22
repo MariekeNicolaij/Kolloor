@@ -77,6 +77,7 @@ public class PuzzleObject : MonoBehaviour
         }
         if (Vector3.Distance(transform.localScale, scaleInSlot) < maxLerpDistance)
         {
+            AudioManager.instance.PlaySound(AudioCategory.InSlot);
             transform.localScale = scaleInSlot;
             puzzleSlot.lerpToGround = true;
             lerpToSlot = false;

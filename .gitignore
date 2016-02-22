@@ -290,3 +290,5 @@ _Pvt_Extensions
 .fake/
 
 Project/Kolloor/Temp/UnityLockfile
+.lockfile
+.meta
