@@ -5,7 +5,7 @@ public class BeginControls : MonoBehaviour
 {
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetButtonDown("Jump"))
             Destroy(gameObject);
     }
 }

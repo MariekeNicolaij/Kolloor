@@ -145,7 +145,6 @@ public class LaserGun
 
         if (RaycastObject.layer == (int)Layers.PuzzleObject)
         {
-            player.inGameUI.ActivateInteractHand(false);
             RaycastObject.GetComponent<SphereCollider>().radius = 0.5f;
             RaycastObject.transform.parent = ObjectHolder.transform.parent;
             HoldingObject = RaycastObject;

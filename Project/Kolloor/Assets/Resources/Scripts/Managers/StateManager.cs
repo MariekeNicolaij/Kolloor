@@ -10,8 +10,9 @@ namespace Managers
     {
         private State currentState;
 
-        private State defaultState;
         private BaseAI owner;
+
+        private State defaultState;
 
         /// <summary>
         /// Constructor

@@ -16,34 +16,40 @@ public class StartMenu : MonoBehaviour
     void Awake()
     {
         instance = this;
-        if (PlayerPrefs.GetInt("CurrentLevel") == 0)
+        if (PlayerPrefs.GetString("CurrentLevel") == string.Empty)
             continueButton.SetActive(false);
     }
 
     public void Continue()
     {
-
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
+        PlayerPrefs.SetString("LoadLevel", PlayerPrefs.GetString("CurrentLevel"));
+        Application.LoadLevel("Loading");
     }
 
     public void NewGame()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         startObject.SetActive(false);
         newGameObject.SetActive(true);
     }
 
     public void Options()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         startObject.SetActive(false);
         optionsObject.SetActive(true);
     }
 
     public void Quit()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         Application.Quit();
     }
 
-    public void BackToStartMenu()
+    public void Back()
     {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         newGameObject.SetActive(false);
         optionsObject.SetActive(false);
         startObject.SetActive(true);
@@ -51,7 +57,8 @@ public class StartMenu : MonoBehaviour
 
     public void CreateNewGame()
     {
-        PlayerPrefs.SetInt("CurrentLevel", 1);
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
+        PlayerPrefs.SetString("CurrentLevel", "Level 1 - Nature");
         PlayerPrefs.SetString("LoadLevel", "Level 1 - Nature");
         Application.LoadLevel("Loading");
     }

@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     public int AILayer, PuzzleObjectsLayer;
 
     public static Player instance;
-    public InGameUI inGameUI;
-
     PuzzleObject puzzleObject;
     CharacterController characterController;
 
@@ -22,7 +20,7 @@ public class Player : MonoBehaviour
     bool interact;
     bool pause;
 
-    float maxDepth = -10;
+    float maxFallDepth = -10;
     float moveSpeed = 6;
     float jumpSpeed = 4;
     float gravity = 9.81f;
@@ -65,7 +63,6 @@ public class Player : MonoBehaviour
 
         if (puzzleObject.active)
         {
-            inGameUI.ActivateInteractHand(true);
             canPickup = true;
         }
     }
@@ -75,15 +72,13 @@ public class Player : MonoBehaviour
         if (pickedUp)
             return;
 
-        inGameUI.ActivateInteractHand(false);
-
         puzzleObject = null;
         canPickup = false;
     }
 
     void Respawn()
     {
-        if (transform.position.y < maxDepth)
+        if (transform.position.y < maxFallDepth)
             transform.position = startPosition;
     }
 
@@ -101,12 +96,14 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        Debug.Log("Jump");
         if (characterController.isGrounded)
             moveDirection.y = jumpSpeed;
     }
 
     public void Sprint()
     {
+        Debug.Log("Sprint");
         moveSpeed = 12;
     }
 
@@ -118,6 +115,11 @@ public class Player : MonoBehaviour
     public void Interact()
     {
         MajorLazer.Shoot();
+
+        Debug.Log("Interact");
+
+        if (!puzzleObject)
+            return;
 
         //if (!puzzleObject)
         //    return;
@@ -141,7 +143,7 @@ public class Player : MonoBehaviour
 
     void Pickup()
     {
-        inGameUI.ActivateInteractHand(false);
+        AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
         puzzleObject.GetComponent<Rigidbody>().useGravity = false;
         puzzleObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         puzzleObject.GetComponent<SphereCollider>().radius = 0.5f;

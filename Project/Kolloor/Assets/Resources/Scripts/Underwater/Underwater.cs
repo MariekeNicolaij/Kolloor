@@ -15,7 +15,7 @@ public class Underwater : MonoBehaviour
 
     public bool IsUnderwater(Camera cam)
     {
-        return cam.transform.position.y + m_UnderwaterCheckOffset < transform.position.y ? true : false;
+        return cam.transform.position.y + m_UnderwaterCheckOffset < transform.position.y;
     }
 
     public void OnWillRenderObject()

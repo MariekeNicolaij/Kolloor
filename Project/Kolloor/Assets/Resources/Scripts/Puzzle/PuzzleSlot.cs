@@ -9,6 +9,7 @@ public class PuzzleSlot : MonoBehaviour
     Vector3 positionInGround;
 
     public bool lerpToGround;
+    float lerpTime = 0, lerpSpeed = 0.001f;
 
     float slotHeight = 3.05f;
     float maxLerpDistance = 0.025f;
@@ -29,12 +30,15 @@ public class PuzzleSlot : MonoBehaviour
 
     void LerpToGround()
     {
-        puzzleSlot.position = Vector3.Lerp(puzzleSlot.position, positionInGround, Time.smoothDeltaTime);
+        lerpTime += lerpSpeed;
+        puzzleSlot.position = Vector3.Lerp(puzzleSlot.position, positionInGround, lerpTime);
 
         if (Vector3.Distance(puzzleSlot.position, positionInGround) < maxLerpDistance)
         {
             ColorManager.instance.UnlockColor(puzzleColor, transform.position, 0.5f);       // Activate color
+            AudioManager.instance.PlaySound(AudioCategory.PuzzleSlot, false, true);                      // Play sound
             lerpToGround = false;
+            lerpTime = 0;
         }
     }
 }
