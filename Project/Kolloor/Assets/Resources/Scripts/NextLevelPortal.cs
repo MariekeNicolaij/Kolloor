@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,7 @@ public class NextLevelPortal : MonoBehaviour
 
     void GetLevelNames()
     {
-        foreach (UnityEditor.EditorBuildSettingsScene scene in UnityEditor.EditorBuildSettings.scenes)
+        foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
         {
             string name = scene.path.Substring(scene.path.LastIndexOf('/') + 1);    // +1 deletes /
             name = name.Substring(0, name.Length - 6);                              // Removes unity extension from string
