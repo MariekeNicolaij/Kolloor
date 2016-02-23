@@ -289,26 +289,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-.lockfile
-.meta
-.bin
-*.bin
-*.bakeup
-*.clust
-*.vis
-*.bakert
-Project/Kolloor/Library/ShaderCache/0/06ca22465aaff036544ea75e349d80ca.bin
-Project/Kolloor/Library/ShaderCache/5/5608c65c4059f2a04baf743b2b0175ea.bin
-Project/Kolloor/Library/ShaderCache/8/8b56c24952503f77018e3a6977894ce4.bin
-Project/Kolloor/Library/ShaderCache/b/b7591548b2e93987e166b41fae379a1f.bin
-Project/Kolloor/Library/ShaderCache/c/ce84ea92bbd771e859fddc6851e26f62.bin
-Project/Kolloor/Temp/ProcessJobs/2821c4dc2674dfc356de8171467a0b87.bakeup
-Project/Kolloor/Temp/ProcessJobs/5054b89da00bb14f6d2714d322ca48d3.clust
-Project/Kolloor/Temp/ProcessJobs/5054b89da00bb14f6d2714d322ca48d3.vis
-Project/Kolloor/Temp/ProcessJobs/e9a6970f79cd12d8b075e7d72f1b07cb.bakert
-Project/Kolloor/Temp/UnityLockfile
-Project/Kolloor/Temp/UnityTempFile-3ecb859279ae5a549b1e8db82ecdd04e
-Project/Kolloor/Temp/UnityTempFile-6c9f86ad18f27b440bdd700fa6b6fffc
-Project/Kolloor/Temp/UnityTempFile-c1843694d5aff424cb0207c5940ee7a1
-Project/Kolloor/Temp/UnityTempFile-d775e096c7a84c041b25224eb85087ba
-Project/Kolloor/Temp/UnityTempFile-ff5fc7164ddf3d042b50cf8d8dba5525
+Library/
+Temp/
+
