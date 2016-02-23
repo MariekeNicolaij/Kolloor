@@ -85,8 +85,11 @@ public class NextLevelPortal : MonoBehaviour
         nextIndex++;                                                    // Volgend level
 
         if (nextIndex >= maxIndex)                                      // Checken of er een volgend level bestaat
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             return "Credits";
-
+        }
         return levelNames[nextIndex];
     }
 }
