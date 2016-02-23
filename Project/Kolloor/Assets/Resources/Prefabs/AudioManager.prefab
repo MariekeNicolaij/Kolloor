@@ -71,14 +71,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundGroups:
   - category: 0
-    sounds: []
-  - category: 1
     sounds:
     - {fileID: 0}
   - category: 2
     sounds:
     - {fileID: 0}
   - category: 3
+    sounds:
+    - {fileID: 0}
+  - category: 4
+    sounds:
+    - {fileID: 0}
+  - category: 1
     sounds:
     - {fileID: 0}
 --- !u!1001 &100100000

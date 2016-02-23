@@ -13,7 +13,7 @@ public class Background : MonoBehaviour
     Vector2 lerpPos;
     Vector2 mousePos;
 
-    float offSet = 50;
+    float offSet = 100;
 
 
     void Start()

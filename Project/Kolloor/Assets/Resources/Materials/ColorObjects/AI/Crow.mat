@@ -151,4 +151,4 @@ Material:
       data:
         first:
           name: ColorStartPoint
-        second: {r: 73.56501, g: 2.9746656, b: 25.507246, a: 0}
+        second: {r: 73.56501, g: 2.97464, b: 25.507246, a: 0}

@@ -36,7 +36,7 @@ public class PuzzleSlot : MonoBehaviour
         if (Vector3.Distance(puzzleSlot.position, positionInGround) < maxLerpDistance)
         {
             ColorManager.instance.UnlockColor(puzzleColor, transform.position, 0.5f);       // Activate color
-            AudioManager.instance.PlaySound(AudioCategory.PuzzleSlot, false, true);                      // Play sound
+            AudioManager.instance.PlaySound(AudioCategory.PuzzleSlot);                      // Play sound
             lerpToGround = false;
             lerpTime = 0;
         }

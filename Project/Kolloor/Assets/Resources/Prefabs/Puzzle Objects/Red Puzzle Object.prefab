@@ -105,7 +105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleColor: 1
-  Manager: {fileID: 0}
   lerpToPlayer: 0
   lerpToSlot: 0
   active: 1
