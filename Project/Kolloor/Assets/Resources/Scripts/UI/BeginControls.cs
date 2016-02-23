@@ -5,8 +5,7 @@ public class BeginControls : MonoBehaviour
 {
     void Update()
     {
-        Debug.Log("New UI Elements gebruiken! en dit een minuut laten staan");
-        if (Input.anyKeyDown)
+        if (Input.GetButtonDown("Jump"))
             Destroy(gameObject);
     }
 }

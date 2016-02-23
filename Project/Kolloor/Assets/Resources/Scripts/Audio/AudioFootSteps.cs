@@ -83,9 +83,4 @@
 //                return true;
 //        return false;
 //    }
-
-//    bool IsUnderwater(Camera cam)
-//    {
-//        return cam.transform.position.y + 0.001f < transform.position.y ? true : false;
-//    }
 //}

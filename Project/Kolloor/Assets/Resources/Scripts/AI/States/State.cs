@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class State
+namespace AI.States
 {
-    public Animal animal;
-    public BaseAI owner;
-    public Player player { get { return Player.instance; } }
-    public virtual void Start() { }
-    public virtual void Update() { }
-    public virtual void Stop(State state) { }
+    public abstract class State
+    {
+        public BaseAI owner;
+        public virtual void Enter() { }
+        public virtual void Execute() { }
+        public virtual void Exit() { }
+    }
 }

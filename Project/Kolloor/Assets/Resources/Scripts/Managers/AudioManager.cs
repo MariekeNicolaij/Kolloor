@@ -1,313 +1,215 @@
-﻿//using UnityEngine;
-//using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
-//[RequireComponent(typeof(SoundLibrary))]
-//public class AudioManager : MonoBehaviour
-//{
-//    public static AudioManager instance;
+[RequireComponent(typeof(SoundLibrary))]
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager instance;
 
-//    GameObject audioListener, player;
+    GameObject audioListener, cam;
 
-//    Dictionary<string, AudioSource> audioSources = new Dictionary<string, AudioSource>();
+    Dictionary<string, AudioSource> audioSources = new Dictionary<string, AudioSource>();
+    string sourceText = "Source";
 
-//    float masterVolumePercent = 1;
-//    float musicVolumePercent = 1;
-//    float sfxVolumePercent = 1;
+    public float musicVolumePercent = 1;
+    public float sfxVolumePercent = 1;
 
-//    [Header("Volume")]
-//    [Range(0, 1)]
-//    [SerializeField]
-//    float lowVolumeRange = 0.25f;           // The lowest random volume amount.
-//    [Range(0, 1)]
-//    [SerializeField]
-//    float highVolumeRange = 1;              // The highest random volume amount.
+    [Header("Volume")]
+    [Range(0, 1)]
+    [SerializeField]
+    float lowVolumeRange = 0.25f;           // The lowest random volume amount.
+    [Range(0, 1)]
+    [SerializeField]
+    float highVolumeRange = 1;              // The highest random volume amount.
 
-//    [Header("Pitch")]
-//    [Range(0.5f, 1.5f)]
-//    [SerializeField]
-//    float lowPitchRange = 0.95f;            // The lowest random pitch amount.
-//    [Range(0.5f, 1.5f)]
-//    [SerializeField]
-//    float highPitchRange = 1.05f;           // The highest random pitch amount.
-
-//    string footSteps = "Footsteps", waterSplashes = "Watersplashes", plantCollision = "PlantCollision", boatCollision = "BoatCollsion", boatConnect = "BoatConnect", boatMovement = "BoatMovement", aircraftHelicopterBlades = "AircraftHelicopterBlades", aircraftWind = "AircraftWind", elevator = "Elevator", natureAnimals = "NatureAnimals", natureWind = "NatureWind", natureCherryBlossom = "NatureCherryBlossom", background = "Background", waterfall = "Waterfall";
+    [Header("Pitch")]
+    [Range(0.5f, 1.5f)]
+    [SerializeField]
+    float lowPitchRange = 0.95f;            // The lowest random pitch amount.
+    [Range(0.5f, 1.5f)]
+    [SerializeField]
+    float highPitchRange = 1.05f;           // The highest random pitch amount.
 
 
-//    void Awake()
-//    {
-//        if (instance)                               // if there is an instance of this gameobject already, destroy it so there remains only one audiomanager
-//            Destroy(gameObject);
-//        else                                        // if not then set up audiomanager
-//        {
-//            instance = this;
-//            DontDestroyOnLoad(gameObject);
+    void Awake()
+    {
+        if (instance)                               // if there is an instance of this gameobject already, destroy it so there remains only one audiomanager
+            Destroy(gameObject);
+        else                                        // if not then set up audiomanager
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
 
-//            audioListener = FindObjectOfType<AudioListener>().gameObject;
-//            player = FindObjectOfType<Player>().gameObject;
+            audioListener = FindObjectOfType<AudioListener>().gameObject;
+            cam = Camera.main.gameObject;
 
-//            AddAudioSource(footSteps);
-//            AddAudioSource(waterSplashes);
-//            AddAudioSource(plantCollision);
-//            AddAudioSource(boatCollision);
-//            AddAudioSource(boatConnect);
-//            AddAudioSource(boatMovement);
-//            AddAudioSource(aircraftHelicopterBlades);
-//            AddAudioSource(aircraftWind);
-//            AddAudioSource(elevator);
-//            AddAudioSource(natureAnimals);
-//            AddAudioSource(natureWind);
-//            AddAudioSource(natureCherryBlossom);
-//            AddAudioSource(background);
-//            AddAudioSource(waterfall);
-//        }
-//    }
+            musicVolumePercent = PlayerPrefs.GetFloat("MusicVolumePercent");
+            sfxVolumePercent = PlayerPrefs.GetFloat("SfxVolumePercent");
+            if (musicVolumePercent == 0)
+                musicVolumePercent = 1;
+            if (sfxVolumePercent == 0)
+                sfxVolumePercent = 1;
+        }
+    }
 
-//    void Update()
-//    {
-//        if (player)
-//            audioListener.transform.position = player.transform.position;
-//    }
+    void Update()
+    {
+        if (cam)
+            audioListener.transform.position = cam.transform.position;
+    }
 
-//    public void SetVolume(float volumePercent, AudioChannel channel)
-//    {
-//        if (volumePercent > 1)
-//            volumePercent /= 100;
+    public void SetVolume(float volumePercent, AudioChannel channel)
+    {
+        if (volumePercent >= 1)
+            volumePercent /= 100;
 
-//        switch (channel)
-//        {
-//            case AudioChannel.Master:
-//            masterVolumePercent = volumePercent;
-//            break;
-//            case AudioChannel.Music:
-//            musicVolumePercent = volumePercent;
-//            break;
-//            case AudioChannel.Sfx:
-//            sfxVolumePercent = volumePercent;
-//            break;
-//        }
+        switch (channel)
+        {
+            case AudioChannel.Music:
+            musicVolumePercent = volumePercent;
+            break;
+            case AudioChannel.Sfx:
+            sfxVolumePercent = volumePercent;
+            break;
+        }
 
-//        foreach (AudioSource source in audioSources.Values)
-//            source.volume = source.name == "Music source" ?
-//                musicVolumePercent * masterVolumePercent : sfxVolumePercent * masterVolumePercent;
-//    }
+        foreach (AudioSource source in audioSources.Values)
+            source.volume = source.name == AudioCategory.Background.ToString() + sourceText ?
+                musicVolumePercent : sfxVolumePercent;
 
-//    #region AddAudioSource()
-//    public void AddAudioSource(string name)
-//    {
-//        foreach (string s in audioSources.Keys)
-//            if (s == name)
-//                return;
-//        GameObject newAudioSource = new GameObject(name);
-//        audioSources.Add(name, newAudioSource.AddComponent<AudioSource>());
-//        newAudioSource.transform.parent = transform;
-//    }
+        PlayerPrefs.SetFloat("MusicVolumePercent", musicVolumePercent);
+        PlayerPrefs.SetFloat("SfxVolumePercent", sfxVolumePercent);
+    }
 
-//    public void AddAudioSource(string name, AudioClip clip)
-//    {
-//        foreach (string s in audioSources.Keys)
-//            if (s == name)
-//                return;
-//        GameObject newAudioSource = new GameObject(name);
-//        audioSources.Add(name, newAudioSource.AddComponent<AudioSource>());
-//        newAudioSource.GetComponent<AudioSource>().clip = clip;
-//        newAudioSource.transform.parent = transform;
-//    }
+    public void AddAudioSource(string name)
+    {
+        foreach (string s in audioSources.Keys)
+            if (s == name)
+                return;
+        GameObject newAudioSource = new GameObject(name);
+        audioSources.Add(name, newAudioSource.AddComponent<AudioSource>());
+        newAudioSource.transform.parent = transform;
+    }
 
-//    public void AddAudioSource(string name, AudioClip clip, bool loop, bool playNow)
-//    {
-//        foreach (string s in audioSources.Keys)
-//            if (s == name)
-//                return;
-//        GameObject newAudioSource = new GameObject(name);
-//        audioSources.Add(name, newAudioSource.AddComponent<AudioSource>());
-//        newAudioSource.GetComponent<AudioSource>().clip = clip;
-//        newAudioSource.GetComponent<AudioSource>().loop = loop;
-//        if (playNow) newAudioSource.GetComponent<AudioSource>().Play();
-//        newAudioSource.transform.parent = transform;
-//    }
-//    #endregion
+    #region PlayMusic()
+    public void PlayMusic(AudioCategory audioCategory, bool loop)
+    {
+        PlayMusic(audioCategory, loop, new Vector3(), false);
+    }
 
-//    #region PlayMusic()
-//    public void PlayMusic(AudioCategory audioCategory, bool loop)
-//    {
-//        PlayMusic(audioCategory, loop, new Vector3(), false);
-//    }
+    public void PlayMusic(AudioCategory audioCategory, bool loop, Vector3 playPosition, bool is3D=true)
+    {
+        if (!audioSources.ContainsKey(audioCategory.ToString() + sourceText))
+            AddAudioSource(audioCategory.ToString() + sourceText);
 
-//    public void PlayMusic(AudioCategory audioCategory, bool loop, Vector3 playPosition, bool is3D)
-//    {
-//        AudioSource source = GetSuitableAudioSource(audioCategory);
-//        source.Stop();
-//        source.clip = SoundLibrary.instance.GetClipFromAudioCategory(audioCategory);
-//        source.loop = loop;
-//        source.transform.position = playPosition;
-//        source.spatialBlend = System.Convert.ToInt32(is3D);
-//        source.Play();
-//    }
-//    #endregion
+        AudioSource source = GetSuitableAudioSource(audioCategory);
+        source.Stop();
+        source.clip = SoundLibrary.instance.GetClipFromAudioCategory(audioCategory);
+        source.loop = loop;
+        source.transform.position = playPosition;
+        source.spatialBlend = System.Convert.ToInt32(is3D);
+        source.Play();
+    }
+    #endregion
 
-//    #region PlaySound()
-//    public void PlaySound(AudioCategory audioCategory)
-//    {
-//        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), false, false, false, false);
-//    }
+    #region PlaySound()
+    public void PlaySound(AudioCategory audioCategory)
+    {
+        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), false, false, false, false);
+    }
 
-//    public void PlaySound(AudioCategory audioCategory, bool loop)
-//    {
-//        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), loop, false, false, false);
-//    }
+    public void PlaySound(AudioCategory audioCategory, bool loop)
+    {
+        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), loop, false, false, false);
+    }
 
-//    public void PlaySound(AudioCategory audioCategory, bool randomVolume, bool randomPitch)
-//    {
-//        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), false, randomVolume, randomPitch, false);
-//    }
+    public void PlaySound(AudioCategory audioCategory, bool randomVolume, bool randomPitch)
+    {
+        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), false, randomVolume, randomPitch, false);
+    }
 
-//    public void PlaySound(AudioCategory audioCategory, bool loop, bool randomVolume, bool randomPitch)
-//    {
-//        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), loop, randomVolume, randomPitch, false);
-//    }
+    public void PlaySound(AudioCategory audioCategory, bool loop, bool randomVolume, bool randomPitch)
+    {
+        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), new Vector3(), loop, randomVolume, randomPitch, false);
+    }
 
-//    public void PlaySound(AudioCategory audioCategory, Vector3 position, bool loop, bool randomVolume, bool randomPitch, bool is3D)
-//    {
-//        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), position, loop, randomVolume, randomPitch, is3D);
-//    }
-    
-//    public void PlaySound(AudioCategory audioCategory, AudioClip clip, Vector3 position, bool loop, bool randomVolume, bool randomPitch, bool is3D)
-//    {
-//        AudioSource source = GetSuitableAudioSource(audioCategory);
-//        RandomizeVolumeAndPitch(source, AudioChannel.Sfx, randomVolume, randomPitch);
+    public void PlaySound(AudioCategory audioCategory, Vector3 position, bool loop, bool randomVolume, bool randomPitch, bool is3D = true)
+    {
+        PlaySound(audioCategory, SoundLibrary.instance.GetClipFromAudioCategory(audioCategory), position, loop, randomVolume, randomPitch, is3D);
+    }
 
-//        source.Stop();
-//        source.clip = clip;
-//        source.loop = loop;
-//        source.spatialBlend = System.Convert.ToInt32(is3D);
-//        source.transform.position = position;
-//        source.Play();
-//    }
-//    #endregion
+    public void PlaySound(AudioCategory audioCategory, AudioClip clip, Vector3 position, bool loop, bool randomVolume, bool randomPitch, bool is3D = true)
+    {
+        if (!audioSources.ContainsKey(audioCategory.ToString() + sourceText))
+            AddAudioSource(audioCategory.ToString() + sourceText);
 
-//    public void PauseSound(AudioCategory audioCategory)
-//    {
-//        AudioSource source = GetSuitableAudioSource(audioCategory);
-//        source.Pause();
-//    }
+        AudioSource source = GetSuitableAudioSource(audioCategory);
+        RandomizeVolumeAndPitch(source, AudioChannel.Sfx, randomVolume, randomPitch);
 
-//    public void UnPauseSound(AudioCategory audioCategory)
-//    {
-//        AudioSource source = GetSuitableAudioSource(audioCategory);
-//        source.UnPause();
-//    }
+        source.Stop();
+        source.clip = clip;
+        source.loop = loop;
+        source.spatialBlend = System.Convert.ToInt32(is3D);
+        source.transform.position = position;
+        source.Play();
+    }
+    #endregion
 
-//    public void StopSound(AudioCategory audioCategory)
-//    {
-//        AudioSource source = GetSuitableAudioSource(audioCategory);
-//        source.Stop();
-//    }
+    public void PauseSound(AudioCategory audioCategory)
+    {
+        AudioSource source = GetSuitableAudioSource(audioCategory);
+        source.Pause();
+    }
 
-//    public AudioSource GetSuitableAudioSource(AudioCategory audioCategory)
-//    {
-//        AudioSource source = new AudioSource();
-//        string sourceName = "";
+    public void UnPauseSound(AudioCategory audioCategory)
+    {
+        AudioSource source = GetSuitableAudioSource(audioCategory);
+        source.UnPause();
+    }
 
-//        switch (audioCategory)
-//        {
-//            case AudioCategory.DefaultFootsteps:
-//            sourceName = footSteps;
-//            break;
-//            case AudioCategory.GrassFootsteps:
-//            sourceName = footSteps;
-//            break;
-//            case AudioCategory.MushroomFootsteps:
-//            sourceName = footSteps;
-//            break;
-//            case AudioCategory.StoneFootsteps:
-//            sourceName = footSteps;
-//            break;
-//            case AudioCategory.WaterFootsteps:
-//            sourceName = footSteps;
-//            break;
-//            case AudioCategory.WoodFootsteps:
-//            sourceName = footSteps;
-//            break;
-//            case AudioCategory.WaterSplashes:
-//            sourceName = waterSplashes;
-//            break;
-//            case AudioCategory.PlantCollision:
-//            sourceName = plantCollision;
-//            break;
-//            case AudioCategory.BoatCollision:
-//            sourceName = boatCollision;
-//            break;
-//            case AudioCategory.BoatConnect:
-//            sourceName = boatConnect;
-//            break;
-//            case AudioCategory.BoatMovement:
-//            sourceName = boatMovement;
-//            break;
-//            case AudioCategory.AircraftHelicopterBlades:
-//            sourceName = aircraftHelicopterBlades;
-//            break;
-//            case AudioCategory.AircraftWind:
-//            sourceName = aircraftWind;
-//            break;
-//            case AudioCategory.ElevatorRattlingSteel:
-//            sourceName = elevator;
-//            break;
-//            case AudioCategory.ElevatorRattlingLiana:
-//            sourceName = elevator;
-//            break;
-//            case AudioCategory.ElevatorConnect:
-//            sourceName = elevator;
-//            break;
-//            case AudioCategory.NatureAnimals:
-//            sourceName = natureAnimals;
-//            break;
-//            case AudioCategory.NatureWind:
-//            sourceName = natureWind;
-//            break;
-//            case AudioCategory.NatureCherryBlossom:
-//            sourceName = natureCherryBlossom;
-//            break;
-//            case AudioCategory.Background:
-//            sourceName = background;
-//            break;
-//            case AudioCategory.Waterfall:
-//            sourceName = waterfall;
-//            break;
-//        }
+    public void StopSound(AudioCategory audioCategory)
+    {
+        AudioSource source = GetSuitableAudioSource(audioCategory);
+        source.Stop();
+    }
 
-//        foreach (string name in audioSources.Keys)
-//            if (name == sourceName)
-//                audioSources.TryGetValue(name, out source);
+    public AudioSource GetSuitableAudioSource(AudioCategory audioCategory)
+    {
+        AudioSource source = new AudioSource();
+        string sourceName = audioCategory.ToString() + sourceText;
 
-//        //Debug.Log("Source: " + source);
-//        return source;
-//    }
+        foreach (string name in audioSources.Keys)
+            if (name == sourceName)
+                audioSources.TryGetValue(name, out source);
 
-//    /// <summary>
-//    /// Sets random volume and pitch and index for
-//    /// </summary>
-//    void RandomizeVolumeAndPitch(AudioSource source, AudioChannel channel, bool randomVolume, bool randomPitch)
-//    {
-//        if (randomVolume)
-//        {
-//            switch (channel)
-//            {
-//                case AudioChannel.Music:
-//                source.volume = Random.Range(lowVolumeRange * musicVolumePercent, highVolumeRange * musicVolumePercent);
-//                break;
-//                case AudioChannel.Sfx:
-//                source.volume = Random.Range(lowVolumeRange * sfxVolumePercent, highVolumeRange * sfxVolumePercent);
-//                break;
-//            }
-//        }
-//        if (randomPitch)
-//            source.pitch = Random.Range(lowPitchRange, highPitchRange);
-//    }
-//}
+        //Debug.Log("Source: " + source);
+        return source;
+    }
 
-//public enum AudioChannel
-//{
-//    Master,
-//    Music,
-//    Sfx
-//}
+    /// <summary>
+    /// Sets random volume and pitch and index for
+    /// </summary>
+    void RandomizeVolumeAndPitch(AudioSource source, AudioChannel channel, bool randomVolume, bool randomPitch)
+    {
+        if (randomVolume)
+        {
+            switch (channel)
+            {
+                case AudioChannel.Music:
+                source.volume = Random.Range(lowVolumeRange * musicVolumePercent, highVolumeRange * musicVolumePercent);
+                break;
+                case AudioChannel.Sfx:
+                source.volume = Random.Range(lowVolumeRange * sfxVolumePercent, highVolumeRange * sfxVolumePercent);
+                break;
+            }
+        }
+        if (randomPitch)
+            source.pitch = Random.Range(lowPitchRange, highPitchRange);
+    }
+}
+
+public enum AudioChannel
+{
+    Music,
+    Sfx
+}

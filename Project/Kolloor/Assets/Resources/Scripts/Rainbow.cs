@@ -11,7 +11,7 @@ public class Rainbow : MonoBehaviour
 
     float time = 0;
     int curIndex = 0, nextIndex;
-
+    
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class Rainbow : MonoBehaviour
 
     void GetColors()
     {
-        foreach (Material mat in ColorManager.instance.colorMaterials)
+        foreach (Material mat in Resources.LoadAll("Materials/Rainbow"))
             lerpColors.Add(mat.color);
     }
 
@@ -29,7 +29,7 @@ public class Rainbow : MonoBehaviour
     {
         time += Time.smoothDeltaTime;
 
-        if (time > speed)
+        if (time > speed) 
         {
             curIndex = IndexCheck(lerpColors, curIndex + 1);        // Set current index
             nextIndex = IndexCheck(lerpColors, curIndex + 1);       // Set next index

@@ -10,3 +10,16 @@ Animals
 Environment(Wind, Water)
 Background (Optional)
 Start menu (wacky waiting)
+
+
+- Modder voetstappen
+- Steen voetstappen
+- Water voetstappen
+- Schieten van lasergun
+- Oppakken object
+- Puzzle slot klaar
+- Achtergrond muziek (zacht)
+- UI click sound
+- Dier geluiden
+- Wind (Als level er bij past)
+- 

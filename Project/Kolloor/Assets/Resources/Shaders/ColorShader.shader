@@ -47,7 +47,7 @@
 			float3 p = floor(x);
 			float3 f = frac(x);
  
-			f       = f*f*f;
+			f       = f*f*(3-2*f);
 			float n = p.x + p.y*57.0 + 113.0*p.z;
  
 			return lerp(lerp(lerp( hash(n+0.0), hash(n+1.0),f.x),
@@ -79,7 +79,7 @@
 
 			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 			fixed3 grayScale = dot(c.rgb, float3(0.3, 0.59, 0.11));
-			grayScale *= 1.8f;
+			grayScale *= 1.5f;
 
 
 			float grayScaleValue = GetGrayScaleValue(c, IN);
