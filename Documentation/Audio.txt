@@ -16,10 +16,10 @@ Start menu (wacky waiting)
 - Steen voetstappen
 - Water voetstappen
 - Schieten van lasergun
-- Oppakken object
-- Puzzle slot klaar
+- *Oppakken object
+- *Puzzle slot klaar
 - Achtergrond muziek (zacht)
-- UI click sound
+- *UI click sound
 - Dier geluiden
 - Wind (Als level er bij past)
 - 
