@@ -20,3 +20,10 @@ public enum PuzzleColors
     Brown,
     Black
 }
+
+public enum AITypes
+{
+    BaseAI,
+    GroundAI,
+    WaterAI,
+}

@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &142230
 GameObject:
@@ -30,7 +30,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &142530
 GameObject:
@@ -48,7 +48,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &154014
 GameObject:
@@ -65,7 +65,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &164366
 GameObject:
@@ -83,7 +83,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &175382
 GameObject:
@@ -101,7 +101,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &183674
 GameObject:
@@ -118,7 +118,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &197178
 GameObject:
@@ -136,7 +136,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &413720
 Transform:
@@ -2045,6 +2045,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

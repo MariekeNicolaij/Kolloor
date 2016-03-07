@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
+using Managers;
 
 public class PuzzleObject : MonoBehaviour
 {
     public PuzzleColors puzzleColor;
+
+    public PuzzleObjectManager Manager;
 
     PuzzleSlot puzzleSlot;
 
@@ -21,9 +23,17 @@ public class PuzzleObject : MonoBehaviour
     float maxFallDepth = -10;
     float maxLerpDistance = 0.025f;
 
+    int ID;
 
     void Start()
     {
+        if (Manager == null)
+        {
+            Manager = PuzzleObjectManager.instance;
+        }
+
+        ID = Manager.Register(this);
+
         startPosition = transform.position;
     }
 
