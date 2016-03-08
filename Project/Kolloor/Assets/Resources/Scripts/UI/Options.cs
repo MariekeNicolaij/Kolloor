@@ -47,6 +47,13 @@ public class Options : MonoBehaviour
         controlsObject.SetActive(false);
     }
 
+    public void DeleteData()
+    {
+        PlayerPrefs.DeleteAll();
+        if (PlayerPrefs.GetInt("CurrentLevel") < (int)Scenes.Level1)
+            StartMenu.instance.continueButton.SetActive(false);
+    }
+
     public void Back()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);

@@ -3,13 +3,24 @@ using System.Collections;
 
 public class Loading : MonoBehaviour
 {
-    string levelName;
+    AsyncOperation operation;
+    bool loadingLevel = false;
+    int level;
 
-    void Start()
+
+    void Awake()
     {
-        levelName = PlayerPrefs.GetString("LoadLevel");
-        Application.LoadLevelAsync(levelName).allowSceneActivation = true;
+        level = PlayerPrefs.GetInt("LoadLevel");
     }
 
-    
+    void Update()
+    {
+        if (!loadingLevel)
+        {
+            operation = Application.LoadLevelAsync(level);
+            loadingLevel = true;
+        }
+        if (operation.isDone)
+            Application.LoadLevel(level);
+    }
 }

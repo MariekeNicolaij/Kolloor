@@ -47,7 +47,7 @@ PlayerSettings:
   usePlayerLog: 1
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   gpuSkinning: 0
   xboxPIXTextureCapture: 0
@@ -168,7 +168,8 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 0}
+  resolutionDialogBanner: {fileID: 2800000, guid: 3f655195f02eff24ea0ffb6b4ee28349,
+    type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
@@ -176,6 +177,36 @@ PlayerSettings:
       m_Icon: {fileID: 0}
       m_Width: 0
       m_Height: 0
+  - m_BuildTarget: Standalone
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 8bdc730a71c12344d80ba7348e2dc60d, type: 3}
+      m_Width: 1024
+      m_Height: 1024
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 43c637aceceb5c347b1a216c412f681e, type: 3}
+      m_Width: 512
+      m_Height: 512
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: b4b2407b3b2416348b1fe7721bdc2fcc, type: 3}
+      m_Width: 256
+      m_Height: 256
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 752230f79f1ad29438a4eb7a8f12eaad, type: 3}
+      m_Width: 128
+      m_Height: 128
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 7d52b2a01ae4a284fa74f3db795c8dd6, type: 3}
+      m_Width: 48
+      m_Height: 48
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 943332bf52097904090548cd08775338, type: 3}
+      m_Width: 32
+      m_Height: 32
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: b96f54f2ec0c9c8488179ddc5e374d7a, type: 3}
+      m_Width: 16
+      m_Height: 16
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   webPlayerTemplate: APPLICATION:Default

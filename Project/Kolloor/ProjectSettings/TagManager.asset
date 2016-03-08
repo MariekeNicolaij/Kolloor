@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Puzzle Object
   - Puzzle Slot
+  - Ice
   layers:
   - Default
   - TransparentFX

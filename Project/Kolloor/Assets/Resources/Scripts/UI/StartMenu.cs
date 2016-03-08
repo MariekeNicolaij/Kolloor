@@ -16,14 +16,14 @@ public class StartMenu : MonoBehaviour
     void Awake()
     {
         instance = this;
-        if (PlayerPrefs.GetString("CurrentLevel") == string.Empty)
+        if (PlayerPrefs.GetInt("CurrentLevel") < (int)Scenes.Level1)
             continueButton.SetActive(false);
     }
 
     public void Continue()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetString("LoadLevel", PlayerPrefs.GetString("CurrentLevel"));
+        PlayerPrefs.SetInt("LoadLevel", PlayerPrefs.GetInt("CurrentLevel"));
         Application.LoadLevel("Loading");
     }
 
@@ -58,8 +58,8 @@ public class StartMenu : MonoBehaviour
     public void CreateNewGame()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetString("CurrentLevel", "Level 1 - Nature");
-        PlayerPrefs.SetString("LoadLevel", "Level 1 - Nature");
+        PlayerPrefs.SetInt("CurrentLevel", (int)Scenes.Level1);
+        PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Level1);
         Application.LoadLevel("Loading");
     }
 }

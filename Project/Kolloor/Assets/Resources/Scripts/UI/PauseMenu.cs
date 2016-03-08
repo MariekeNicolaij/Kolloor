@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetString("LoadLevel", Application.loadedLevelName);
+        PlayerPrefs.SetInt("LoadLevel", Application.loadedLevel);
         Application.LoadLevel("Loading");
     }
 
@@ -80,7 +80,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetString("LoadLevel", "Start");
+        PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Start);
         Application.LoadLevel("Loading");
     }
 }

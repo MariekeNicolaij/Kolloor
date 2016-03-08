@@ -5,10 +5,22 @@ Level 2
 - Snow
 
 Level 3
-- City
+- Vulcano
 
 Level 4
-- Space
+- Medival
 
 Level 5
+- Golf
+
+Level 6
+- City
+
+Level 7
+- Space
+
+Level 8
 - Neon
+
+Level 9
+- Cake
