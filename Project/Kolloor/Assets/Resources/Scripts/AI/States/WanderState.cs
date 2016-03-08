@@ -52,7 +52,7 @@ namespace AI.States
                     }
                     else {
                         Owner.LookAt(VecToLookAt);
-                        Owner.MoveForward();
+                        Owner.Move();
                     }
                 }
             }

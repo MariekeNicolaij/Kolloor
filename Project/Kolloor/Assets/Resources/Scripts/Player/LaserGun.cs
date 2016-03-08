@@ -40,7 +40,7 @@ public class LaserGun
 
         if (ObjectHolder == null)
         {
-            Debug.LogError("the shootingpoint of the laser gun is not set");
+            Debug.LogError("the ObjectHolder of the laser gun is not set");
         }
     }
 

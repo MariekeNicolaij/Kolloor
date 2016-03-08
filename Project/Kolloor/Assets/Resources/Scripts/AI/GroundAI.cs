@@ -19,6 +19,9 @@ namespace AI
         [Range(1, 10)]
         public float WaitRaid = 2;
 
+        protected bool agentOn = true;
+        protected NavMeshAgent agent;
+
         private bool stop = false;
 
         private float waitTime = 0;
@@ -31,9 +34,18 @@ namespace AI
             type = AITypes.GroundAI;
             base.Start();
             timeToWait = Random.Range(1, WaitRaid);
+
+            agent = GetComponent<NavMeshAgent>();
+            if (agent == null)
+                agent = gameObject.AddComponent<NavMeshAgent>();
         }
 
-        public override void MoveForward()
+        protected override void Update()
+        {
+            base.Update();
+        }
+
+        public override void Move()
         {
             if (StopRandom)
             {
@@ -47,18 +59,7 @@ namespace AI
                     }
                     else
                     {
-                        base.MoveForward();
-
-                        if (groundContact)
-                        {
-                            if (stop)
-                            {
-                                waitTime = Random.Range(MinWaitTime, MaxWaitTime);
-                                stop = false;
-                            }
-                            else if (HopOn)
-                                rigidBody.AddForce(Vector3.up * (Hop * 10));
-                        }
+                        MoveForward();
                     }
                 }
                 else
@@ -71,12 +72,51 @@ namespace AI
             }
             else
             {
-                base.MoveForward();
-
-                if (HopOn && groundContact)
-                    rigidBody.AddForce(Vector3.up * (Hop * 10));
+                MoveForward();
             }
         }
+
+        protected override void MoveForward()
+        {
+            if (HopOn)
+            {
+                if (groundContact && agentOn)
+                {
+                    SetAgent(false);
+                    rigidBody.AddForce(Vector3.up * (Hop * 10));
+                    base.MoveForward();
+                }
+                else if (groundContact)
+                {
+                    SetAgent(true);
+                    agent.SetDestination(lookAt);
+                }
+                else
+                {
+                    base.MoveForward();
+                }
+            }
+            else
+            {
+                agent.SetDestination(lookAt);
+            }
+        }
+
+        /// <summary>
+        /// sets agent on or of
+        /// </summary>
+        /// <param name="onOrOff"> true == on && false = off </param>
+        private void SetAgent(bool onOrOff)
+        {
+            agent.enabled = onOrOff;
+            agentOn = onOrOff;
+        }
+
+        //public override void LookAt(Vector3 objectToLookTo)
+        //{
+        //    base.LookAt(objectToLookTo);
+        //    agent.Move()
+        //}
 
         public override void OnCollisionEnter(Collision other)
         {
