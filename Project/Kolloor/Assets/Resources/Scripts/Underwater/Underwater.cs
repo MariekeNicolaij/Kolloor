@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Underwater : MonoBehaviour
 {
     public float m_UnderwaterCheckOffset = 0.001f;
@@ -32,7 +32,7 @@ public class Underwater : MonoBehaviour
             if (effect)
                 effect.enabled = true;
 
-            //Ok some HACK's here 
+            //Ok some HACK's here
             GetComponent<Renderer>().sharedMaterial.shader.maximumLOD = 50;
 
             if (!wasUnderwater)
@@ -54,7 +54,7 @@ public class Underwater : MonoBehaviour
             if (effect && effect.enabled)
                 effect.enabled = false;
 
-            //Ok some HACK's here 
+            //Ok some HACK's here
             GetComponent<Renderer>().sharedMaterial.shader.maximumLOD = 100;
 
             if (wasUnderwater)

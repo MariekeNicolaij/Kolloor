@@ -5,7 +5,7 @@ namespace AI.States
 {
     public abstract class State
     {
-        public BaseAI owner;
+        public BaseAI Owner;
         public virtual void Enter() { }
         public virtual void Execute() { }
         public virtual void Exit() { }

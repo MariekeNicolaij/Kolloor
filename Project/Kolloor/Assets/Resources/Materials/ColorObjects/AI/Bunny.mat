@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Bunny
-  m_Shader: {fileID: 4800000, guid: ec0baf733b6bf164e9132c7cd1c6cfd9, type: 3}
+  m_Shader: {fileID: 4800000, guid: 9ce107479d11178d11005b9844295342, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2000
@@ -39,6 +39,13 @@ Material:
       data:
         first:
           name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ToonShade
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -93,20 +100,12 @@ Material:
         second: 0.5
       data:
         first:
+          name: _Outline
+        second: 0.005
+      data:
+        first:
           name: _Parallax
         second: 0.02
-      data:
-        first:
-          name: Smoothness
-        second: 0.5
-      data:
-        first:
-          name: Metallicness
-        second: 0
-      data:
-        first:
-          name: ColorRadius
-        second: 0
       data:
         first:
           name: _ZWrite
@@ -147,8 +146,8 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.75735295, g: 0.75735295, b: 0.75735295, a: 1}
+        second: {r: 0.7205882, g: 0.7205882, b: 0.7205882, a: 1}
       data:
         first:
-          name: ColorStartPoint
-        second: {r: 28.132765, g: 2.9748292, b: 77.59406, a: 0}
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 0.066}
