@@ -14,15 +14,17 @@ public class Player : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
 
     public bool underwater;
-    float underwaterSpeedDivider = 2;
 
     public bool pickedUp;
     bool canPickup;
     bool interact;
     bool pause;
+    bool sprint;
 
     float maxFallDepth = -10;
+    float underwaterSpeed = 3;
     float moveSpeed = 6;
+    float sprintSpeed = 12;
     float jumpSpeed = 4;
     float gravity = 9.81f;
 
@@ -91,16 +93,17 @@ public class Player : MonoBehaviour
 
     public void Move(float horizontalAxis, float verticalAxis)
     {
+        float speed;
+
         if (underwater)
-        {
-            transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * moveSpeed / underwaterSpeedDivider / 2);
-            transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * moveSpeed / underwaterSpeedDivider);
-        }
+            speed = underwaterSpeed;
+        else if (sprint || OnIce())
+            speed = sprintSpeed;
         else
-        {
-            transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * moveSpeed / 2);
-            transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * moveSpeed);
-        }
+            speed = moveSpeed;
+
+        transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * speed / 2);
+        transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * speed);
     }
 
     public void Jump()
@@ -109,22 +112,23 @@ public class Player : MonoBehaviour
             moveDirection.y = jumpSpeed;
     }
 
-    public void Sprint()
+    public void Sprint(bool sprint)
     {
-        moveSpeed = 12;
-    }
-
-    public void StopSprint()
-    {
-        moveSpeed = 6;
+        this.sprint = sprint;
     }
 
     public void Interact()
     {
+<<<<<<< HEAD
+        AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
+        if (!puzzleObject)
+            return;
+=======
         MajorLazer.Shoot();
 
         //if (!puzzleObject)
         //    return;
+>>>>>>> 1c29d271ed1cc7404400f5f1e9240eea2919adfb
 
         //if (canPickup && !pickedUp)
         //    Pickup();
@@ -138,9 +142,20 @@ public class Player : MonoBehaviour
         PauseMenu.instance.Pause(pause);
     }
 
+    bool OnIce()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            Debug.Log(hit.collider.tag);
+            if (hit.collider.tag == "Ice")
+                return true;
+        } return false;
+    }
+
     void Pickup()
     {
-        AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
         puzzleObject.GetComponent<Rigidbody>().useGravity = false;
         puzzleObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         puzzleObject.GetComponent<SphereCollider>().radius = 0.5f;

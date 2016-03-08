@@ -21,9 +21,18 @@ public enum PuzzleColors
     Black
 }
 
+<<<<<<< HEAD
+public enum Scenes
+{
+    Start = 0,
+    Loading = 1,
+    Credits = 2,
+    Level1 = 3,
+=======
 public enum AITypes
 {
     BaseAI,
     GroundAI,
     WaterAI,
+>>>>>>> 1c29d271ed1cc7404400f5f1e9240eea2919adfb
 }

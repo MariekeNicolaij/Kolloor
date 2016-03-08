@@ -27,9 +27,9 @@ public class PlayerInput : MonoBehaviour
     void Sprint()
     {
         if (Input.GetButtonDown("Sprint"))
-            Player.instance.Sprint();
+            Player.instance.Sprint(true);
         else if (Input.GetButtonUp("Sprint"))
-            Player.instance.StopSprint();
+            Player.instance.Sprint(false);
     }
 
     void Interact()

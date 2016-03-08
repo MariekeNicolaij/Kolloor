@@ -71,20 +71,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundGroups:
   - category: 0
-    sounds:
-    - {fileID: 0}
+    sounds: []
   - category: 2
     sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 8d02410fe57bac944b27382466ef8fa9, type: 3}
   - category: 3
     sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 9ce8aed6bb6c75c429549175c018fed8, type: 3}
   - category: 4
     sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 6295caf3fc3983d4cb4dbb58b72b688d, type: 3}
   - category: 1
     sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: c88a493da9f488b4d9f2fdfac7250688, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

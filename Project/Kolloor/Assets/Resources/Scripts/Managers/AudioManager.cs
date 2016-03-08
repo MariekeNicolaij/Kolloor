@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour
             musicVolumePercent = PlayerPrefs.GetFloat("MusicVolumePercent");
             sfxVolumePercent = PlayerPrefs.GetFloat("SfxVolumePercent");
             if (musicVolumePercent == 0)
-                musicVolumePercent = 1;
+                musicVolumePercent = 0.5f;
             if (sfxVolumePercent == 0)
                 sfxVolumePercent = 1;
         }
@@ -94,10 +94,15 @@ public class AudioManager : MonoBehaviour
     #region PlayMusic()
     public void PlayMusic(AudioCategory audioCategory, bool loop)
     {
-        PlayMusic(audioCategory, loop, new Vector3(), false);
+        PlayMusic(audioCategory, loop, 1, new Vector3(), false);
     }
 
-    public void PlayMusic(AudioCategory audioCategory, bool loop, Vector3 playPosition, bool is3D=true)
+    public void PlayMusic(AudioCategory audioCategory, bool loop, float volume)
+    {
+        PlayMusic(audioCategory, loop, volume, new Vector3(), false);
+    }
+
+    public void PlayMusic(AudioCategory audioCategory, bool loop, float volume, Vector3 playPosition, bool is3D = true)
     {
         if (!audioSources.ContainsKey(audioCategory.ToString() + sourceText))
             AddAudioSource(audioCategory.ToString() + sourceText);
@@ -106,6 +111,7 @@ public class AudioManager : MonoBehaviour
         source.Stop();
         source.clip = SoundLibrary.instance.GetClipFromAudioCategory(audioCategory);
         source.loop = loop;
+        source.volume = volume * musicVolumePercent;
         source.transform.position = playPosition;
         source.spatialBlend = System.Convert.ToInt32(is3D);
         source.Play();
@@ -149,6 +155,7 @@ public class AudioManager : MonoBehaviour
         source.Stop();
         source.clip = clip;
         source.loop = loop;
+        source.volume = 100;
         source.spatialBlend = System.Convert.ToInt32(is3D);
         source.transform.position = position;
         source.Play();

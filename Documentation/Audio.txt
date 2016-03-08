@@ -15,6 +15,7 @@ Start menu (wacky waiting)
 - Modder voetstappen
 - Steen voetstappen
 - Water voetstappen
+- Sneeuw voetstappen
 - Schieten van lasergun
 - *Oppakken object
 - *Puzzle slot klaar

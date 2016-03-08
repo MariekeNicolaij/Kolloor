@@ -4,21 +4,23 @@ using System.Collections;
 public class Loading : MonoBehaviour
 {
     AsyncOperation operation;
-    string levelName;
+    bool loadingLevel = false;
+    int level;
 
 
-    void Start()
+    void Awake()
     {
-        levelName = PlayerPrefs.GetString("LoadLevel");
+        level = PlayerPrefs.GetInt("LoadLevel");
     }
 
     void Update()
     {
-        operation = Application.LoadLevelAsync(levelName);
-        if (operation.isDone)
+        if (!loadingLevel)
         {
-            PlayerPrefs.SetInt("Load", 0); // False
-            Application.LoadLevel(levelName);
+            operation = Application.LoadLevelAsync(level);
+            loadingLevel = true;
         }
+        if (operation.isDone)
+            Application.LoadLevel(level);
     }
 }
