@@ -35,7 +35,7 @@ public class PlayerInput : MonoBehaviour
     void Interact()
     {
         if (Input.GetButtonDown("Interact"))
-            Player.instance.Interact();
+            Player.instance.Shoot();
     }
 
     void Pause()

@@ -62,5 +62,6 @@ public enum AudioCategory
     InSlot,
     Pickup,
     PuzzleSlot,
-    UI
+    UI,
+    Shoot
 }

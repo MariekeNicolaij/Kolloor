@@ -25,6 +25,7 @@ public class PuzzleObject : MonoBehaviour
 
     int ID;
 
+
     void Start()
     {
         if (Manager == null)
@@ -110,9 +111,17 @@ public class PuzzleObject : MonoBehaviour
 
     void ActivateAndLerpObject()
     {
-        Player.instance.Drop(false);
+        Player.instance.MajorLazer.DropCurrentObject(false);
         transform.SetParent(puzzleSlot.transform);
+        SetPhysics();
         active = false;
         lerpToSlot = true;
+    }
+
+    void SetPhysics()
+    {
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        GetComponent<SphereCollider>().radius = 0.5f;
     }
 }

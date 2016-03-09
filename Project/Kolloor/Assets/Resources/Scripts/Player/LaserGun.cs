@@ -16,7 +16,7 @@ public class LaserGun
 
     private float dropforceBuilder;
     public float DropforceBuilderDefault = 1;
-    public float MaxDropForce = 100;
+    public float MaxDropForce = 50;
 
     private GameObject HoldingObject;
 
@@ -82,7 +82,7 @@ public class LaserGun
         }
     }
 
-    private void DropCurrentObject(bool DropedBySlot = false)
+    public void DropCurrentObject(bool DropedBySlot = false)
     {
         if (HoldingObject == null)
             return;
@@ -139,8 +139,9 @@ public class LaserGun
 
         Debug.Log(rigidBody);
 
-        if (RaycastObject.layer == (int)Layers.PuzzleObject)
+        if (RaycastObject.layer == (int)Layers.PuzzleObject && rigidBody.GetComponent<PuzzleObject>().active)
         {
+            AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
             RaycastObject.GetComponent<SphereCollider>().radius = 0.5f;
             RaycastObject.transform.parent = ObjectHolder.transform.parent;
             HoldingObject = RaycastObject;
@@ -165,7 +166,6 @@ public class LaserGun
 
             SetChilderen(originalObject, Color.red);
             currentMat.SetColor("_OutlineColor", Color.red);
-
         }
         else
             RaycastObject.transform.parent = ObjectHolder.transform.parent;
