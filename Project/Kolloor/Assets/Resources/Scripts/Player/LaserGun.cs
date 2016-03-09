@@ -120,7 +120,8 @@ public class LaserGun
 
             Debug.Log(dropforceBuilder);
 
-            rigidBody.AddForce(Camera.main.ViewportPointToRay(new Vector3(.5f, .5f)).direction * dropforceBuilder, ForceMode.Impulse);
+            if (DropWithForce)
+                rigidBody.AddForce(Camera.main.ViewportPointToRay(new Vector3(.5f, .5f)).direction * dropforceBuilder, ForceMode.Impulse);
         }
         dropforceBuilder = DropforceBuilderDefault;
 
