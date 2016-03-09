@@ -28,7 +28,7 @@ public class LaserGun
 
     private bool lerpObject = false;
 
-    private Material currentMat;
+    private ParticleSystem currentParticleSystem;
 
     private GameObject RaycastObject;
 
@@ -106,11 +106,9 @@ public class LaserGun
 
             AI.stateManager.SwitchToDefault();
             AI.Holded = false;
-
-            SetChilderen(HoldingObject, new Color(0, 0, 0, 0));
         }
 
-        currentMat.SetColor("_OutlineColor", new Color(0, 0, 0, 0));
+        currentParticleSystem.gameObject.SetActive(false);
 
         if (!DropedBySlot)
         {
@@ -147,7 +145,7 @@ public class LaserGun
             RaycastObject.transform.parent = ObjectHolder.transform.parent;
             HoldingObject = RaycastObject;
 
-            currentMat.SetColor("_OutlineColor", Color.green);
+            currentParticleSystem.startColor = Color.green;
 
             // stop timer from when last interacted with puzzleobject
             //AIManager.instance.SetTimer(false);
@@ -165,8 +163,7 @@ public class LaserGun
             AI.Holded = true;
             HoldingObject = originalObject;
 
-            SetChilderen(originalObject, Color.red);
-            currentMat.SetColor("_OutlineColor", Color.red);
+            currentParticleSystem.startColor= Color.red;
         }
         else
             RaycastObject.transform.parent = ObjectHolder.transform.parent;
@@ -191,55 +188,29 @@ public class LaserGun
             {
                 if (RaycastObject != hit.collider.gameObject)
                 {
-                    if (RaycastObject != null && RaycastObject.layer == (int)Layers.AI)
-                    {
-                        SetChilderen(RaycastObject, new Color(0, 0, 0, 0));
-                    }
 
                     RaycastObject = hit.collider.gameObject;
 
 
-                    if (currentMat != null)
-                        currentMat.SetColor("_OutlineColor", new Color(0, 0, 0, 0));
+                    if (currentParticleSystem != null)
+                        currentParticleSystem.gameObject.SetActive(false);
 
 
-                    currentMat = RaycastObject.GetComponent<MeshRenderer>().materials[0];
+                    currentParticleSystem = RaycastObject.GetComponentInChildren<ParticleSystem>(true);
 
-                    currentMat.SetColor("_OutlineColor", Color.yellow);
-
-                    if (RaycastObject.layer == (int)Layers.AI)
-                    {
-                        SetChilderen(RaycastObject, Color.yellow);
-                    }
+                    currentParticleSystem.startColor = Color.yellow;
                 }
                 return;
             }
         }
 
-        if (currentMat != null)
+        if (currentParticleSystem != null)
         {
-            currentMat.SetColor("_OutlineColor", new Color(0, 0, 0, 0));
-            currentMat = null;
-
-            if (RaycastObject.layer == (int)Layers.AI)
-            {
-                SetChilderen(RaycastObject, new Color(0, 0, 0, 0));
-            }
+            currentParticleSystem.startColor = new Color(0, 0, 0, 0);
+            currentParticleSystem.gameObject.SetActive(false);
+            currentParticleSystem = null;
         }
 
         RaycastObject = null;
-    }
-
-    /// <summary>
-    /// sets the ouline collor for al childeren
-    /// </summary>
-    /// <param name="obj"> the parent object of the childeren </param>
-    /// <param name="color"> the color to set the outline to </param>
-    private void SetChilderen(GameObject obj, Color color)
-    {
-        for (int i = 0; i < obj.transform.childCount; i++)
-        {
-            obj.transform.GetChild(i).GetComponent<MeshRenderer>().materials[0].SetColor("_OutlineColor", color);
-        }
     }
 }
