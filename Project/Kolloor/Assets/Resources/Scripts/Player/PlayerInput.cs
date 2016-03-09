@@ -36,7 +36,7 @@ public class PlayerInput : MonoBehaviour
     void Interact()
     {
         if (Input.GetButtonDown("Interact"))
-            Player.instance.Interact();
+            Player.instance.Shoot();
     }
 
     void Pause()
@@ -48,6 +48,6 @@ public class PlayerInput : MonoBehaviour
     void DropObject()
     {
         if (Input.GetButtonDown("Drop"))
-            Player.instance.MajorLazer.DropCurrentObject(DropWithForce: false);
+            Player.instance.MajorLazer.DropCurrentObject(false);
     }
 }

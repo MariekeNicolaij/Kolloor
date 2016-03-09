@@ -26,8 +26,9 @@ public enum Scenes
     Start = 0,
     Loading = 1,
     Credits = 2,
-    Level1 = 3,
+    Level1 = 3
 }
+
 public enum AITypes
 {
     BaseAI,

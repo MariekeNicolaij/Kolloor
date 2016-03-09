@@ -13,7 +13,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &125400
 GameObject:
@@ -31,7 +31,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &133456
 GameObject:
@@ -49,7 +49,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &133958
 GameObject:
@@ -67,7 +67,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &142772
 GameObject:
@@ -84,7 +84,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &180428
 GameObject:
@@ -101,7 +101,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &192088
 GameObject:
@@ -119,7 +119,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &198842
 GameObject:
@@ -136,7 +136,7 @@ GameObject:
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &412542
 Transform:
@@ -251,7 +251,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a0710e6ff11848242b884fe644015b57, type: 2}
+  - {fileID: 2100000, guid: c5ac9697745f7d54ca20570b33e4226a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -277,7 +277,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a0710e6ff11848242b884fe644015b57, type: 2}
+  - {fileID: 2100000, guid: c5ac9697745f7d54ca20570b33e4226a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -303,7 +303,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a0710e6ff11848242b884fe644015b57, type: 2}
+  - {fileID: 2100000, guid: c5ac9697745f7d54ca20570b33e4226a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -329,7 +329,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a0710e6ff11848242b884fe644015b57, type: 2}
+  - {fileID: 2100000, guid: c5ac9697745f7d54ca20570b33e4226a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -355,7 +355,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a0710e6ff11848242b884fe644015b57, type: 2}
+  - {fileID: 2100000, guid: c5ac9697745f7d54ca20570b33e4226a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleColor: 5
+  puzzleSlot: {fileID: 0}
   lerpToGround: 0
 --- !u!198 &19863598
 ParticleSystem:
@@ -2048,8 +2049,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c5ac9697745f7d54ca20570b33e4226a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 104046}

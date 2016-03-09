@@ -25,14 +25,13 @@ public class PuzzleObject : MonoBehaviour
 
     int ID;
 
+
     void Start()
     {
         if (Manager == null)
-        {
             Manager = PuzzleObjectManager.instance;
             if (Manager == null)
                 Debug.LogError("There is no Puzzle OBject Manager in this scene");
-        }
 
         ID = Manager.Register(this);
 
@@ -114,9 +113,17 @@ public class PuzzleObject : MonoBehaviour
 
     void ActivateAndLerpObject()
     {
-        Player.instance.Drop(false);
+        Player.instance.MajorLazer.DropCurrentObject(false);
         transform.SetParent(puzzleSlot.transform);
+        SetPhysics();
         active = false;
         lerpToSlot = true;
+    }
+
+    void SetPhysics()
+    {
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        GetComponent<SphereCollider>().radius = 0.5f;
     }
 }

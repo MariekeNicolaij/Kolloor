@@ -4,7 +4,7 @@ using System.Collections;
 public class PuzzleSlot : MonoBehaviour
 {
     public PuzzleColors puzzleColor;
-    Transform puzzleSlot;
+    public Transform puzzleSlot;
 
     Vector3 positionInGround;
 

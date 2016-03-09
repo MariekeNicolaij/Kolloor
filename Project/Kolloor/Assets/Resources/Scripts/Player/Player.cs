@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Managers;
+//using Managers;
 
 public class Player : MonoBehaviour
 {
@@ -117,19 +117,14 @@ public class Player : MonoBehaviour
         this.sprint = sprint;
     }
 
-    public void Interact()
+    public void Shoot()
     {
-
-        AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
-        if (!puzzleObject)
-            return;
+        AudioManager.instance.PlaySound(AudioCategory.Shoot, false, true);
 
         MajorLazer.Shoot();
 
-        //if (!puzzleObject)
-        //    return;
-
-
+        if (!puzzleObject)
+            return;
         //if (canPickup && !pickedUp)
         //    Pickup();
         //else if (pickedUp)
@@ -147,33 +142,8 @@ public class Player : MonoBehaviour
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
             if (hit.collider.tag == "Ice")
                 return true;
-        } return false;
-    }
-
-    void Pickup()
-    {
-        puzzleObject.GetComponent<Rigidbody>().useGravity = false;
-        puzzleObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        puzzleObject.GetComponent<SphereCollider>().radius = 0.5f;
-        puzzleObject.transform.parent = transform;
-        puzzleObject.lerpToPlayer = true;
-        pickedUp = true;
-    }
-
-    public void Drop(bool playerDrop)
-    {
-        if (playerDrop)
-        {
-            puzzleObject.GetComponent<Rigidbody>().useGravity = true;
-            puzzleObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            puzzleObject.GetComponent<SphereCollider>().radius = 3;
-            puzzleObject.transform.parent = null;
-        }
-        pickedUp = false;
-        puzzleObject.lerpToPlayer = false;
-        puzzleObject = null;
+        return false;
     }
 }
