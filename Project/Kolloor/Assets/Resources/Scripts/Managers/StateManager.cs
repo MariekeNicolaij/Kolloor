@@ -14,11 +14,13 @@ namespace Managers
 
         private State defaultState;
 
+        private AITypes ownerType = AITypes.BaseAI;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="owner"> the owner of this StateManager </param>
-        /// <param name="defaultState"> the default state in which the owner will start</param>
+        /// <param name="defaultState"> the default state in which the owner will start </param>
         public StateManager(BaseAI owner, State defaultState)
         {
             this.defaultState = defaultState;
@@ -43,6 +45,8 @@ namespace Managers
         /// <param name="newState"> the new state</param>
         public void ChangeState(State newState)
         {
+
+
             if (newState == null)
                 return;
 

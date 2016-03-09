@@ -68,7 +68,7 @@ namespace AI.States
                 VecToLookAt.y = Owner.transform.position.y;
 
                 Owner.LookAt(VecToLookAt);
-                Owner.MoveForward();
+                Owner.Move();
             }
 
         }

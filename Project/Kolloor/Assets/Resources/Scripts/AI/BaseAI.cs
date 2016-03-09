@@ -40,16 +40,16 @@ namespace AI
         [HideInInspector]
         public bool Holded = false;
 
-        protected AITypes type = AITypes.BaseAI;
+        [HideInInspector]
+        public NavMeshPath path;
+
+        public AITypes type = AITypes.BaseAI;
 
         protected Rigidbody rigidBody;
 
         protected List<GameObject> Collisions = new List<GameObject>();
 
-        protected NavMeshAgent agent;
-
-        [HideInInspector]
-        public NavMeshPath path;
+        protected Vector3 lookAt;
 
         private Vector3 startPos;
 
@@ -85,22 +85,36 @@ namespace AI
             transform.position = startPos;
         }
 
-        /// <summary>
-        /// for moving Forward
-        /// </summary>
-        public virtual void MoveForward()
+        public virtual void Move()
         {
-            if (agent == null)
-                transform.Translate(Vector3.forward * MovementSpeed * Time.deltaTime);
+            MoveForward();
         }
 
         /// <summary>
-        /// For looking at an object
+        /// for moving Forward
+        /// </summary>
+        protected virtual void MoveForward()
+        {
+            transform.Translate(Vector3.forward);
+        }
+
+        /// <summary>
+        /// For looking to an place
+        /// </summary>
+        /// <param name="objectToLookTo">place to look to</param>
+        public virtual void LookAt(Vector3 placeToLookTo)
+        {
+            transform.LookAt(placeToLookTo);
+            lookAt = placeToLookTo;
+        }
+
+        /// <summary>
+        /// For looking to an object
         /// </summary>
         /// <param name="objectToLookTo">object to look to</param>
-        public virtual void LookAt(Vector3 objectToLookTo)
+        public virtual void LookAt(GameObject objectToLookTo)
         {
-            transform.LookAt(objectToLookTo);
+            LookAt(objectToLookTo.transform.position);
         }
 
         public virtual void OnCollisionEnter(Collision other)

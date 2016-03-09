@@ -120,13 +120,13 @@ public class Player : MonoBehaviour
     public void Interact()
     {
         AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
-        if (!puzzleObject)
-            return;
+        
+        
+
         MajorLazer.Shoot();
 
-        //if (!puzzleObject)
-        //    return;
-
+        if (!puzzleObject)
+            return;
         //if (canPickup && !pickedUp)
         //    Pickup();
         //else if (pickedUp)
