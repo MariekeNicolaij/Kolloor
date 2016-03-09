@@ -82,7 +82,7 @@ public class LaserGun
         }
     }
 
-    public void DropCurrentObject(bool DropedBySlot = false)
+    public void DropCurrentObject(bool DropedBySlot = false, bool DropWithForce = true)
     {
         if (HoldingObject == null)
             return;

@@ -48,6 +48,6 @@ public class PlayerInput : MonoBehaviour
     void DropObject()
     {
         if (Input.GetButtonDown("Drop"))
-            Player.instance.MajorLazer.DropCurrentObject(DropWithForce: false);
+            Player.instance.MajorLazer.DropCurrentObject(false);
     }
 }

@@ -32,7 +32,6 @@ public class PuzzleObject : MonoBehaviour
             Manager = PuzzleObjectManager.instance;
             if (Manager == null)
                 Debug.LogError("There is no Puzzle OBject Manager in this scene");
-        }
 
         ID = Manager.Register(this);
 
