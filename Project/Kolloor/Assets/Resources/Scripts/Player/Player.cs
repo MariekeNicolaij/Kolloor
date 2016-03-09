@@ -148,7 +148,6 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            Debug.Log(hit.collider.tag);
             if (hit.collider.tag == "Ice")
                 return true;
         } return false;

@@ -35,8 +35,6 @@ namespace Managers
 
         void Awake()
         {
-            Debug.Log("Awake");
-
             instance = this;
 
             if (Water == null)
