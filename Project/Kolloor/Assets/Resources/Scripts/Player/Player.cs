@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Managers;
+//using Managers;
 
 public class Player : MonoBehaviour
 {
@@ -119,16 +119,13 @@ public class Player : MonoBehaviour
 
     public void Interact()
     {
-<<<<<<< HEAD
         AudioManager.instance.PlaySound(AudioCategory.Pickup, false, true);
         if (!puzzleObject)
             return;
-=======
         MajorLazer.Shoot();
 
         //if (!puzzleObject)
         //    return;
->>>>>>> 1c29d271ed1cc7404400f5f1e9240eea2919adfb
 
         //if (canPickup && !pickedUp)
         //    Pickup();
@@ -147,11 +144,9 @@ public class Player : MonoBehaviour
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
-            Debug.Log(hit.collider.tag);
             if (hit.collider.tag == "Ice")
                 return true;
-        } return false;
+        return false;
     }
 
     void Pickup()

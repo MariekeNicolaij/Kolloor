@@ -28,9 +28,7 @@ public class PuzzleObject : MonoBehaviour
     void Start()
     {
         if (Manager == null)
-        {
             Manager = PuzzleObjectManager.instance;
-        }
 
         ID = Manager.Register(this);
 

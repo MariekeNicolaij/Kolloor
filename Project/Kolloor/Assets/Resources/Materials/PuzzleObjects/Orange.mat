@@ -38,6 +38,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -45,6 +52,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _MetallicGlossMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _OcclusionMap
         second:
           m_Texture: {fileID: 0}
@@ -52,75 +66,21 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-<<<<<<< HEAD
-<<<<<<< HEAD
-          name: _OcclusionMap
-=======
           name: _EmissionMap
->>>>>>> 9759665b9cc6c49877bc136aa5dbba9ec540ee31
-=======
-          name: _EmissionMap
->>>>>>> origin/master
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-<<<<<<< HEAD
-<<<<<<< HEAD
-          name: _EmissionMap
-=======
           name: _DetailMask
->>>>>>> 9759665b9cc6c49877bc136aa5dbba9ec540ee31
-=======
-          name: _DetailMask
->>>>>>> origin/master
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-<<<<<<< HEAD
-<<<<<<< HEAD
-          name: _DetailMask
-=======
           name: _DetailAlbedoMap
->>>>>>> 9759665b9cc6c49877bc136aa5dbba9ec540ee31
-=======
-          name: _DetailAlbedoMap
->>>>>>> origin/master
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-<<<<<<< HEAD
-<<<<<<< HEAD
-          name: _DetailAlbedoMap
-=======
-          name: _MetallicGlossMap
->>>>>>> 9759665b9cc6c49877bc136aa5dbba9ec540ee31
-=======
-          name: _MetallicGlossMap
->>>>>>> origin/master
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-<<<<<<< HEAD
-<<<<<<< HEAD
-          name: _MetallicGlossMap
-=======
-          name: _Ramp
->>>>>>> 9759665b9cc6c49877bc136aa5dbba9ec540ee31
-=======
-          name: _Ramp
->>>>>>> origin/master
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -140,6 +100,10 @@ Material:
         second: 0.5
       data:
         first:
+          name: _Outline
+        second: 0.03
+      data:
+        first:
           name: _Parallax
         second: 0.02
       data:
@@ -150,6 +114,10 @@ Material:
         first:
           name: _Glossiness
         second: 0.5
+      data:
+        first:
+          name: _Metallic
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -170,23 +138,6 @@ Material:
         first:
           name: _Mode
         second: 0
-      data:
-        first:
-          name: _Metallic
-        second: 0
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/master
-      data:
-        first:
-          name: _Outline
-        second: 0.03
-<<<<<<< HEAD
->>>>>>> 9759665b9cc6c49877bc136aa5dbba9ec540ee31
-=======
->>>>>>> origin/master
     m_Colors:
       data:
         first:
@@ -195,12 +146,8 @@ Material:
       data:
         first:
           name: _Color
-<<<<<<< HEAD
-        second: {r: 1, g: 0.38762677, b: 0, a: 1}
-=======
-        second: {r: 1, g: 0.6, b: 0, a: 1}
+        second: {r: 1, g: 0.43448272, b: 0, a: 1}
       data:
         first:
           name: _OutlineColor
-        second: {r: 0.82745105, g: 0.82745105, b: 0.82745105, a: 0}
->>>>>>> 1c29d271ed1cc7404400f5f1e9240eea2919adfb
+        second: {r: 0, g: 0, b: 0, a: 0}
