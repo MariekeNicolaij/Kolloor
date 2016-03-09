@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
         Sprint();
         Interact();
         Pause();
+        DropObject();
     }
 
     void Move()
@@ -42,5 +43,11 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
             Player.instance.Pause();
+    }
+
+    void DropObject()
+    {
+        if (Input.GetButtonDown("Drop"))
+            Player.instance.MajorLazer.DropCurrentObject(DropWithForce: false);
     }
 }
