@@ -18,6 +18,8 @@ public class LaserGun
     public float DropforceBuilderDefault = 1;
     public float MaxDropForce = 50;
 
+    public GameObject Laser;
+
     private GameObject HoldingObject;
 
     private Player player;
@@ -32,6 +34,10 @@ public class LaserGun
 
     private GameObject RaycastObject;
 
+    private LineRenderer Line;
+
+    private bool showLaser = false;
+
     public void Start(Player player)
     {
         dropforceBuilder = DropforceBuilderDefault;
@@ -42,6 +48,13 @@ public class LaserGun
         {
             Debug.LogError("the ObjectHolder of the laser gun is not set");
         }
+
+        Line = Laser.GetComponent<LineRenderer>();
+
+        if (Line == null)
+            Debug.LogError("Laser is not set, it should be a gameobject with only a line renderer");
+        else
+            Line.enabled = false;
     }
 
     public void Update()
@@ -67,19 +80,23 @@ public class LaserGun
             HoldingObject.transform.localPosition = ObjectHolder.transform.localPosition;
             HoldingObject.transform.localRotation = ObjectHolder.transform.localRotation;
             lerpObject = false;
+            showLaser = false;
         }
     }
 
-    public void Shoot()
+    public bool Shoot()
     {
         if (HoldingObject == null && RaycastObject != null)
         {
+            showLaser = true;
             TreatGameObject();
+            return true;
         }
         else if (HoldingObject != null)
         {
             DropCurrentObject();
         }
+        return false;
     }
 
     public void DropCurrentObject(bool DropedBySlot = false, bool DropWithForce = true)
@@ -123,13 +140,36 @@ public class LaserGun
         }
         dropforceBuilder = DropforceBuilderDefault;
 
+        if (showLaser)
+            showLaser = false;
 
         HoldingObject = null;
     }
 
-    private void LaserEffect()
+    public IEnumerator LaserEffect(int time)
     {
+        Line.enabled = true;
 
+        float cTime = 0;
+
+        while (time < time * 100 && showLaser)
+        {
+            Line.SetPosition(0, ObjectHolder.transform.position);
+            if (RaycastObject != null)
+            {
+                Line.SetPosition(1, RaycastObject.transform.position);
+            }
+            else
+            {
+                Line.SetPosition(1, HoldingObject.transform.position);
+            }
+
+            cTime += Time.smoothDeltaTime;
+
+            yield return null;
+        }
+
+        Line.enabled = false;
     }
 
     private void TreatGameObject()
@@ -197,6 +237,7 @@ public class LaserGun
 
 
                     currentParticleSystem = RaycastObject.GetComponentInChildren<ParticleSystem>(true);
+                    currentParticleSystem.gameObject.SetActive(true);
 
                     currentParticleSystem.startColor = Color.yellow;
                 }
