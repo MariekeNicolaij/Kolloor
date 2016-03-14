@@ -43,7 +43,7 @@ MonoBehaviour:
   - color: 2
     colorMaterial:
     - {fileID: 0}
-    - {fileID: 2100000, guid: 33dc9481ec0372245a622294c9ea149d, type: 2}
+    - {fileID: 0}
     - {fileID: 2100000, guid: 815c8820fc2f2714b83ff0d240ddded6, type: 2}
     - {fileID: 2100000, guid: f0dda40728c0ef647bd1911db05367cb, type: 2}
     startPoint: {x: 0, y: 0, z: 0}

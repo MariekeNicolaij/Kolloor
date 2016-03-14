@@ -7,11 +7,16 @@ namespace AI
 {
     public class BaseAI : MonoBehaviour
     {
+        #region Moving Properties
         [Range(1, 10)]
         public int MovementSpeed = 5;
 
         [Range(0, 2)]
         public float maxPointDistance = 1;
+
+        [HideInInspector]
+        public Vector3 posToWalkTo = Vector3.zero;
+        #endregion
 
         public int ID
         {
@@ -25,6 +30,7 @@ namespace AI
             get;
         }
 
+        #region State Stuff
         [Range(0, 5)]
         public float MinWaitTime = 2;
 
@@ -33,15 +39,14 @@ namespace AI
 
         [HideInInspector]
         public StateManager stateManager;
+        #endregion
 
+        #region Out of world Care taking
         [Range(-100, 0)]
         public float MaxFallDepth = -10;
 
-        [HideInInspector]
-        public bool Holded = false;
-
-        [HideInInspector]
-        public NavMeshPath path;
+        private Vector3 startPos;
+        #endregion
 
         public AITypes type = AITypes.BaseAI;
 
@@ -51,15 +56,15 @@ namespace AI
 
         protected Vector3 lookAt;
 
-        private Vector3 startPos;
-
         protected virtual void Start()
         {
             stateManager = new StateManager(this, new WanderState());
 
-            if (aiManager == null)
+            if (!aiManager)
             {
-                aiManager = AIManager.instance; ;
+                aiManager = AIManager.instance;
+                if (!aiManager) // for if there is no aimanager
+                    Debug.LogError("there is no aimanager in this world!");
             }
 
             rigidBody = GetComponent<Rigidbody>();
@@ -140,5 +145,13 @@ namespace AI
             else
                 stateManager.SwitchToDefault();
         }
+
+        public virtual void PickUp() {
+            stateManager.ChangeState(new IdleState());
+        }
+        public virtual void DropDown() {
+            stateManager.SwitchToDefault();
+        }
+
     }
 }

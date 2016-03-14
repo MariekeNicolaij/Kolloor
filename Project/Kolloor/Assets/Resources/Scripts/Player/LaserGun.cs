@@ -44,17 +44,20 @@ public class LaserGun
 
         this.player = player;
 
-        if (ObjectHolder == null)
+        if (!ObjectHolder)
         {
             Debug.LogError("the ObjectHolder of the laser gun is not set");
         }
 
-        Line = Laser.GetComponent<LineRenderer>();
+        if (!Laser)
+            Debug.LogError("add an laser gameobject to the player in the laser gun");
 
-        if (Line == null)
+        if (!Laser.GetComponent<LineRenderer>())
             Debug.LogError("Laser is not set, it should be a gameobject with only a line renderer");
-        else
+        else {
+            Line = Laser.GetComponent<LineRenderer>();
             Line.enabled = false;
+        }
     }
 
     public void Update()
@@ -120,9 +123,7 @@ public class LaserGun
         else if (HoldingObject.layer == (int)Layers.AI)
         {
             BaseAI AI = HoldingObject.GetComponent<BaseAI>();
-
-            AI.stateManager.SwitchToDefault();
-            AI.Holded = false;
+            AI.DropDown();
         }
 
         currentParticleSystem.gameObject.SetActive(false);
@@ -198,12 +199,11 @@ public class LaserGun
                 originalObject = RaycastObject.transform.parent.gameObject;
 
             BaseAI AI = originalObject.GetComponent<BaseAI>();
-            AI.stateManager.ChangeState(new AI.States.IdleState());
+            AI.PickUp();
             originalObject.transform.parent = ObjectHolder.transform.parent;
-            AI.Holded = true;
             HoldingObject = originalObject;
 
-            currentParticleSystem.startColor= Color.red;
+            currentParticleSystem.startColor = Color.red;
         }
         else
             RaycastObject.transform.parent = ObjectHolder.transform.parent;

@@ -10,13 +10,6 @@ namespace Managers
     {
         public static AIManager instance;
 
-        #region Random Walkpoints
-        public GameObject Water;
-
-        public int WalkPointsAmound = 100;
-        private Vector3[] WalkPoints;
-        #endregion
-
         #region ID
         private Dictionary<int, BaseAI> AIs = new Dictionary<int, BaseAI>();
         private Dictionary<int, AITypes> AIIDTypes = new Dictionary<int, AITypes>();
@@ -37,26 +30,12 @@ namespace Managers
         {
             instance = this;
 
-            if (Water == null)
-            {
-                Debug.LogError("AIManager doesn't contain an Water GameObject");
-            }
-
-            WalkPoints = new Vector3[WalkPointsAmound];
-
             terrain = Terrain.activeTerrain;
             terrainCollider = Terrain.activeTerrain.GetComponent<Collider>();
-
-            CreateRandomPoints();
         }
 
         void Update()
         {
-            for (int i = 0; i < WalkPointsAmound - 1; i++)
-            {
-                Debug.DrawLine(WalkPoints[i], WalkPoints[i + 1], Color.black);
-            }
-
             if (PuzzleObjectManager.instance.ObjectsAmound() > 0 && timerOn)
             {
                 timer += Time.smoothDeltaTime;
@@ -67,60 +46,22 @@ namespace Managers
             }
         }
 
-        #region creating random point system
-
         /// <summary>
-        /// for filling the WalkPoints list with RandomPositions
+        /// for getting an Random point within the navmesh;
         /// </summary>
-        private void CreateRandomPoints()
-        {
-            for (int i = 0; i < WalkPointsAmound; i++)
-            {
-                Vector3 ranPos = CreateRandomPoint();
-
-                if (ranPos == null)
-                    ranPos = CreateRandomPoint();
-
-                WalkPoints[i] = ranPos;
-            }
-        }
-
-        /// <summary>
-        /// creates a few random vectors and gets the first one thats good
-        /// </summary>
-        /// <param name="terrainCollider"> the terain collider of the current terrain </param>
-        /// <returns> returns a random vector3 </returns>
+        /// <returns> returns a random vector3 within the nav mesh </returns>
         public Vector3 CreateRandomPoint()
         {
-            Vector3[] vecs = new Vector3[3];
+            Vector3 vec = new Vector3();
 
-            for (int i = 0; i < 3; i++)
-            {
-                vecs[i].x = Random.Range(terrain.transform.position.x, terrainCollider.bounds.size.x);
-                vecs[i].z = Random.Range(terrain.transform.position.z, terrainCollider.bounds.size.z);
-                vecs[i].y = Terrain.activeTerrain.SampleHeight(vecs[i]);
+                vec.x = Random.Range(terrain.transform.position.x, terrainCollider.bounds.size.x);
+                vec.z = Random.Range(terrain.transform.position.z, terrainCollider.bounds.size.z);
 
-            }
-            return vecs.FirstOrDefault(v=>v.y > Water.transform.position.y);
-        }
-        #endregion
+            NavMeshHit hit;
 
-        /// <summary>
-        /// for making an random path to a random point within the random points created in the start
-        /// </summary>
-        /// <param name="AIPosition"> the position of the ai </param>
-        /// <returns>returns a random path</returns>
-        public NavMeshPath GetRandomPath(Vector3 AIPosition)
-        {
-            int randomIndex = Random.Range(0, WalkPointsAmound);
+            NavMesh.SamplePosition(vec, out hit, terrainCollider.bounds.size.x, NavMesh.AllAreas);
 
-            NavMeshPath path = new NavMeshPath();
-
-            while (!NavMesh.CalculatePath(AIPosition, WalkPoints[randomIndex], NavMesh.AllAreas, path))
-            {
-                WalkPoints[randomIndex] = CreateRandomPoint();
-            }
-            return path;
+            return hit.position;
         }
 
         #region AI ID system

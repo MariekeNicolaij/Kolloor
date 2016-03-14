@@ -10,60 +10,43 @@ namespace AI.States
         private bool wait = false;
         private float WaitTime = 0;
 
+        private GroundAI groundOwner;
+
         public override void Enter()
         {
-            // the owner always get's a new point to wander to
-            Owner.path = Owner.aiManager.GetRandomPath(Owner.transform.position);
+            if (Owner.posToWalkTo == Vector3.zero)
+                Owner.posToWalkTo = Owner.aiManager.CreateRandomPoint();
         }
 
         public override void Execute()
         {
-            //Debug.Log(corner);
-            //Debug.Log(Owner.path);
-            //Debug.Log(Owner.path.corners.Length);
-            //Debug.Log(Owner.path.corners[corner]);
-
-            Debug.DrawLine(Owner.transform.position, Owner.path.corners[corner], Color.red);
-
-            for (int i = 0; i < Owner.path.corners.Length - 1; i++)
+            switch (Owner.type)
             {
-                Debug.DrawLine(Owner.path.corners[i], Owner.path.corners[i + 1], Color.red);
+                case AITypes.BaseAI:
+                    break;
+                case AITypes.GroundAI:
+                    GroundExecute();
+                    break;
+                case AITypes.WaterAI:
+                    break;
+                default:
+                    break;
             }
+        }
 
-            if (!wait)
+        private void GroundExecute()
+        {
+            if (!groundOwner)
+                groundOwner = (GroundAI)Owner;
+
+            if (Vector3.Distance(groundOwner.transform.position, Owner.posToWalkTo) <= Owner.maxPointDistance)
             {
-                if (Vector3.Distance(Owner.path.corners.Last(), Owner.transform.position) <= Owner.maxPointDistance)
-                {
-                    Owner.path = Owner.aiManager.GetRandomPath(Owner.transform.position);
-                    corner = 0;
-                    wait = true;
-                    WaitTime = Random.Range(Owner.MinWaitTime, Owner.MaxWaitTime);
-                }
-                else {
-                    Vector3 VecToLookAt = Owner.path.corners[corner];
-                    VecToLookAt.y = Owner.transform.position.y;
-
-                    if (Vector3.Distance(Owner.path.corners[corner], Owner.transform.position) <= Owner.maxPointDistance)
-                    {
-                        corner++;
-                        wait = System.Convert.ToBoolean(Random.Range(0, 1));
-                        if (wait)
-                            WaitTime = Random.Range(Owner.MinWaitTime, Owner.MaxWaitTime);
-                    }
-                    else {
-                        Owner.LookAt(VecToLookAt);
-                        Owner.Move();
-                    }
-                }
+                Owner.posToWalkTo = Owner.aiManager.CreateRandomPoint();
             }
             else
             {
-                WaitTime -= Time.smoothDeltaTime;
-                if (WaitTime < 0)
-                {
-                    wait = false;
-                }
-
+                Owner.LookAt(Owner.posToWalkTo);
+                Owner.Move();
             }
         }
 

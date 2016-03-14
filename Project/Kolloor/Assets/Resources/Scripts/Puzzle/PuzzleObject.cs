@@ -28,6 +28,7 @@ public class PuzzleObject : MonoBehaviour
 
     void Start()
     {
+        // first checks if you set the manger. if not, set it self. if it's than still null, give an Error
         if (Manager == null)
             Manager = PuzzleObjectManager.instance;
             if (Manager == null)
