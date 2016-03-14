@@ -108,11 +108,11 @@ namespace AI
                     MoveForward();
                 }
             }
-            else {
+            else
+            {
                 MoveForward();
             }
         }
-
 
 
         protected override void MoveForward()
@@ -154,7 +154,6 @@ namespace AI
                     }
                 }
             }
-
 
             if (agent.destination != lookAt)
                 agent.SetDestination(lookAt);
