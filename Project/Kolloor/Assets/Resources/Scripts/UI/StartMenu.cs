@@ -10,6 +10,7 @@ public class StartMenu : MonoBehaviour
 
     public GameObject startObject;
     public GameObject newGameObject;
+    public GameObject levelsObject;
     public GameObject optionsObject;
 
 
@@ -34,6 +35,13 @@ public class StartMenu : MonoBehaviour
         newGameObject.SetActive(true);
     }
 
+    public void Levels()
+    {
+        AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
+        startObject.SetActive(false);
+        levelsObject.SetActive(true);
+    }
+
     public void Options()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
@@ -51,6 +59,7 @@ public class StartMenu : MonoBehaviour
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         newGameObject.SetActive(false);
+        levelsObject.SetActive(false);
         optionsObject.SetActive(false);
         startObject.SetActive(true);
     }
