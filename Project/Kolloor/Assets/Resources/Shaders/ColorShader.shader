@@ -58,15 +58,11 @@
 
 		float GetGrayScaleValue(fixed4 c, Input IN)
 		{
-
 			float dist = length(ColorStartPoint - IN.worldPos);
-
 
 			float extraDist = noise(IN.worldPos / 3.0)*3.0;
 			dist += extraDist;
-
 			
-
 			float outOfRange = (dist - ColorRadius);
 			float needGrayScale = clamp(min(1.0, max(0.0, outOfRange) * 10000000.0), 0.0, 1.0);
 

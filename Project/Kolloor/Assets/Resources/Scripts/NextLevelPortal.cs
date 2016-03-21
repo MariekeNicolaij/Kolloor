@@ -58,21 +58,26 @@ public class NextLevelPortal : MonoBehaviour
 
     void NextLevelCheck()
     {
-        int currentLevel = Application.loadedLevel;
-        int nextLevel = currentLevel + 1;           // +1 Because index
-        int maxLevel = Application.levelCount-1;    // -1 Because index
+        int standardScenes = 3;     // -Start -Loading -Credits
+        int currentLevel = Application.loadedLevel - standardScenes;
+        int nextLevel = currentLevel + 1;
+        int maxLevel = Application.levelCount - standardScenes - 1;     // -1 because index
+
+        Debug.Log("CurrentLevel: " + currentLevel);
+        Debug.Log("NextLevel: " + nextLevel);
+        Debug.Log("MaxLevel: " + maxLevel);
+
+        PlayerPrefs.SetInt("CurrentLevel", nextLevel);
 
         if (currentLevel == maxLevel)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            PlayerPrefs.SetInt("CurrentLevel", nextLevel);
             PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Credits);
             Application.LoadLevel("Loading");
         }
         else
         {
-            PlayerPrefs.SetInt("CurrentLevel", nextLevel);
             PlayerPrefs.SetInt("LoadLevel", nextLevel);
             Application.LoadLevel("Loading");
         }

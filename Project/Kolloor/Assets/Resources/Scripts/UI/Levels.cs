@@ -7,6 +7,7 @@ public class Levels : MonoBehaviour
 {
     public static Levels instance;
 
+    public Material levelImageMaterial;
     public GameObject playButton;
 
     public GameObject levelsParent;
@@ -17,17 +18,16 @@ public class Levels : MonoBehaviour
 
     Vector3 startPosition;
 
-    int minusBasicScenes = 2;   // - Start - Loading - Credits + 1 because index
-
-    int lastIndex;
-    int currentIndex = 0;
-    int maxIndex;
+    int lastLevelIndex;
+    int currentLevelIndex = 0;
+    int maxLevelIndex;
     int indexChange;
 
     float lerpTime = 1;
-    float lerpSpeed = 6;
+    float lerpSpeed = 30;
+    float colorRadius;
 
-    bool lerp;
+    bool lerpPosition, lerpColor;
 
 
     public void Start()
@@ -38,22 +38,28 @@ public class Levels : MonoBehaviour
         IndexCheck();
         SetImages();
         SetLockImages();
-        SetColorInImages();
+        lerpColor = true;
     }
 
+    /// <summary>
+    /// Get all level images and lock image
+    /// </summary>
     void GetImages()
     {
         lockImage = Resources.Load<Sprite>("UI/Levels/Lock");
 
         foreach (Image i in levelsParent.GetComponentsInChildren<Image>())
             levelImages.Add(i);
-        levelImages[currentIndex].gameObject.SetActive(true);
-        startPosition = levelImages[currentIndex].transform.position;
+        levelImages[currentLevelIndex].gameObject.SetActive(true);
+        startPosition = levelImages[currentLevelIndex].transform.position;
     }
 
+    /// <summary>
+    /// Set lock images in front of level images which aren't completed yet
+    /// </summary>
     void SetLockImages()
     {
-        for (int i = PlayerPrefs.GetInt("CurrentLevel") - minusBasicScenes; i <= maxIndex; i++)
+        for (int i = PlayerPrefs.GetInt("CurrentLevel"); i <= maxLevelIndex; i++)
         {
             GameObject go = new GameObject();
             go.AddComponent<Image>().sprite = lockImage;
@@ -62,41 +68,52 @@ public class Levels : MonoBehaviour
         }
     }
 
-    void SetColorInImages()
-    {
-        foreach (Image i in levelImages)
-        {
-            Debug.Log("gs " + i.color.grayscale);
-            //i.color= 
-        }
-        for (int i = PlayerPrefs.GetInt("CurrentLevel") - minusBasicScenes; i <= maxIndex; i++)
-        {
-
-        }
-    }
-
     void Update()
     {
-        if (lerp)
+        if (lerpPosition)
             LerpImage();
+        if (lerpColor)
+            LerpColor();
     }
 
+    /// <summary>
+    /// Lerp last image for fancyness
+    /// </summary>
     void LerpImage()
     {
         lerpTime -= Time.smoothDeltaTime;
 
         if (lerpTime > 0)
         {
-            levelImages[lastIndex].transform.position += (Vector3.right * indexChange).normalized * lerpSpeed;
-            levelImages[lastIndex].color = new Color(levelImages[lastIndex].color.r, levelImages[lastIndex].color.g, levelImages[lastIndex].color.b, lerpTime);
+            levelImages[lastLevelIndex].transform.position += (Vector3.left * indexChange).normalized * lerpSpeed;
+            levelImages[lastLevelIndex].transform.localScale *= lerpTime;
         }
         else
         {
-            levelImages[lastIndex].color = new Color(levelImages[lastIndex].color.r, levelImages[lastIndex].color.g, levelImages[lastIndex].color.b, 1);
-            levelImages[lastIndex].transform.position = startPosition;
-            levelImages[lastIndex].gameObject.SetActive(false);
+            levelImages[lastLevelIndex].transform.position = startPosition;
+            levelImages[lastLevelIndex].transform.localScale = Vector3.one;
+            levelImages[lastLevelIndex].gameObject.SetActive(false);
             lerpTime = 1;
-            lerp = false;
+            lerpColor = true;
+            lerpPosition = false;
+        }
+    }
+
+    /// <summary>
+    ///  Lerps color back
+    /// </summary>
+    void LerpColor()
+    {
+        float maxRadius = 600;
+        colorRadius += lerpSpeed;
+
+        if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"))
+            levelImageMaterial.SetFloat("ColorRadius", colorRadius);
+
+        if (colorRadius > maxRadius)
+        {
+            colorRadius = 0;
+            lerpColor = false;
         }
     }
 
@@ -106,45 +123,60 @@ public class Levels : MonoBehaviour
     /// <param name="indexChange"></param>
     void IndexCheck()
     {
-        maxIndex = Application.levelCount - minusBasicScenes;                   // -1 because index
-        lastIndex = currentIndex;
-        currentIndex += indexChange;
+        maxLevelIndex = levelImages.Count - 1;         // -1 because index
+        lastLevelIndex = currentLevelIndex;
+        currentLevelIndex += indexChange;
 
-        if (currentIndex > maxIndex)
-            currentIndex = 0;
-        else if (currentIndex < 0)
-            currentIndex = maxIndex;
+        if (currentLevelIndex > maxLevelIndex)
+            currentLevelIndex = 0;
+        else if (currentLevelIndex < 0)
+            currentLevelIndex = maxLevelIndex;
     }
 
+    /// <summary>
+    /// Deactivate all levelImages except the current and the last one
+    /// </summary>
     void SetImages()
     {
         foreach (Image i in levelImages)
             i.gameObject.SetActive(false);
-        levelImages[currentIndex].gameObject.SetActive(true);
-        levelImages[lastIndex].gameObject.SetActive(true);
-        levelImages[currentIndex].transform.SetAsLastSibling();
-        levelImages[lastIndex].transform.SetAsLastSibling();
+        levelImages[currentLevelIndex].gameObject.SetActive(true);
+        levelImages[lastLevelIndex].gameObject.SetActive(true);
+        levelImages[currentLevelIndex].transform.SetAsLastSibling();
+        levelImages[lastLevelIndex].transform.SetAsLastSibling();
+        levelImageMaterial.SetFloat("ColorRadius", 0);
     }
 
+    /// <summary>
+    /// Left or right button
+    /// </summary>
+    /// <param name="indexChange"></param>
     public void Button(int indexChange)
     {
-        if (lerp)
+        if (lerpPosition || lerpColor)
             return;
+
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         this.indexChange = indexChange;
         IndexCheck();
         SetImages();
         PlayButtonCheck();
-        lerp = true;
+        lerpPosition = true;
     }
 
+    /// <summary>
+    /// Play selected level
+    /// </summary>
     public void PlayButton()
     {
 
     }
 
+    /// <summary>
+    /// Set play button to active when you are allowed to play this level
+    /// </summary>
     void PlayButtonCheck()
     {
-        playButton.SetActive(currentIndex < PlayerPrefs.GetInt("CurrentLevel") - minusBasicScenes);
+        playButton.SetActive(currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"));
     }
 }
