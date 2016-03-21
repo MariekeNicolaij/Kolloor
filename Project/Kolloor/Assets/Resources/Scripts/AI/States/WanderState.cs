@@ -14,8 +14,29 @@ namespace AI.States
 
         public override void Enter()
         {
-            if (Owner.posToWalkTo == Vector3.zero)
-                Owner.posToWalkTo = Owner.aiManager.CreateRandomPoint();
+            LayerMask areas = new LayerMask();
+
+            switch (Owner.type)
+            {
+                case AITypes.BaseAI:
+                    break;
+                case AITypes.GroundAI:
+                    if (!groundOwner)
+                        groundOwner = (GroundAI)Owner;
+
+                    areas = 1 << NavMesh.GetAreaFromName("Terrain") << NavMesh.GetAreaFromName("Walkable");
+
+                    if (Owner.posToWalkTo == Vector3.zero)
+                        Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
+
+                    break;
+                case AITypes.WaterAI:
+                    break;
+                default:
+                    break;
+            }
+
+
         }
 
         public override void Execute()
@@ -36,12 +57,10 @@ namespace AI.States
 
         private void GroundExecute()
         {
-            if (!groundOwner)
-                groundOwner = (GroundAI)Owner;
-
             if (Vector3.Distance(groundOwner.transform.position, Owner.posToWalkTo) <= Owner.maxPointDistance)
             {
-                Owner.posToWalkTo = Owner.aiManager.CreateRandomPoint();
+                Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, NavMesh.GetAreaFromName("Terrain"));
+                groundOwner.destinationset = false;
             }
             else
             {
