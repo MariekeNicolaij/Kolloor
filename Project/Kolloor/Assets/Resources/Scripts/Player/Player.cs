@@ -121,12 +121,7 @@ public class Player : MonoBehaviour
     {
         AudioManager.instance.PlaySound(AudioCategory.Shoot, false, true);
 
-        if (MajorLazer.Shoot())
-        {
-
-            StopCoroutine(MajorLazer.LaserEffect(1));
-            StartCoroutine(MajorLazer.LaserEffect(1));
-        }
+        StartCoroutine(MajorLazer.LaserEffect(MajorLazer.Shoot()));
 
         if (!puzzleObject)
             return;
