@@ -17,7 +17,7 @@ NavMeshAreas:
     cost: 0.5
   - name: Water
     cost: 1
-  - name: 
+  - name: Fallen Donald Trunk
     cost: 1
   - name: 
     cost: 1

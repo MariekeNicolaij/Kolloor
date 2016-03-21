@@ -52,6 +52,8 @@ public class Options : MonoBehaviour
         PlayerPrefs.DeleteAll();
         if (PlayerPrefs.GetInt("CurrentLevel") < (int)Scenes.Level1)
             StartMenu.instance.continueButton.SetActive(false);
+        PlayerPrefs.SetInt("CurrentLevel", (int)Scenes.Level1);
+        Levels.instance.Start();
     }
 
     public void Back()

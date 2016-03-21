@@ -27,7 +27,10 @@ public class NextLevelPortal : MonoBehaviour
     {
         Lerp();
         if (Input.GetKeyDown(KeyCode.N))
+        {
+            Debug.Log("Achievement unlocked! : Cheater!");
             NextLevelCheck();
+        }
     }
 
     void Lerp()
@@ -63,6 +66,7 @@ public class NextLevelPortal : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            PlayerPrefs.SetInt("CurrentLevel", nextLevel);
             PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Credits);
             Application.LoadLevel("Loading");
         }
