@@ -20,6 +20,9 @@ public class LaserGun
 
     public GameObject Laser;
 
+    [Range(0, 5)]
+    public float LaserOnFor = 0.4f;
+
     private GameObject HoldingObject;
 
     private Player player;
@@ -34,7 +37,7 @@ public class LaserGun
 
     private GameObject RaycastObject;
 
-    private LineRenderer Line;
+    private ParticleSystem Line;
 
     private bool showLaser = false;
 
@@ -52,11 +55,12 @@ public class LaserGun
         if (!Laser)
             Debug.LogError("add an laser gameobject to the player in the laser gun");
 
-        if (!Laser.GetComponent<LineRenderer>())
+        if (!Laser.GetComponent<ParticleSystem>())
             Debug.LogError("Laser is not set, it should be a gameobject with only a line renderer");
         else {
-            Line = Laser.GetComponent<LineRenderer>();
-            Line.enabled = false;
+            Line = Laser.GetComponent<ParticleSystem>();
+            if (Laser.activeSelf)
+                Laser.SetActive(false);
         }
     }
 
@@ -99,6 +103,7 @@ public class LaserGun
         {
             DropCurrentObject();
         }
+
         return false;
     }
 
@@ -147,30 +152,41 @@ public class LaserGun
         HoldingObject = null;
     }
 
-    public IEnumerator LaserEffect(int time)
+    public IEnumerator LaserEffect(bool ShootSomeThing)
     {
-        Line.enabled = true;
+        Laser.SetActive(true);
 
-        float cTime = 0;
+        float lifeTime = Line.startLifetime;
 
-        while (time < time * 100 && showLaser)
+        if (ShootSomeThing)
         {
-            Line.SetPosition(0, ObjectHolder.transform.position);
-            if (RaycastObject != null)
+            while (showLaser)
             {
-                Line.SetPosition(1, RaycastObject.transform.position);
-            }
-            else
-            {
-                Line.SetPosition(1, HoldingObject.transform.position);
+                Laser.transform.LookAt(HoldingObject.transform.position);
+
+                Line.startLifetime -= Time.deltaTime * .1f;
+
+                yield return null;
             }
 
-            cTime += Time.smoothDeltaTime;
+            Line.startLifetime = lifeTime;
+        }
+        else
+        {
+            float timer = 0;
 
-            yield return null;
+            while (timer <= LaserOnFor)
+            {
+
+                timer += Time.deltaTime;
+
+                Laser.transform.Rotate(Vector3.zero);
+
+                yield return null;
+            }
         }
 
-        Line.enabled = false;
+        Laser.SetActive(false);
     }
 
     private void TreatGameObject()
@@ -204,6 +220,8 @@ public class LaserGun
             HoldingObject = originalObject;
 
             currentParticleSystem.startColor = Color.red;
+
+            rigidBody = AI.GetComponentInParent<Rigidbody>();
         }
         else
             RaycastObject.transform.parent = ObjectHolder.transform.parent;

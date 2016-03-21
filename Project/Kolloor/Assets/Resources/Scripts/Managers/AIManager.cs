@@ -24,14 +24,32 @@ namespace Managers
         #endregion
 
         private Collider terrainCollider;
-        private Terrain terrain;
+
+        public int WaypointAmound = 100;
+
+        private List<Vector3> TerrainWayPoints = new List<Vector3>();
+        private List<Vector3> WaterWayPoints = new List<Vector3>();
+
+        public Terrain terrain;
+        public GameObject Water;
+
+        private bool IceLevel = false;
 
         void Awake()
         {
             instance = this;
 
-            terrain = Terrain.activeTerrain;
-            terrainCollider = Terrain.activeTerrain.GetComponent<Collider>();
+            if (terrain == null)
+                Debug.LogError("the ai manager needs the terrain");
+            if (Water == null)
+            {
+                Debug.LogWarning("Ai manager doesn't contain an WaterGameobject, if this is an ice level it isn't a problem, else ad water");
+                IceLevel = true;
+            }
+
+            terrainCollider = terrain.GetComponent<Collider>();
+
+            CreateRandomPoints();
         }
 
         void Update()
@@ -42,26 +60,132 @@ namespace Managers
 
                 if (timer >= TimeTillHelp * 10)
                     AiHelp(true);
+            }
 
+            if (!IceLevel && WaterWayPoints.Count <= 5)
+            {
+                NavMeshHit hit = new NavMeshHit();
+
+                LayerMask area = 1 << NavMesh.GetAreaFromName("Water");
+
+                for (int i = 0; i < 5; i++)
+                {
+                    if (NavMesh.SamplePosition(TerrainWayPoints[i], out hit, 100, area)) ;
+                    WaterWayPoints.Add(hit.position);
+
+                }
             }
         }
 
-        /// <summary>
-        /// for getting an Random point within the navmesh;
-        /// </summary>
-        /// <returns> returns a random vector3 within the nav mesh </returns>
-        public Vector3 CreateRandomPoint()
+        private void CreateRandomPoints()
+        {
+            for (int i = 0; i < WaypointAmound; i++)
+            {
+                CreateRandomPoint();
+            }
+        }
+
+        private void CreateRandomPoint(int index = -1, Vector3 pos = new Vector3())
         {
             Vector3 vec = new Vector3();
 
-                vec.x = Random.Range(terrain.transform.position.x, terrainCollider.bounds.size.x);
-                vec.z = Random.Range(terrain.transform.position.z, terrainCollider.bounds.size.z);
+            vec.x = Random.Range(terrain.transform.position.x, terrainCollider.bounds.size.x);
+            vec.z = Random.Range(terrain.transform.position.z, terrainCollider.bounds.size.z);
+            vec.y = terrain.SampleHeight(vec);
 
-            NavMeshHit hit;
+            if (IceLevel)
+            {
+                if (index == -1)
+                    TerrainWayPoints.Add(vec);
+                else
+                    TerrainWayPoints[index] = vec;
+            }
+            else
+            {
+                if (index != -1)
+                {
+                    if (TerrainWayPoints[index] == pos)
+                        TerrainWayPoints.Remove(pos);
+                    else
+                        WaterWayPoints.Remove(pos);
+                }
 
-            NavMesh.SamplePosition(vec, out hit, terrainCollider.bounds.size.x, NavMesh.AllAreas);
+                if (vec.y < Water.transform.position.y)
+                {
+                    vec.y = Water.transform.position.y;
+                    WaterWayPoints.Add(vec);
+                }
+                else
+                    TerrainWayPoints.Add(vec);
+            }
+        }
 
-            return hit.position;
+        public Vector3 GetRandomPoint(Vector3 pos, AITypes aiType, LayerMask area = new LayerMask())
+        {
+            List<Vector3> list = new List<Vector3>();
+
+            bool Return = false;
+
+            switch (aiType)
+            {
+                case AITypes.GroundAI:
+                    list = TerrainWayPoints;
+                    break;
+                case AITypes.WaterAI:
+                    if (!IceLevel)
+                        list = WaterWayPoints;
+                    else
+                        Debug.LogError("there is no water in the Ai manager");
+                    break;
+                default:
+                    Debug.LogError("there is no Return for this ai type" + aiType);
+                    Return = true;
+                    break;
+            }
+
+            if (Return)
+                return Vector3.zero;
+
+            int index = Random.Range(0, list.Count - 1);
+
+            Vector3 vec = list[index];
+
+            LayerMask Area = new LayerMask();
+
+            if (area != Area)
+                Area = area;
+            else
+                Area = NavMesh.AllAreas;
+
+            NavMeshPath path = new NavMeshPath();
+
+            NavMeshHit hit = new NavMeshHit();
+
+            if (NavMesh.CalculatePath(pos, vec, Area, path))
+                return vec;
+            else if (NavMesh.SamplePosition(vec, out hit, 10, Area))
+                return hit.position;
+            else {
+                Vector3 finalpos = new Vector3();
+
+                while (!NavMesh.CalculatePath(pos, finalpos, Area, path))
+                {
+                    CreateRandomPoint(index, vec);
+                    if (index >= list.Count -1 )
+                        index++;
+                    else
+                        index = 0;
+                    vec = list[index];
+
+                    if (NavMesh.CalculatePath(pos, vec, Area, path))
+                        return vec;
+                    else if (NavMesh.SamplePosition(vec, out hit, 10, Area))
+                        return hit.position;
+                }
+            }
+
+            Debug.LogError("not sure what happened here but it's not good");
+            return new Vector3();
         }
 
         #region AI ID system

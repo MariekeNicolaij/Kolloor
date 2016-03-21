@@ -9,19 +9,8 @@ namespace AI
     {
         #region hoper
         public bool HopOn = true;
-        [Range(1, 10)]
-        public float HopHeight = 5;
 
-        public float HopSpeed = 1;
-
-        private GameObject HoppingObject;
-        private Rigidbody HoppingObjectRigidBody;
-
-        private bool up = true;
-
-        private bool groundContact = true;
-
-        private bool addedForce = false;
+        public Animation HopAnimation;
         #endregion
 
         #region Random AI Stopper
@@ -41,9 +30,12 @@ namespace AI
         private bool stop = false;
         #endregion
 
-        protected NavMeshAgent agent;
+        public NavMeshAgent agent;
 
         private bool EnableAgent = false;
+
+        [HideInInspector]
+        public bool destinationset = false;
 
         protected override void Start()
         {
@@ -55,17 +47,16 @@ namespace AI
             if (agent == null)
                 agent = gameObject.AddComponent<NavMeshAgent>();
 
-            if (HopOn)
-                HoppingObject = transform.GetChild(0).gameObject;
+            agent.speed = MovementSpeed;
 
-            HoppingObjectRigidBody = HoppingObject.GetComponent<Rigidbody>();
+            if (HopOn)
+                if (!HopAnimation)
+                    HopAnimation = GetComponent<Animation>();
         }
 
         protected override void Update()
         {
             base.Update();
-
-
 
             if (EnableAgent)
             {
@@ -78,11 +69,19 @@ namespace AI
             }
         }
 
+        public void Stop()
+        {
+            agent.Stop();
+
+            if (HopAnimation.isPlaying)
+                HopAnimation.Stop();
+        }
+
         public override void Move()
         {
             if (StopRandom)
             {
-                if (stop && groundContact)
+                if (stop)
                 {
                     counter += Time.smoothDeltaTime;
                     if (counter >= waitFor)
@@ -92,19 +91,21 @@ namespace AI
                         timeTillWait = Random.Range(1, WaitRaid);
                     }
                     agent.Stop();
+
+                    if (HopAnimation.isPlaying)
+                        HopAnimation.wrapMode = WrapMode.Once;
                 }
                 else
                 {
-                    if (!stop)
+
+                    counter += Time.smoothDeltaTime;
+                    if (counter >= timeTillWait)
                     {
-                        counter += Time.smoothDeltaTime;
-                        if (counter >= timeTillWait)
-                        {
-                            stop = true;
-                            counter = 0;
-                            waitFor = Random.Range(MinRandomStopTime, MaxRandomStopTime);
-                        }
+                        stop = true;
+                        counter = 0;
+                        waitFor = Random.Range(MinRandomStopTime, MaxRandomStopTime);
                     }
+
                     MoveForward();
                 }
             }
@@ -117,46 +118,21 @@ namespace AI
 
         protected override void MoveForward()
         {
-            float hop = Time.smoothDeltaTime * HopSpeed;
-
-            //Debug.Log("smoothdeltatime = " + Time.smoothDeltaTime);
-            if (HopOn)
+            if (HopOn && !HopAnimation.isPlaying)
             {
-                Debug.Log(up);
-                if (up)
-                {
-                    if (groundContact)
-                        groundContact = false;
-
-                    Vector3 pos = HoppingObject.transform.position;
-                    pos.y += hop;
-                    HoppingObject.transform.position = pos;
-
-                    if (HoppingObject.transform.position.y >= transform.position.y + HopHeight)
-                    {
-                        //HoppingObjectRigidBody.velocity = Vector3.zero;
-                        up = false;
-                        //addedForce = false;
-                    }
-                }
-                else
-                {
-                    Vector3 pos = HoppingObject.transform.position;
-                    pos.y -= hop;
-                    HoppingObject.transform.position = pos;
-
-                    if (HoppingObject.transform.position.y <= transform.position.y)
-                    {
-                        //HoppingObjectRigidBody.velocity = Vector3.zero;
-                        groundContact = true;
-                        up = true;
-                        //addedForce = false;
-                    }
-                }
+                HopAnimation.wrapMode = WrapMode.Loop;
+                HopAnimation.Play();
             }
 
-            if (agent.destination != lookAt)
+            Debug.DrawLine(transform.position, lookAt, Color.blue);
+
+            Debug.Log(agent.destination);
+
+            if (!destinationset)
+            {
+                destinationset = true;
                 agent.SetDestination(lookAt);
+            }
             else
                 agent.Resume();
         }
@@ -164,11 +140,13 @@ namespace AI
         public override void LookAt(Vector3 placeToLookTo)
         {
             lookAt = placeToLookTo;
+            //if (agent.hasPath)
+            //    transform.LookAt(agent.nextPosition);
         }
 
         public override void LookAt(GameObject objectToLookTo)
         {
-            base.LookAt(objectToLookTo);
+            LookAt(objectToLookTo.transform.position);
         }
 
         public override void HelpPlayer(bool help)
@@ -180,6 +158,9 @@ namespace AI
         {
             base.PickUp();
             agent.enabled = false;
+
+            if (HopAnimation.isPlaying)
+                HopAnimation.wrapMode = WrapMode.Once;
         }
 
         public override void DropDown()
