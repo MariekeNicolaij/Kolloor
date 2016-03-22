@@ -18,6 +18,8 @@ namespace AI
         public Vector3 posToWalkTo = Vector3.zero;
         #endregion
 
+        private GameObject Water;
+
         public int ID
         {
             private set;
@@ -48,6 +50,7 @@ namespace AI
         private Vector3 startPos;
         #endregion
 
+        [HideInInspector]
         public AITypes type = AITypes.BaseAI;
 
         protected Rigidbody rigidBody;
@@ -79,12 +82,9 @@ namespace AI
         protected virtual void Update()
         {
             stateManager.Update();
-
-            if (transform.position.y < MaxFallDepth)
-                Respawn();
         }
 
-        private void Respawn()
+        protected void Respawn()
         {
             rigidBody.velocity = Vector3.zero;
             transform.position = startPos;

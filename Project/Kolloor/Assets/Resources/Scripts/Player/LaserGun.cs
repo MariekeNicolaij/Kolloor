@@ -139,8 +139,6 @@ public class LaserGun
             rigidBody.useGravity = true;
             rigidBody.constraints = RigidbodyConstraints.None;
 
-            Debug.Log(dropforceBuilder);
-
             if (DropWithForce)
                 rigidBody.AddForce(Camera.main.ViewportPointToRay(new Vector3(.5f, .5f)).direction * dropforceBuilder, ForceMode.Impulse);
         }
@@ -192,8 +190,6 @@ public class LaserGun
     private void TreatGameObject()
     {
         Rigidbody rigidBody = RaycastObject.GetComponent<Rigidbody>();
-
-        Debug.Log(rigidBody);
 
         if (RaycastObject.layer == (int)Layers.PuzzleObject && rigidBody.GetComponent<PuzzleObject>().active)
         {
@@ -252,7 +248,6 @@ public class LaserGun
 
                     if (currentParticleSystem != null)
                         currentParticleSystem.gameObject.SetActive(false);
-
 
                     currentParticleSystem = RaycastObject.GetComponentInChildren<ParticleSystem>(true);
                     currentParticleSystem.gameObject.SetActive(true);

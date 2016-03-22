@@ -14,8 +14,6 @@ namespace Managers
 
         private State defaultState;
 
-        private AITypes ownerType = AITypes.BaseAI;
-
         /// <summary>
         /// Constructor
         /// </summary>

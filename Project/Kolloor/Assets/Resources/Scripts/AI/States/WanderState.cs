@@ -10,7 +10,7 @@ namespace AI.States
         private bool wait = false;
         private float WaitTime = 0;
 
-        private GroundAI groundOwner;
+        private GroundWaterBaseAI groundWaterOwner;
 
         public override void Enter()
         {
@@ -21,16 +21,20 @@ namespace AI.States
                 case AITypes.BaseAI:
                     break;
                 case AITypes.GroundAI:
-                    if (!groundOwner)
-                        groundOwner = (GroundAI)Owner;
+                    if (!groundWaterOwner)
+                        groundWaterOwner = (GroundWaterBaseAI)Owner;
 
                     areas = 1 << NavMesh.GetAreaFromName("Terrain") << NavMesh.GetAreaFromName("Walkable");
 
-                    if (Owner.posToWalkTo == Vector3.zero)
-                        Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
-
+                    Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
                     break;
                 case AITypes.WaterAI:
+                    if (!groundWaterOwner)
+                        groundWaterOwner = (GroundWaterBaseAI)Owner;
+
+                    areas = groundWaterOwner.agent.areaMask;
+
+                    Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
                     break;
                 default:
                     break;
@@ -46,21 +50,22 @@ namespace AI.States
                 case AITypes.BaseAI:
                     break;
                 case AITypes.GroundAI:
-                    GroundExecute();
+                    GroundWaterExecute();
                     break;
                 case AITypes.WaterAI:
+                    GroundWaterExecute();
                     break;
                 default:
                     break;
             }
         }
 
-        private void GroundExecute()
+        private void GroundWaterExecute()
         {
-            if (Vector3.Distance(groundOwner.transform.position, Owner.posToWalkTo) <= Owner.maxPointDistance)
+            if (Vector3.Distance(Owner.transform.position, Owner.posToWalkTo) <= Owner.maxPointDistance)
             {
                 Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, NavMesh.GetAreaFromName("Terrain"));
-                groundOwner.destinationset = false;
+                groundWaterOwner.destinationset = false;
             }
             else
             {
