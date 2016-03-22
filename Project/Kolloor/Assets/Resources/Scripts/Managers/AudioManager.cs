@@ -38,7 +38,6 @@ public class AudioManager : MonoBehaviour
         else                                        // if not then set up audiomanager
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
 
             audioListener = FindObjectOfType<AudioListener>().gameObject;
             cam = Camera.main.gameObject;
