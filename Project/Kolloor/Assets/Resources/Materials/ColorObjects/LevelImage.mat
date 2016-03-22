@@ -104,6 +104,10 @@ Material:
         second: 0.7
       data:
         first:
+          name: _Parallax
+        second: 0.02
+      data:
+        first:
           name: Smoothness
         second: 0.5
       data:
@@ -113,11 +117,7 @@ Material:
       data:
         first:
           name: ColorRadius
-        second: 0
-      data:
-        first:
-          name: _Parallax
-        second: 0.02
+        second: 1500
       data:
         first:
           name: _ZWrite
@@ -165,9 +165,9 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 0}
       data:
         first:
-          name: ColorStartPoint
-        second: {r: 833, g: 498, b: 0, a: 0}
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
-          name: _Emission
+          name: ColorStartPoint
         second: {r: 0, g: 0, b: 0, a: 0}

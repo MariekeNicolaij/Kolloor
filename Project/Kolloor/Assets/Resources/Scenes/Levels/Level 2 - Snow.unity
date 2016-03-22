@@ -26804,6 +26804,10 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: be4a101518aab5a45baa0bef017c04d6, type: 3}
   m_PrefabInternal: {fileID: 2034230597}
+--- !u!1 &1449187836 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 154566, guid: dc42547240993004ab312a7e8e98ccbc, type: 2}
+  m_PrefabInternal: {fileID: 1465983751}
 --- !u!1 &1450250788
 GameObject:
   m_ObjectHideFlags: 0
@@ -27243,6 +27247,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11469560, guid: dc42547240993004ab312a7e8e98ccbc, type: 2}
+      propertyPath: MajorLazer.Laser
+      value: 
+      objectReference: {fileID: 1449187836}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc42547240993004ab312a7e8e98ccbc, type: 2}
   m_IsPrefabParent: 0
@@ -27669,14 +27677,14 @@ MonoBehaviour:
   MaxWaitTime: 5
   MaxFallDepth: -10
   type: 1
-  HopOn: 1
-  HopAnimation: {fileID: 1483549236}
   StopRandom: 1
   MinRandomStopTime: 0
   MaxRandomStopTime: 1
   WaitRaid: 7
   agent: {fileID: 0}
   destinationset: 0
+  HopOn: 1
+  HopAnimation: {fileID: 1483549236}
 --- !u!111 &1483549236
 Animation:
   m_ObjectHideFlags: 0

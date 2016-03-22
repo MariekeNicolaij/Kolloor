@@ -33,22 +33,25 @@ public class Levels : MonoBehaviour
     void Awake()
     {
         instance = this;
+        GetImages();
+
     }
 
     public void Start()
     {
-        currentLevelIndex = 0;
+        if (!levelsParent.activeInHierarchy)
+            return;
 
-        GetImages();
         IndexCheck();
         SetImages();
         SetLockImages();
+        PlayButtonCheck();
 
         lerpColor = true;
     }
 
     /// <summary>
-    /// Get all level images and lock image
+    /// Get all level images of the first children and get lock image
     /// </summary>
     void GetImages()
     {
@@ -58,7 +61,7 @@ public class Levels : MonoBehaviour
         foreach (Transform t in levelsParent.transform)
             levelImages.Add(t.GetComponent<Image>());
 
-        startPosition = levelImages[currentLevelIndex].transform.position;
+        startPosition = levelImages[currentLevelIndex].transform.localPosition;
     }
 
     /// <summary>
@@ -69,8 +72,10 @@ public class Levels : MonoBehaviour
         if (locksSet)
             return;
 
+        //Debug.Log("MaxLevelIndex: " + maxLevelIndex);
         for (int i = PlayerPrefs.GetInt("CurrentLevel") + 1; i <= maxLevelIndex; i++)     // +1 because nextlevel
         {
+            //Debug.Log("CurrentLevel: " + i);
             GameObject go = new GameObject();
             go.AddComponent<Image>().sprite = lockImage;
             go.transform.SetParent(levelImages[i].transform);
@@ -96,12 +101,12 @@ public class Levels : MonoBehaviour
 
         if (lerpTime > 0)
         {
-            levelImages[lastLevelIndex].transform.position += (Vector3.left * indexChange).normalized * lerpSpeed;
+            levelImages[lastLevelIndex].transform.localPosition += (Vector3.left * indexChange).normalized * lerpSpeed;
             levelImages[lastLevelIndex].transform.localScale *= lerpTime;
         }
         else
         {
-            levelImages[lastLevelIndex].transform.position = startPosition;
+            levelImages[lastLevelIndex].transform.localPosition = startPosition;
             levelImages[lastLevelIndex].transform.localScale = Vector3.one;
             levelImages[lastLevelIndex].gameObject.SetActive(false);
             lerpTime = 1;
@@ -115,7 +120,8 @@ public class Levels : MonoBehaviour
     /// </summary>
     void LerpColor()
     {
-        if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel") - 1)       // -1 because the current yet not completed level needs to stay gray
+        levelImageMaterial.SetVector("ColorStartPoint", levelImages[currentLevelIndex].sprite.bounds.center);
+        if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"))
             levelImageMaterial.SetFloat("ColorRadius", colorRadius);
         else
             lerpColor = false;
@@ -178,7 +184,9 @@ public class Levels : MonoBehaviour
     /// </summary>
     public void PlayButton()
     {
-
+        int standardScenes = 3;         // Start, Loading, Credits
+        PlayerPrefs.SetInt("LoadLevel", currentLevelIndex+standardScenes);
+        Application.LoadLevel("Loading");
     }
 
     /// <summary>

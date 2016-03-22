@@ -63,7 +63,8 @@ public class NextLevelPortal : MonoBehaviour
         int nextLevelIndex = currentLevelIndex + 1;
         int maxLevelIndex = Application.levelCount - standardScenes - 1;     // -1 because index
 
-        PlayerPrefs.SetInt("CurrentLevel", nextLevelIndex);
+        if (PlayerPrefs.GetInt("CurrentLevel") <= nextLevelIndex)
+            PlayerPrefs.SetInt("CurrentLevel", nextLevelIndex);
 
         if (currentLevelIndex == maxLevelIndex)
         {
@@ -74,7 +75,7 @@ public class NextLevelPortal : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetInt("LoadLevel", nextLevelIndex+standardScenes);
+            PlayerPrefs.SetInt("LoadLevel", nextLevelIndex + standardScenes);
             Application.LoadLevel("Loading");
         }
     }

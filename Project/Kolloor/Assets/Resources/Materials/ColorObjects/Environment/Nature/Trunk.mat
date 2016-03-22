@@ -106,7 +106,7 @@ Material:
       data:
         first:
           name: ColorRadius
-        second: 116.92522
+        second: 0
       data:
         first:
           name: _ZWrite

@@ -2333,7 +2333,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 58a4bcc946e62174fae955b436580b97, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2710,9 +2710,6 @@ MonoBehaviour:
   soundGroups:
   - category: 0
     sounds:
-    - {fileID: 8300000, guid: a8463132521c0c54ab8e52c5a0660ac9, type: 3}
-    - {fileID: 8300000, guid: 60f4949fe38c64a4aaf4faf9a169b17f, type: 3}
-    - {fileID: 8300000, guid: 783138153ddf1d9468a673b336a3a140, type: 3}
     - {fileID: 8300000, guid: 6b820c4ab2cbc2246a45a3b1fd339bb3, type: 3}
 --- !u!4 &858956936
 Transform:
