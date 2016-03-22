@@ -14,30 +14,36 @@ public class Levels : MonoBehaviour
     Sprite lockImage;
     List<Image> levelImages = new List<Image>();
     List<Image> lockImages = new List<Image>();
-    List<GameObject> lockedLevels = new List<GameObject>();
 
     Vector3 startPosition;
 
     int lastLevelIndex;
     int currentLevelIndex = 0;
     int maxLevelIndex;
-    int indexChange;
+    int indexChange = 0;
 
     float lerpTime = 1;
     float lerpSpeed = 30;
     float colorRadius;
 
+    bool locksSet = false;
     bool lerpPosition, lerpColor;
 
 
-    public void Start()
+    void Awake()
     {
         instance = this;
+    }
+
+    public void Start()
+    {
+        currentLevelIndex = 0;
 
         GetImages();
         IndexCheck();
         SetImages();
         SetLockImages();
+
         lerpColor = true;
     }
 
@@ -46,11 +52,12 @@ public class Levels : MonoBehaviour
     /// </summary>
     void GetImages()
     {
+        levelImages.Clear();
         lockImage = Resources.Load<Sprite>("UI/Levels/Lock");
 
-        foreach (Image i in levelsParent.GetComponentsInChildren<Image>())
-            levelImages.Add(i);
-        levelImages[currentLevelIndex].gameObject.SetActive(true);
+        foreach (Transform t in levelsParent.transform)
+            levelImages.Add(t.GetComponent<Image>());
+
         startPosition = levelImages[currentLevelIndex].transform.position;
     }
 
@@ -59,13 +66,17 @@ public class Levels : MonoBehaviour
     /// </summary>
     void SetLockImages()
     {
-        for (int i = PlayerPrefs.GetInt("CurrentLevel"); i <= maxLevelIndex; i++)
+        if (locksSet)
+            return;
+
+        for (int i = PlayerPrefs.GetInt("CurrentLevel") + 1; i <= maxLevelIndex; i++)     // +1 because nextlevel
         {
             GameObject go = new GameObject();
             go.AddComponent<Image>().sprite = lockImage;
             go.transform.SetParent(levelImages[i].transform);
             go.transform.localPosition = Vector3.zero;
         }
+        locksSet = true;
     }
 
     void Update()
@@ -104,11 +115,13 @@ public class Levels : MonoBehaviour
     /// </summary>
     void LerpColor()
     {
-        float maxRadius = 600;
-        colorRadius += lerpSpeed;
-
-        if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"))
+        if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel") - 1)       // -1 because the current yet not completed level needs to stay gray
             levelImageMaterial.SetFloat("ColorRadius", colorRadius);
+        else
+            lerpColor = false;
+
+        float maxRadius = 1500;
+        colorRadius += lerpSpeed;
 
         if (colorRadius > maxRadius)
         {
@@ -117,10 +130,6 @@ public class Levels : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Index out of range exception method
-    /// </summary>
-    /// <param name="indexChange"></param>
     void IndexCheck()
     {
         maxLevelIndex = levelImages.Count - 1;         // -1 because index
@@ -177,6 +186,6 @@ public class Levels : MonoBehaviour
     /// </summary>
     void PlayButtonCheck()
     {
-        playButton.SetActive(currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"));
+        playButton.SetActive(currentLevelIndex <= PlayerPrefs.GetInt("CurrentLevel"));
     }
 }
