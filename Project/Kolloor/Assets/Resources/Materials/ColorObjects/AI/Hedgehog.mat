@@ -106,7 +106,7 @@ Material:
       data:
         first:
           name: ColorRadius
-        second: 0
+        second: 116.92522
       data:
         first:
           name: _ZWrite
@@ -147,8 +147,8 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.2205882, g: 0.14148071, b: 0, a: 1}
+        second: {r: 0.29411763, g: 0.141, b: 0, a: 1}
       data:
         first:
           name: ColorStartPoint
-        second: {r: 73.56501, g: 2.97464, b: 25.507246, a: 0}
+        second: {r: 16.062685, g: 0.9787658, b: 3.2394786, a: 0}
