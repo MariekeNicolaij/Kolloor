@@ -19,7 +19,7 @@ public class StartMenu : MonoBehaviour
     void Awake()
     {
         instance = this;
-        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1-standardScenes&& PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount);
+        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1-standardScenes&& PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount-standardScenes);
     }
 
     public void Continue()
@@ -70,7 +70,7 @@ public class StartMenu : MonoBehaviour
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         PlayerPrefs.SetInt("CurrentLevel", (int)Scenes.Level1 - standardScenes);
-        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1 && PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount);
+        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1 && PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount - standardScenes);
         PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Level1);
         Application.LoadLevel("Loading");
     }

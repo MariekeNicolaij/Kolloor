@@ -100,18 +100,6 @@ Material:
         second: 0.5
       data:
         first:
-          name: Smoothness
-        second: 0.5
-      data:
-        first:
-          name: Metallicness
-        second: 0
-      data:
-        first:
-          name: ColorRadius
-        second: 0
-      data:
-        first:
           name: _Parallax
         second: 0.02
       data:
@@ -146,6 +134,18 @@ Material:
         first:
           name: _Mode
         second: 0
+      data:
+        first:
+          name: Smoothness
+        second: 0.5
+      data:
+        first:
+          name: Metallicness
+        second: 0
+      data:
+        first:
+          name: ColorRadius
+        second: 286.03564
     m_Colors:
       data:
         first:
@@ -162,4 +162,4 @@ Material:
       data:
         first:
           name: ColorStartPoint
-        second: {r: 65.97, g: 2.9738503, b: 32.83, a: 0}
+        second: {r: 5.9896417, g: 2.9738503, b: 22.872269, a: 0}

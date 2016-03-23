@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     float jumpSpeed = 4;
     float gravity = 9.81f;
 
+    Transform t;
 
     void Start()
     {
@@ -44,6 +45,12 @@ public class Player : MonoBehaviour
         Gravity();
         Respawn();
         MajorLazer.Update();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("Achievement unlocked! : Image fix");
+            t.Translate(Vector3.zero);
+        }
     }
 
     void OnTriggerEnter(Collider other)
