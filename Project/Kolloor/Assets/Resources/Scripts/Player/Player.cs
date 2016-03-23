@@ -91,6 +91,15 @@ public class Player : MonoBehaviour
         characterController.Move(moveDirection * Time.smoothDeltaTime);
     }
 
+    bool CanMoveForward()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
+            if (hit.collider)
+                return false;
+        return true;
+    }
+
     public void Move(float horizontalAxis, float verticalAxis)
     {
         float speed;
@@ -102,8 +111,9 @@ public class Player : MonoBehaviour
         else
             speed = moveSpeed;
 
+        if (CanMoveForward())
+            transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * speed);
         transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * speed / 2);
-        transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * speed);
     }
 
     public void Jump()
@@ -125,10 +135,6 @@ public class Player : MonoBehaviour
 
         if (!puzzleObject)
             return;
-        //if (canPickup && !pickedUp)
-        //    Pickup();
-        //else if (pickedUp)
-        //    Drop(true);
     }
 
     public void Pause()
