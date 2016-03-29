@@ -37,6 +37,7 @@ public class PuzzleSlot : MonoBehaviour
         {
             ColorManager.instance.UnlockColor(puzzleColor, transform.position, 0.5f);       // Activate color
             AudioManager.instance.PlaySound(AudioCategory.PuzzleSlot);                      // Play sound
+            GetComponent<Collider>().enabled = false;
             lerpToGround = false;
             lerpTime = 0;
         }

@@ -13,18 +13,19 @@ public class StartMenu : MonoBehaviour
     public GameObject levelsObject;
     public GameObject optionsObject;
 
+    int standardScenes = 3;     // -Start -Loading -Credits
+
 
     void Awake()
     {
         instance = this;
-        if (PlayerPrefs.GetInt("CurrentLevel") < (int)Scenes.Level1)
-            continueButton.SetActive(false);
+        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1-standardScenes&& PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount-standardScenes);
     }
 
     public void Continue()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetInt("LoadLevel", PlayerPrefs.GetInt("CurrentLevel"));
+        PlayerPrefs.SetInt("LoadLevel", PlayerPrefs.GetInt("CurrentLevel") + standardScenes);
         Application.LoadLevel("Loading");
     }
 
@@ -35,11 +36,12 @@ public class StartMenu : MonoBehaviour
         newGameObject.SetActive(true);
     }
 
-    public void Levels()
+    public void Level()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         startObject.SetActive(false);
         levelsObject.SetActive(true);
+        Levels.instance.Start();
     }
 
     public void Options()
@@ -67,7 +69,8 @@ public class StartMenu : MonoBehaviour
     public void CreateNewGame()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetInt("CurrentLevel", (int)Scenes.Level1);
+        PlayerPrefs.SetInt("CurrentLevel", (int)Scenes.Level1 - standardScenes);
+        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1 && PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount - standardScenes);
         PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Level1);
         Application.LoadLevel("Loading");
     }

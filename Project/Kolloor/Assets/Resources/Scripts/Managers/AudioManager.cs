@@ -38,17 +38,12 @@ public class AudioManager : MonoBehaviour
         else                                        // if not then set up audiomanager
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
 
             audioListener = FindObjectOfType<AudioListener>().gameObject;
             cam = Camera.main.gameObject;
 
-            musicVolumePercent = PlayerPrefs.GetFloat("MusicVolumePercent");
-            sfxVolumePercent = PlayerPrefs.GetFloat("SfxVolumePercent");
-            if (musicVolumePercent == 0)
-                musicVolumePercent = 0.5f;
-            if (sfxVolumePercent == 0)
-                sfxVolumePercent = 1;
+            musicVolumePercent = PlayerPrefs.HasKey("MusicVolumePercent") ? PlayerPrefs.GetFloat("MusicVolumePercent") : 0.5f;
+            sfxVolumePercent = PlayerPrefs.HasKey("SfxVolumePercent") ? PlayerPrefs.GetFloat("SfxVolumePercent") : 1;
         }
     }
 
@@ -66,11 +61,11 @@ public class AudioManager : MonoBehaviour
         switch (channel)
         {
             case AudioChannel.Music:
-            musicVolumePercent = volumePercent;
-            break;
+                musicVolumePercent = volumePercent;
+                break;
             case AudioChannel.Sfx:
-            sfxVolumePercent = volumePercent;
-            break;
+                sfxVolumePercent = volumePercent;
+                break;
         }
 
         foreach (AudioSource source in audioSources.Values)
@@ -203,11 +198,11 @@ public class AudioManager : MonoBehaviour
             switch (channel)
             {
                 case AudioChannel.Music:
-                source.volume = Random.Range(lowVolumeRange * musicVolumePercent, highVolumeRange * musicVolumePercent);
-                break;
+                    source.volume = Random.Range(lowVolumeRange * musicVolumePercent, highVolumeRange * musicVolumePercent);
+                    break;
                 case AudioChannel.Sfx:
-                source.volume = Random.Range(lowVolumeRange * sfxVolumePercent, highVolumeRange * sfxVolumePercent);
-                break;
+                    source.volume = Random.Range(lowVolumeRange * sfxVolumePercent, highVolumeRange * sfxVolumePercent);
+                    break;
             }
         }
         if (randomPitch)

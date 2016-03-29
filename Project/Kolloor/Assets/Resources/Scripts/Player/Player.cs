@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     float jumpSpeed = 4;
     float gravity = 9.81f;
 
+    Transform t;
 
     void Start()
     {
@@ -44,6 +45,12 @@ public class Player : MonoBehaviour
         Gravity();
         Respawn();
         MajorLazer.Update();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("Achievement unlocked! : Image fix");
+            t.Translate(Vector3.zero);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -91,6 +98,15 @@ public class Player : MonoBehaviour
         characterController.Move(moveDirection * Time.smoothDeltaTime);
     }
 
+    bool CanMoveForward()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
+            if (hit.collider && hit.collider.tag != "Next Level Portal")
+                return false;
+        return true;
+    }
+
     public void Move(float horizontalAxis, float verticalAxis)
     {
         float speed;
@@ -102,8 +118,9 @@ public class Player : MonoBehaviour
         else
             speed = moveSpeed;
 
+        if (CanMoveForward())
+            transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * speed);
         transform.Translate(Vector3.right * horizontalAxis * Time.smoothDeltaTime * speed / 2);
-        transform.Translate(Vector3.forward * verticalAxis * Time.smoothDeltaTime * speed);
     }
 
     public void Jump()
@@ -119,16 +136,12 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-        AudioManager.instance.PlaySound(AudioCategory.Shoot, false, true);
-
+        if (Time.timeScale > 0)
+            AudioManager.instance.PlaySound(AudioCategory.Shoot, false, true);
         StartCoroutine(MajorLazer.LaserEffect(MajorLazer.Shoot()));
 
         if (!puzzleObject)
             return;
-        //if (canPickup && !pickedUp)
-        //    Pickup();
-        //else if (pickedUp)
-        //    Drop(true);
     }
 
     public void Pause()

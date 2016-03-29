@@ -14,44 +14,54 @@ public class Levels : MonoBehaviour
     Sprite lockImage;
     List<Image> levelImages = new List<Image>();
     List<Image> lockImages = new List<Image>();
-    List<GameObject> lockedLevels = new List<GameObject>();
 
     Vector3 startPosition;
 
     int lastLevelIndex;
     int currentLevelIndex = 0;
     int maxLevelIndex;
-    int indexChange;
+    int indexChange = 0;
 
     float lerpTime = 1;
     float lerpSpeed = 30;
     float colorRadius;
 
+    bool locksSet = false;
     bool lerpPosition, lerpColor;
 
 
-    public void Start()
+    void Awake()
     {
         instance = this;
-
         GetImages();
+
+    }
+
+    public void Start()
+    {
+        if (!levelsParent.activeInHierarchy)
+            return;
+
         IndexCheck();
         SetImages();
         SetLockImages();
+        PlayButtonCheck();
+
         lerpColor = true;
     }
 
     /// <summary>
-    /// Get all level images and lock image
+    /// Get all level images of the first children and get lock image
     /// </summary>
     void GetImages()
     {
+        levelImages.Clear();
         lockImage = Resources.Load<Sprite>("UI/Levels/Lock");
 
-        foreach (Image i in levelsParent.GetComponentsInChildren<Image>())
-            levelImages.Add(i);
-        levelImages[currentLevelIndex].gameObject.SetActive(true);
-        startPosition = levelImages[currentLevelIndex].transform.position;
+        foreach (Transform t in levelsParent.transform)
+            levelImages.Add(t.GetComponent<Image>());
+
+        startPosition = levelImages[currentLevelIndex].transform.localPosition;
     }
 
     /// <summary>
@@ -59,13 +69,19 @@ public class Levels : MonoBehaviour
     /// </summary>
     void SetLockImages()
     {
-        for (int i = PlayerPrefs.GetInt("CurrentLevel"); i <= maxLevelIndex; i++)
+        if (locksSet)
+            return;
+
+        //Debug.Log("MaxLevelIndex: " + maxLevelIndex);
+        for (int i = PlayerPrefs.GetInt("CurrentLevel") + 1; i <= maxLevelIndex; i++)     // +1 because nextlevel
         {
+            //Debug.Log("CurrentLevel: " + i);
             GameObject go = new GameObject();
             go.AddComponent<Image>().sprite = lockImage;
             go.transform.SetParent(levelImages[i].transform);
             go.transform.localPosition = Vector3.zero;
         }
+        locksSet = true;
     }
 
     void Update()
@@ -85,12 +101,12 @@ public class Levels : MonoBehaviour
 
         if (lerpTime > 0)
         {
-            levelImages[lastLevelIndex].transform.position += (Vector3.left * indexChange).normalized * lerpSpeed;
+            levelImages[lastLevelIndex].transform.localPosition += (Vector3.left * indexChange).normalized * lerpSpeed;
             levelImages[lastLevelIndex].transform.localScale *= lerpTime;
         }
         else
         {
-            levelImages[lastLevelIndex].transform.position = startPosition;
+            levelImages[lastLevelIndex].transform.localPosition = startPosition;
             levelImages[lastLevelIndex].transform.localScale = Vector3.one;
             levelImages[lastLevelIndex].gameObject.SetActive(false);
             lerpTime = 1;
@@ -104,11 +120,14 @@ public class Levels : MonoBehaviour
     /// </summary>
     void LerpColor()
     {
-        float maxRadius = 600;
-        colorRadius += lerpSpeed;
-
+        levelImageMaterial.SetVector("ColorStartPoint", levelImages[currentLevelIndex].sprite.bounds.center);
         if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"))
             levelImageMaterial.SetFloat("ColorRadius", colorRadius);
+        else
+            lerpColor = false;
+
+        float maxRadius = 1500;
+        colorRadius += lerpSpeed;
 
         if (colorRadius > maxRadius)
         {
@@ -117,10 +136,6 @@ public class Levels : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Index out of range exception method
-    /// </summary>
-    /// <param name="indexChange"></param>
     void IndexCheck()
     {
         maxLevelIndex = levelImages.Count - 1;         // -1 because index
@@ -169,7 +184,9 @@ public class Levels : MonoBehaviour
     /// </summary>
     public void PlayButton()
     {
-
+        int standardScenes = 3;         // Start, Loading, Credits
+        PlayerPrefs.SetInt("LoadLevel", currentLevelIndex+standardScenes);
+        Application.LoadLevel("Loading");
     }
 
     /// <summary>
@@ -177,6 +194,6 @@ public class Levels : MonoBehaviour
     /// </summary>
     void PlayButtonCheck()
     {
-        playButton.SetActive(currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"));
+        playButton.SetActive(currentLevelIndex <= PlayerPrefs.GetInt("CurrentLevel"));
     }
 }
