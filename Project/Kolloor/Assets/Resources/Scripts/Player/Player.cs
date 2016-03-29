@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
-            if (hit.collider)
+            if (hit.collider && hit.collider.tag != "Next Level Portal")
                 return false;
         return true;
     }

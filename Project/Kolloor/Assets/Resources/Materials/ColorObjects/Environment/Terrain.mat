@@ -145,7 +145,7 @@ Material:
       data:
         first:
           name: ColorRadius
-        second: 286.03564
+        second: 1164.9128
     m_Colors:
       data:
         first:
@@ -162,4 +162,4 @@ Material:
       data:
         first:
           name: ColorStartPoint
-        second: {r: 5.9896417, g: 2.9738503, b: 22.872269, a: 0}
+        second: {r: 12.11, g: 0.6877658, b: 97.42, a: 0}

@@ -17,7 +17,7 @@ public class ColorsIngame : MonoBehaviour
 
     bool rainbowTime = false;
 
-    int curIndex = 0, nextIndex;
+    int curRainbowIndex = 0, nextIndex;
     float time;
     float speed = 1;
 
@@ -39,7 +39,7 @@ public class ColorsIngame : MonoBehaviour
 
     void PlaceImagesWithMaterial()
     {
-        float spaceBetweenImages = Screen.width * 0.1f;
+        float spaceBetweenImages = Screen.width * 0.05f;
         int indexFix = 1;
 
         for (int i = 0; i < ColorManager.instance.colorSpreadList.Count; i++)
@@ -69,20 +69,17 @@ public class ColorsIngame : MonoBehaviour
         for (int i = 0; i < colorObjects.Count; i++)
             if (ColorManager.instance.colorSpreadList[i].unlocked)
             {
-                if (colorObjects[i].GetComponent<Image>().color != oldColor[i])
+                if (colorObjects[i].GetComponent<Image>().color != oldColor[i])                                                         // Als deze color nog grijs is
                     colorObjects[i].GetComponent<Image>().color = Color.Lerp(colorObjects[i].GetComponent<Image>().color, oldColor[i], Time.smoothDeltaTime);
-                else if (ColorManager.instance.allColorsUnlocked && colorObjects[i].GetComponent<Image>().color != oldColor[curIndex])
-                {
-                    colorObjects[i].GetComponent<Image>().color = Color.Lerp(colorObjects[i].GetComponent<Image>().color, oldColor[curIndex], time / speed);   //Lerp Color
-                }
-                else
-                    rainbowTime = true;
+                else if (ColorManager.instance.allColorsUnlocked && colorObjects[i].GetComponent<Image>().color != oldColor[curRainbowIndex])  // Anders als alle kleuren terug in de wereld zijn en als regenboog start kleur niet de start kleur heeft van oldColor
+                    colorObjects[i].GetComponent<Image>().color = Color.Lerp(colorObjects[i].GetComponent<Image>().color, oldColor[curRainbowIndex], time / speed);   //Lerp color naar start kleur van oldColor
+                else if (ColorManager.instance.allColorsUnlocked && colorObjects[i].GetComponent<Image>().color == oldColor[curRainbowIndex])   // Anders als de kleuren goed staan.... rainbowTime!
+                    rainbowTime = true; // Lerp colors
             }
     }
 
     void RainbowTime()
     {
-        Debug.Log("Nog niet goed dit");
         if (!rainbowTime)
             return;
 
@@ -94,13 +91,13 @@ public class ColorsIngame : MonoBehaviour
             time = 0;                                               // Reset timer
         }
         for (int i = 0; i < colorObjects.Count; i++)
-            colorObjects[i].GetComponent<Image>().color = Color.Lerp(oldColor[curIndex], oldColor[nextIndex], time / speed);   //Lerp Color
+            colorObjects[i].GetComponent<Image>().color = Color.Lerp(oldColor[curRainbowIndex], oldColor[nextIndex], time / speed);   //Lerp Color
     }
 
     void IndexCheck(int indexChange)
     {
         int maxIndex = oldColor.Count;
-        curIndex = nextIndex;
+        curRainbowIndex = nextIndex;
         nextIndex += indexChange;
 
         if (nextIndex >= maxIndex)

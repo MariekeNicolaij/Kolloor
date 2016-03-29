@@ -2712,7 +2712,7 @@ MonoBehaviour:
   soundGroups:
   - category: 0
     sounds:
-    - {fileID: 8300000, guid: 4b991f5560d577349aaf41e79a837593, type: 3}
+    - {fileID: 8300000, guid: caed4d71947bfc348b131e191b270ec7, type: 3}
   - category: 2
     sounds:
     - {fileID: 8300000, guid: 8d02410fe57bac944b27382466ef8fa9, type: 3}
@@ -63958,6 +63958,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 174634, guid: a0d79dd7f3b90eb41ba19fe0a50f6e7c, type: 2}
       propertyPath: m_Name
+      value: Next Level Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 145200, guid: a0d79dd7f3b90eb41ba19fe0a50f6e7c, type: 2}
+      propertyPath: m_TagString
+      value: Next Level Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 180238, guid: a0d79dd7f3b90eb41ba19fe0a50f6e7c, type: 2}
+      propertyPath: m_TagString
+      value: Next Level Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 101164, guid: a0d79dd7f3b90eb41ba19fe0a50f6e7c, type: 2}
+      propertyPath: m_TagString
+      value: Next Level Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 170824, guid: a0d79dd7f3b90eb41ba19fe0a50f6e7c, type: 2}
+      propertyPath: m_TagString
+      value: Next Level Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 174634, guid: a0d79dd7f3b90eb41ba19fe0a50f6e7c, type: 2}
+      propertyPath: m_TagString
       value: Next Level Portal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
