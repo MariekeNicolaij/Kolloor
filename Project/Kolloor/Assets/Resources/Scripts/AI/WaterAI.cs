@@ -1,74 +1,103 @@
-﻿//using UnityEngine;
-//using Managers;
+﻿using UnityEngine;
+using Managers;
 
-//namespace AI
-//{
-//    public class WaterAI : BaseAI
-//    {
-//        public bool UnderWater = false;
+namespace AI
+{
+    public class WaterAI : GroundWaterBaseAI
+    {
+        public int FallenTrunkLayer = -1;
 
-//        public float MaxAboveWater = 2;
-//        public float MinAboveWater = 2;
+        private bool MoveUp = false;
 
-//        private GameObject Water;
+        bool MoveUpDone = false;
 
-//        protected override void Start()
-//        {
-//            type = AITypes.WaterAI;
+        //private bool dive = false;
+        private GameObject trunk;
+        private Collider trunkCol;
 
-//            base.Start();
+        protected override void Start()
+        {
+            type = AITypes.WaterAI;
 
-//            if (rigidBody.useGravity)
-//                rigidBody.useGravity = false;
+            base.Start();
+        }
 
-//            Water = AIManager.instance.Water;
-//        }
+        protected override void Update()
+        {
+            base.Update();
 
-//        protected override void Update()
-//        {
-//            base.Update();
+            if (MoveUp)
+            {
+                if (transform.position.y-aiManager.Water.transform.position.y > -maxPointDistance)
+                {
+                    transform.Translate(Vector3.up * Time.smoothDeltaTime);
+                }
+                else
+                {
+                    MoveUp = false;
+                    MoveUpDone = true;
+                }
+            }
 
-//            if (!UnderWater)
-//            {
-//                if (transform.position.y < Water.transform.position.y)
-//                    transform.Translate(Vector3.up * Time.smoothDeltaTime);
-//                else if (Water.transform.position.y + MaxAboveWater < transform.position.y)
-//                    transform.Translate(Vector3.down * Time.smoothDeltaTime);
-//            }
-//            else
-//            {
+            //if (dive)
+            //    Dive();
+        }
 
-//            }
-//        }
+        protected override void enableAfterDrop()
+        {
+            if (!MoveUpDone)
+            {
+                if (aiManager.Water.transform.position.y - transform.position.y < 0.1 && aiManager.Water.transform.position.y - transform.position.y > -0.1)
+                    base.enableAfterDrop();
+                else if (aiManager.Water.transform.position.y > transform.position.y)
+                    MoveUp = true;
+                else {
+                    Respawn();
+                    base.enableAfterDrop();
+                }
+            }
+            else
+            {
+                base.enableAfterDrop();
+                MoveUpDone = false;
+            }
+        }
 
-//        public override void MoveForward()
-//        {
-//            Vector3 DownForward = Vector3.forward;
-//            DownForward.y -= .5f;
+        protected override void MoveForward()
+        {
+            //if (dive)
+            //    return;
 
-//            Debug.DrawRay(transform.position, DownForward, Color.blue);
+            //if (FallenTrunkLayer != -1)
+            //{
+            //    RaycastHit hit = new RaycastHit();
 
-//            Ray ray = new Ray(transform.position, DownForward);
-//            RaycastHit hit = new RaycastHit();
+            //    Ray ray = new Ray(transform.position, transform.forward);
 
-//            if (Physics.Raycast(ray, out hit, 1))
-//            {
-//                if (hit.collider.gameObject.layer != (int)Layers.Water)
-//                {
-//                    return;
-//                }
-//            }
-//            base.MoveForward();
-//        }
+            //    Debug.DrawRay(ray.origin, ray.direction);
 
-//        public override void OnCollisionExit(Collision other)
-//        {
-//            base.OnCollisionExit(other);
+            //    if (Physics.Raycast(ray, out hit))
+            //    {
+            //        if (hit.collider.gameObject.layer == FallenTrunkLayer)
+            //        {
+            //            dive = true;
+            //            trunk = hit.collider.gameObject;
+            //            trunkCol = hit.collider;
+            //        }
+            //    }
+            //}
+            base.MoveForward();
+        }
 
-//            if (other.gameObject.layer == (int)Layers.Water)
-//            {
-//                Debug.LogError("WaterAi " + this.ID + " on pos " + transform.position + " isn't in contact with water anymore!");
-//            }
-//        }
-//    }
-//}
+        private void Dive()
+        {
+            if (agent.enabled)
+                agent.enabled = false;
+
+            if (trunk.transform.position.y - (trunkCol.bounds.size.y * .5f) > transform.position.y)
+                transform.Translate(Vector3.down * Time.smoothDeltaTime);
+            else
+                transform.Translate(Vector3.forward * Time.smoothDeltaTime * MovementSpeed);
+        }
+    }
+}

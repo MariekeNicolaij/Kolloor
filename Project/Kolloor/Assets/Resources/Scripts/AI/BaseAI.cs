@@ -9,7 +9,7 @@ namespace AI
     {
         #region Moving Properties
         [Range(1, 10)]
-        public int MovementSpeed = 5;
+        public float MovementSpeed = 5;
 
         [Range(0, 2)]
         public float maxPointDistance = 1;
@@ -32,16 +32,8 @@ namespace AI
             get;
         }
 
-        #region State Stuff
-        [Range(0, 5)]
-        public float MinWaitTime = 2;
-
-        [Range(3, 7)]
-        public float MaxWaitTime = 5;
-
         [HideInInspector]
         public StateManager stateManager;
-        #endregion
 
         #region Out of world Care taking
         [Range(-100, 0)]
@@ -82,6 +74,9 @@ namespace AI
         protected virtual void Update()
         {
             stateManager.Update();
+
+            if (transform.position.y <= MaxFallDepth)
+                Respawn();
         }
 
         protected void Respawn()
@@ -100,7 +95,7 @@ namespace AI
         /// </summary>
         protected virtual void MoveForward()
         {
-            transform.Translate(Vector3.forward);
+            transform.Translate((Vector3.forward * Time.deltaTime) * MovementSpeed);
         }
 
         /// <summary>
@@ -146,10 +141,12 @@ namespace AI
                 stateManager.SwitchToDefault();
         }
 
-        public virtual void PickUp() {
+        public virtual void PickUp()
+        {
             stateManager.ChangeState(new IdleState());
         }
-        public virtual void DropDown() {
+        public virtual void DropDown()
+        {
             stateManager.SwitchToDefault();
         }
 

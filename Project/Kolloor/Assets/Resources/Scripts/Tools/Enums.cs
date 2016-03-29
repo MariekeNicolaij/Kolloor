@@ -34,4 +34,5 @@ public enum AITypes
     BaseAI,
     GroundAI,
     WaterAI,
+    AirAI
 }
