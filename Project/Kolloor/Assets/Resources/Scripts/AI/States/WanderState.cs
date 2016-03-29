@@ -9,13 +9,15 @@ namespace AI.States
         private int corner = 0;
         private bool wait = false;
         private float WaitTime = 0;
+        private LayerMask areas = new LayerMask();
 
         private GroundWaterBaseAI groundWaterOwner;
+        private AirAI airAI;
+
+        private bool hasPath = false;
 
         public override void Enter()
         {
-            LayerMask areas = new LayerMask();
-
             switch (Owner.type)
             {
                 case AITypes.BaseAI:
@@ -32,9 +34,19 @@ namespace AI.States
                     if (!groundWaterOwner)
                         groundWaterOwner = (GroundWaterBaseAI)Owner;
 
-                    areas = groundWaterOwner.agent.areaMask;
+                    areas = 1 << NavMesh.GetAreaFromName("Water");
 
                     Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
+
+                    Owner.LookAt(Owner.posToWalkTo);
+                    Owner.Move();
+                    break;
+                case AITypes.AirAI:
+                    airAI = Owner.GetComponent<AirAI>();
+
+                    Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, NavMesh.AllAreas);
+
+                    Owner.posToWalkTo.y += Random.Range(airAI.MinFlighHight, airAI.MaxFlighHight);
                     break;
                 default:
                     break;
@@ -48,6 +60,7 @@ namespace AI.States
             switch (Owner.type)
             {
                 case AITypes.BaseAI:
+                    Debug.Log("There should not be an baseAI in game");
                     break;
                 case AITypes.GroundAI:
                     GroundWaterExecute();
@@ -55,22 +68,45 @@ namespace AI.States
                 case AITypes.WaterAI:
                     GroundWaterExecute();
                     break;
+                case AITypes.AirAI:
+                    AirExecute();
+                    break;
                 default:
                     break;
             }
         }
 
-        private void GroundWaterExecute()
+        private void AirExecute()
         {
             if (Vector3.Distance(Owner.transform.position, Owner.posToWalkTo) <= Owner.maxPointDistance)
             {
-                Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, NavMesh.GetAreaFromName("Terrain"));
-                groundWaterOwner.destinationset = false;
+                Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
+                Owner.posToWalkTo.y += Random.Range(airAI.MinFlighHight, airAI.MaxFlighHight);
             }
             else
             {
                 Owner.LookAt(Owner.posToWalkTo);
                 Owner.Move();
+            }
+        }
+
+        private void GroundWaterExecute()
+        {
+            if (Vector3.Distance(Owner.transform.position, groundWaterOwner.agent.pathEndPosition) <= Owner.maxPointDistance && hasPath)
+            {
+                Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
+                groundWaterOwner.destinationset = false;
+
+                if (hasPath)
+                    hasPath = false;
+            }
+            else
+            {
+                Owner.LookAt(Owner.posToWalkTo);
+                Owner.Move();
+
+                if (!hasPath)
+                    hasPath = true;
             }
         }
 

@@ -27,8 +27,12 @@ namespace AI
         {
             base.Update();
 
-            if (transform.position.y < aiManager.Water.transform.position.y)
-                Respawn();
+            if (stop && HopOn && HopAnimation.isPlaying)
+                HopAnimation.wrapMode = WrapMode.Once;
+
+            if (!aiManager.IceLevel)
+                if (transform.position.y < aiManager.Water.transform.position.y)
+                    Respawn();
         }
 
         protected override void MoveForward()

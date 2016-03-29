@@ -33,7 +33,7 @@ namespace Managers
         public Terrain terrain;
         public GameObject Water;
 
-        private bool IceLevel = false;
+        public bool IceLevel = false;
 
         void Awake()
         {
@@ -120,7 +120,7 @@ namespace Managers
             }
         }
 
-        public Vector3 GetRandomPoint(Vector3 pos, AITypes aiType, LayerMask area = new LayerMask())
+        public Vector3 GetRandomPoint(Vector3 pos, AITypes aiType, LayerMask area)
         {
             List<Vector3> list = new List<Vector3>();
 
@@ -137,6 +137,15 @@ namespace Managers
                     else
                         Debug.LogError("there is no water in the Ai manager");
                     break;
+                case AITypes.AirAI:
+                    bool r = Random.value > 0.5;
+
+                    if (r)
+                        list = TerrainWayPoints;
+                    else
+                        list = WaterWayPoints;
+
+                    break;
                 default:
                     Debug.LogError("there is no Return for this ai type" + aiType);
                     Return = true;
@@ -150,42 +159,7 @@ namespace Managers
 
             Vector3 vec = list[index];
 
-            LayerMask Area = new LayerMask();
-
-            if (area != Area)
-                Area = area;
-            else
-                Area = NavMesh.AllAreas;
-
-            NavMeshPath path = new NavMeshPath();
-
-            NavMeshHit hit = new NavMeshHit();
-
-            if (NavMesh.CalculatePath(pos, vec, Area, path))
-                return vec;
-            else if (NavMesh.SamplePosition(vec, out hit, 10, Area))
-                return hit.position;
-            else {
-                Vector3 finalpos = new Vector3();
-
-                while (!NavMesh.CalculatePath(pos, finalpos, Area, path))
-                {
-                    CreateRandomPoint(index, vec);
-                    if (index >= list.Count -1 )
-                        index++;
-                    else
-                        index = 0;
-                    vec = list[index];
-
-                    if (NavMesh.CalculatePath(pos, vec, Area, path))
-                        return vec;
-                    else if (NavMesh.SamplePosition(vec, out hit, 10, Area))
-                        return hit.position;
-                }
-            }
-
-            Debug.LogError("not sure what happened here but it's not good");
-            return new Vector3();
+            return vec;
         }
 
         #region AI ID system

@@ -19,7 +19,7 @@ namespace AI
         private float timeTillWait = 0;
         private float counter = 0;
 
-        private bool stop = false;
+        protected bool stop = false;
         #endregion
 
         public NavMeshAgent agent;
