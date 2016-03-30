@@ -5,7 +5,8 @@
     Environment = 9,
     AI = 10,
     PuzzleObject = 11,
-    PuzzleSlot = 12
+    PuzzleSlot = 12,
+    Weapon = 14
 }
 
 public enum PuzzleColors

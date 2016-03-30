@@ -113,7 +113,7 @@ Material:
       data:
         first:
           name: ColorRadius
-        second: 862
+        second: 0
       data:
         first:
           name: _ZWrite
@@ -146,21 +146,6 @@ Material:
         first:
           name: _Mode
         second: 0
-<<<<<<< HEAD
-      data:
-        first:
-          name: Smoothness
-        second: 0
-      data:
-        first:
-          name: Metallicness
-        second: 0
-      data:
-        first:
-          name: ColorRadius
-        second: 0
-=======
->>>>>>> cf14e70d44442d7a128b47016a9bf1d5468740f4
     m_Colors:
       data:
         first:

@@ -14,13 +14,10 @@ Level 5
 - Golf
 
 Level 6
-- City
-
-Level 7
 - Space
 
-Level 8
+Level 7
 - Neon
 
-Level 9
+Level 8
 - Cake
