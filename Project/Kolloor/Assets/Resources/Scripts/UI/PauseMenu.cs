@@ -28,6 +28,8 @@ public class PauseMenu : MonoBehaviour
     public void Pause(bool pause)
     {
         Time.timeScale = System.Convert.ToInt32(!pause);
+        Options.instance.Back();
+        Back();
         EnableCursor(pause);
         startPauseObject.SetActive(pause);
     }
@@ -53,7 +55,7 @@ public class PauseMenu : MonoBehaviour
         Application.LoadLevel("Loading");
     }
 
-    public void Options()
+    public void OptionsMenu()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         pauseObject.SetActive(false);

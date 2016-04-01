@@ -69,7 +69,7 @@ GameObject:
   - 65: {fileID: 6582138}
   m_Layer: 0
   m_Name: End Portal
-  m_TagString: Puzzle Slot
+  m_TagString: Next Level Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

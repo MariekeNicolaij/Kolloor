@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public class Levels : MonoBehaviour
     int indexChange = 0;
 
     float lerpTime = 1;
-    float lerpSpeed = 30;
+    float lerpSpeed = 10;
     float colorRadius;
 
     bool locksSet = false;
@@ -34,7 +35,6 @@ public class Levels : MonoBehaviour
     {
         instance = this;
         GetImages();
-
     }
 
     public void Start()
@@ -90,6 +90,10 @@ public class Levels : MonoBehaviour
             LerpImage();
         if (lerpColor)
             LerpColor();
+
+
+        if (Input.GetKeyDown(KeyCode.D))
+            PlayerPrefs.DeleteAll();
     }
 
     /// <summary>
@@ -186,7 +190,7 @@ public class Levels : MonoBehaviour
     {
         int standardScenes = 3;         // Start, Loading, Credits
         PlayerPrefs.SetInt("LoadLevel", currentLevelIndex+standardScenes);
-        Application.LoadLevel("Loading");
+        SceneManager.LoadScene("Loading");
     }
 
     /// <summary>
