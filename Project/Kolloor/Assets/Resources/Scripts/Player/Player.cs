@@ -4,9 +4,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    public LaserGun MajorLazer;
-
     public static Player instance;
+
+    public LaserGun MajorLazer;
     PuzzleObject puzzleObject;
     CharacterController characterController;
 
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     float sprintSpeed = 12;
     float jumpSpeed = 4;
     float gravity = 9.81f;
+
 
     void Start()
     {

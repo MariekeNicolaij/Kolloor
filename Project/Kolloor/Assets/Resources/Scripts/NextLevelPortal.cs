@@ -12,8 +12,6 @@ public class NextLevelPortal : MonoBehaviour
     float slotHeight = 3.05f;
     float maxLerpDistance = 0.025f;
 
-    List<string> levelNames = new List<string>();
-
 
     void Start()
     {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -51,8 +52,8 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
-        PlayerPrefs.SetInt("LoadLevel", Application.loadedLevel);
-        Application.LoadLevel("Loading");
+        PlayerPrefs.SetInt("LoadLevel", SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Loading");
     }
 
     public void OptionsMenu()
@@ -83,6 +84,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Start);
-        Application.LoadLevel("Loading");
+        SceneManager.LoadScene("Loading");
     }
 }
