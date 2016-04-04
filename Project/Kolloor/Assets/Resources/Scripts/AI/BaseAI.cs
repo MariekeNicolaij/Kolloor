@@ -47,8 +47,6 @@ namespace AI
 
         protected Rigidbody rigidBody;
 
-        protected List<GameObject> Collisions = new List<GameObject>();
-
         protected Vector3 lookAt;
 
         protected virtual void Start()
@@ -117,22 +115,6 @@ namespace AI
             LookAt(objectToLookTo.transform.position);
         }
 
-        public virtual void OnCollisionEnter(Collision other)
-        {
-            if (!Collisions.Contains(other.gameObject))
-            {
-                Collisions.Add(other.gameObject);
-            }
-        }
-
-        public virtual void OnCollisionExit(Collision other)
-        {
-            if (Collisions.Contains(other.gameObject))
-            {
-                Collisions.Remove(other.gameObject);
-            }
-        }
-
         public virtual void HelpPlayer(bool help)
         {
             if (help)
@@ -145,6 +127,7 @@ namespace AI
         {
             stateManager.ChangeState(new IdleState());
         }
+
         public virtual void DropDown()
         {
             stateManager.SwitchToDefault();

@@ -85,7 +85,7 @@ namespace Managers
             }
         }
 
-        private void CreateRandomPoint(int index = -1, Vector3 pos = new Vector3())
+        private void CreateRandomPoint()
         {
             Vector3 vec = new Vector3();
 
@@ -95,21 +95,10 @@ namespace Managers
 
             if (IceLevel)
             {
-                if (index == -1)
-                    TerrainWayPoints.Add(vec);
-                else
-                    TerrainWayPoints[index] = vec;
+                TerrainWayPoints.Add(vec);
             }
             else
             {
-                if (index != -1)
-                {
-                    if (TerrainWayPoints[index] == pos)
-                        TerrainWayPoints.Remove(pos);
-                    else
-                        WaterWayPoints.Remove(pos);
-                }
-
                 if (vec.y < Water.transform.position.y)
                 {
                     vec.y = Water.transform.position.y;
@@ -184,6 +173,7 @@ namespace Managers
         public void RemoveAI(int ID)
         {
             AIs.Remove(ID);
+            AIIDTypes.Remove(ID);
         }
 
         /// <summary>
@@ -233,7 +223,7 @@ namespace Managers
 
         private void AiHelp(bool help)
         {
-            for (int i = 0; i < AIIDTypes.Count; i++)
+            for (int i = 1; i < AIIDTypes.Count; i++)
             {
                 if (AIIDTypes[i] == AITypes.GroundAI)
                 {

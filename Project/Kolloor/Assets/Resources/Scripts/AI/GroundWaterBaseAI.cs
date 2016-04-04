@@ -25,7 +25,7 @@ namespace AI
         public NavMeshAgent agent;
 
         [HideInInspector]
-        public bool destinationset = false;
+        public bool DestinationSet = false;
 
         private bool EnableAgent = false;
 
@@ -94,9 +94,9 @@ namespace AI
         {
             Debug.DrawLine(transform.position, lookAt, Color.blue);
 
-            if (!destinationset)
+            if (!DestinationSet)
             {
-                destinationset = true;
+                DestinationSet = true;
                 agent.SetDestination(lookAt);
             }
             else
@@ -120,7 +120,7 @@ namespace AI
             agent.enabled = true;
             stateManager.SwitchToDefault();
             EnableAgent = false;
-            destinationset = false;
+            DestinationSet = false;
         }
 
         public override void PickUp()

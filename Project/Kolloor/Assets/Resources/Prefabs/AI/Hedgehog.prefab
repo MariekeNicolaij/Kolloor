@@ -1301,16 +1301,14 @@ MonoBehaviour:
   MovementSpeed: 2
   maxPointDistance: 1
   posToWalkTo: {x: 0, y: 0, z: 0}
-  MinWaitTime: 2
-  MaxWaitTime: 5
   MaxFallDepth: -10
   type: 1
   StopRandom: 1
-  MinRandomStopTime: 0
-  MaxRandomStopTime: 1
+  MinRandomStopTime: 1
+  MaxRandomStopTime: 2
   WaitRaid: 7
   agent: {fileID: 0}
-  destinationset: 0
+  DestinationSet: 0
   HopOn: 0
   HopAnimation: {fileID: 0}
 --- !u!136 &13694168

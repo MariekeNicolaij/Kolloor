@@ -95,7 +95,7 @@ namespace AI.States
             if (Vector3.Distance(Owner.transform.position, groundWaterOwner.agent.pathEndPosition) <= Owner.maxPointDistance && hasPath)
             {
                 Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, areas);
-                groundWaterOwner.destinationset = false;
+                groundWaterOwner.DestinationSet = false;
 
                 if (hasPath)
                     hasPath = false;
@@ -110,6 +110,9 @@ namespace AI.States
             }
         }
 
-        public override void Exit() { }
+        public override void Exit()
+        {
+            groundWaterOwner.DestinationSet = false;
+        }
     }
 }

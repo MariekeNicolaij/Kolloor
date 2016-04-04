@@ -122,8 +122,8 @@ public class LaserGun
             HoldingObject.GetComponent<SphereCollider>().radius = 3;
             HoldingObject.GetComponent<PuzzleObject>().lerpToPlayer = false;
 
-            // start timer from when last interacted with puzzleobject
-            //AIManager.instance.SetTimer(true);
+            //start timer from when last interacted with puzzleobject
+            AIManager.instance.SetTimer(true);
         }
         else if (HoldingObject.layer == (int)Layers.AI)
         {
@@ -200,8 +200,8 @@ public class LaserGun
 
             currentParticleSystem.startColor = Color.green;
 
-            // stop timer from when last interacted with puzzleobject
-            //AIManager.instance.SetTimer(false);
+            //stop timer from when last interacted with puzzleobject
+            AIManager.instance.SetTimer(false);
         }
         else if (RaycastObject.layer == (int)Layers.AI)
         {

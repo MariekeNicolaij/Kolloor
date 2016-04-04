@@ -5,15 +5,9 @@ namespace AI
 {
     public class WaterAI : GroundWaterBaseAI
     {
-        public int FallenTrunkLayer = -1;
-
         private bool MoveUp = false;
 
         bool MoveUpDone = false;
-
-        //private bool dive = false;
-        private GameObject trunk;
-        private Collider trunkCol;
 
         protected override void Start()
         {
@@ -87,17 +81,6 @@ namespace AI
             //    }
             //}
             base.MoveForward();
-        }
-
-        private void Dive()
-        {
-            if (agent.enabled)
-                agent.enabled = false;
-
-            if (trunk.transform.position.y - (trunkCol.bounds.size.y * .5f) > transform.position.y)
-                transform.Translate(Vector3.down * Time.smoothDeltaTime);
-            else
-                transform.Translate(Vector3.forward * Time.smoothDeltaTime * MovementSpeed);
         }
     }
 }
