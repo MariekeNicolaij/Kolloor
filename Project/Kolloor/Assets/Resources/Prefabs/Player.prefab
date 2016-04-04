@@ -321,7 +321,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109560}
   m_LocalRotation: {x: 0, y: 0.83335143, z: 0, w: 0.5527435}
-  m_LocalPosition: {x: 50.046852, y: 7.621, z: 50.219547}
+  m_LocalPosition: {x: 61.79, y: 3.3, z: 78.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 424796}
@@ -706,7 +706,7 @@ MonoBehaviour:
   radialBlurIterations: 2
   sunColor: {r: 1, g: 1, b: 1, a: 1}
   sunThreshold: {r: 0.87, g: 0.74, b: 0.65, a: 1}
-  sunShaftBlurRadius: 2.5
+  sunShaftBlurRadius: 1.5
   sunShaftIntensity: 1.15
   maxRadius: 0.75
   useDepthTexture: 1
@@ -779,13 +779,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MajorLazer:
     ObjectHolder: {fileID: 111702}
-    LaserLength: 10
+    LaserLength: 20
     DropForce: 3
     DropforceBuilderDefault: 1
     MaxDropForce: 25
     Laser: {fileID: 193712}
     LaserOnFor: 0.2
-    layersToPickUp: 0a0000000b000000
+    layersToPickUp: 0a0000000b0000000e000000
   underwater: 0
   pickedUp: 0
 --- !u!124 &12457542
@@ -805,7 +805,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
