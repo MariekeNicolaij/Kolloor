@@ -59,14 +59,13 @@ namespace Managers
             PuzzleObject closestObj = puzzleObjects[firstID];
             foreach (PuzzleObject pObject in puzzleObjects.Values)
             {
-                float vec = Vector3.Distance(position, pObject.transform.position);
-                if (vec < ClosestDistance)
+                float dis = Vector3.Distance(position, pObject.transform.position);
+                if (dis < ClosestDistance)
                 {
-                    ClosestDistance = vec;
+                    ClosestDistance = dis;
                     closestObj = pObject;
                 }
             }
-
             return closestObj;
         }
     }

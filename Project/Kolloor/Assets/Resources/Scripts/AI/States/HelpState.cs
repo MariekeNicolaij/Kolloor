@@ -10,68 +10,58 @@ namespace AI.States
         private Player player;
         private PuzzleObject puzzleObject;
         private bool playerFound = false;
-        private NavMeshPath path;
 
-        private int corner = 0;
+        GroundAI GroundOwner;
 
         private bool saveStopRandom = false;
         private Vector3 playerPos;
 
         public override void Enter()
         {
-            path = new NavMeshPath();
-
             player = Player.instance;
 
-            NavMesh.CalculatePath(Owner.transform.position, player.transform.position, NavMesh.AllAreas, path);
+            Owner.posToWalkTo = player.transform.position;
+            Owner.LookAt(player.transform.position);
 
-            if (Owner is GroundAI)
-            {
-                saveStopRandom = ((GroundAI)Owner).StopRandom;
-                ((GroundAI)Owner).StopRandom = false;
-            }
+            playerPos = player.transform.position;
+
+            GroundOwner = Owner.GetComponent<GroundAI>();
+
+            saveStopRandom = GroundOwner.StopRandom;
+            GroundOwner.StopRandom = false;
         }
 
         public override void Execute()
         {
-            Debug.DrawLine(Owner.transform.position, path.corners[corner], Color.red);
+            Debug.DrawLine(Owner.transform.position, player.transform.position, Color.red);
 
-            for (int i = 0; i < path.corners.Length - 1; i++)
+            if (playerPos != player.transform.position)
             {
-                Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
+                GroundOwner.DestinationSet = false;
+                Owner.posToWalkTo = player.transform.position;
+                Owner.LookAt(player.transform.position);
             }
 
-            if (Vector3.Distance(path.corners[corner], Owner.transform.position) < Owner.maxPointDistance && corner != path.corners.Length - 1)
-            {
-                corner++;
-            }
-            else if (Vector3.Distance(player.transform.position, Owner.transform.position) < Owner.maxPointDistance + 1 && !playerFound)
+            if (Vector3.Distance(Owner.transform.position, player.transform.position) <= Owner.maxPointDistance && !playerFound)
             {
                 playerFound = true;
+                GroundOwner.DestinationSet = false;
                 puzzleObject = PuzzleObjectManager.instance.GetClosestObject(Owner.transform.position);
-                Debug.Log(puzzleObject);
-                NavMesh.CalculatePath(Owner.transform.position, puzzleObject.transform.position, NavMesh.AllAreas, path);
-                corner = 0;
+                Owner.LookAt(puzzleObject.transform.position);
+                Owner.posToWalkTo = puzzleObject.transform.position;
             }
-            else if (Vector3.Distance(path.corners[corner], Owner.transform.position) < Owner.maxPointDistance && !playerFound)
+            else if (playerFound && Vector3.Distance(Owner.transform.position, puzzleObject.transform.position) <= Owner.maxPointDistance)
             {
-                NavMesh.CalculatePath(Owner.transform.position, player.transform.position, NavMesh.AllAreas, path);
-                corner = 0;
-            }
-            else if (playerFound && Vector3.Distance(puzzleObject.transform.position, Owner.transform.position) < (Owner.maxPointDistance * 4))
-            {
-
-            }
-            else
-            {
-                Vector3 VecToLookAt = path.corners[corner];
-                VecToLookAt.y = Owner.transform.position.y;
-
-                Owner.LookAt(VecToLookAt);
-                Owner.Move();
+                Owner.stateManager.ChangeState(new IdleState());
             }
 
+            Owner.Move();
         }
-        public override void Exit() { }
+
+        public override void Exit()
+        {
+            GroundOwner.DestinationSet = false;
+            GroundOwner.StopRandom = saveStopRandom;
+        }
     }
 }
