@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Loading : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class Loading : MonoBehaviour
     {
         if (!loadingLevel)
         {
-            operation = Application.LoadLevelAsync(level);
+            operation =  Application.LoadLevelAsync(level);
             loadingLevel = true;
         }
         if (operation.isDone)

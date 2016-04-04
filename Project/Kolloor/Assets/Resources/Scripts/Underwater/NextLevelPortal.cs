@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using UnityEngine.SceneManagement;
 
 public class NextLevelPortal : MonoBehaviour
 {
-    DirectoryInfo levelDirectoryPath = new DirectoryInfo("Assets/Resources/Scenes/Levels");
-
     Vector3 positionInGround;
 
     public bool lerpToGround, isLerped;
 
     float slotHeight = 3.05f;
     float maxLerpDistance = 0.025f;
-
-    List<string> levelNames = new List<string>();
 
 
     void Start()
@@ -59,9 +55,9 @@ public class NextLevelPortal : MonoBehaviour
     void NextLevelCheck()
     {
         int standardScenes = 3;     // -Start -Loading -Credits
-        int currentLevelIndex = Application.loadedLevel - standardScenes;
+        int currentLevelIndex = SceneManager.GetActiveScene().buildIndex - standardScenes;
         int nextLevelIndex = currentLevelIndex + 1;
-        int maxLevelIndex = Application.levelCount - standardScenes - 1;     // -1 because index
+        int maxLevelIndex = SceneManager.sceneCountInBuildSettings - standardScenes - 1;     // -1 because index
 
         if (PlayerPrefs.GetInt("CurrentLevel") <= nextLevelIndex)
             PlayerPrefs.SetInt("CurrentLevel", nextLevelIndex);
@@ -71,12 +67,12 @@ public class NextLevelPortal : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Credits);
-            Application.LoadLevel("Loading");
+            SceneManager.LoadScene("Loading");
         }
         else
         {
             PlayerPrefs.SetInt("LoadLevel", nextLevelIndex + standardScenes);
-            Application.LoadLevel("Loading");
+            SceneManager.LoadScene("Loading");
         }
     }
 }

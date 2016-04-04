@@ -3,9 +3,8 @@ using Managers;
 
 public class PuzzleObject : MonoBehaviour
 {
-    public PuzzleColors puzzleColor;
-
     public PuzzleObjectManager Manager;
+    public PuzzleColors puzzleColor;
 
     PuzzleSlot puzzleSlot;
 

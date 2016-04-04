@@ -50,7 +50,7 @@ public class ColorsIngame : MonoBehaviour
             oldColor.Add(colorsWithName[ColorManager.instance.colorSpreadList[i].color.ToString()]);
 
             go.name = ColorManager.instance.colorSpreadList[i].color.ToString();
-            go.transform.parent = colorsParent.transform;
+            go.transform.SetParent(colorsParent.transform);
             go.transform.localPosition = new Vector3(((i % 2 == 0) ? i + indexFix : -i) * spaceBetweenImages, 0, 0);     // Oneven index word links geplaats vanaf het midden van het scherm en even rechts
             colorObjects.Add(go);
         }

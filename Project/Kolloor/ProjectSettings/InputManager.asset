@@ -179,7 +179,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 2
+    axis: 4
     joyNum: 0
   - serializedVersion: 3
     m_Name: Mouse Y
@@ -267,8 +267,8 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: mouse 1
-    altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altNegativeButton: joystick button 9
+    altPositiveButton: joystick button 8
     gravity: 1000
     dead: 1
     sensitivity: 1000

@@ -12,8 +12,8 @@ GameObject:
   - 65: {fileID: 6549488}
   - 23: {fileID: 2306018}
   - 54: {fileID: 5412608}
-  - 135: {fileID: 13564432}
   - 114: {fileID: 11420034}
+  - 135: {fileID: 13582418}
   m_Layer: 11
   m_Name: Yellow Puzzle Object
   m_TagString: Puzzle Object
@@ -139,17 +139,17 @@ MonoBehaviour:
   lerpToPlayer: 0
   lerpToSlot: 0
   active: 1
---- !u!135 &13564432
+--- !u!135 &13582418
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127214}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19867032
 ParticleSystem:

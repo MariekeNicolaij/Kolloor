@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -19,14 +20,14 @@ public class StartMenu : MonoBehaviour
     void Awake()
     {
         instance = this;
-        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1-standardScenes&& PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount-standardScenes);
+        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1-standardScenes&& PlayerPrefs.GetInt("CurrentLevel") < SceneManager.sceneCountInBuildSettings-standardScenes);
     }
 
     public void Continue()
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         PlayerPrefs.SetInt("LoadLevel", PlayerPrefs.GetInt("CurrentLevel") + standardScenes);
-        Application.LoadLevel("Loading");
+        SceneManager.LoadScene("Loading");
     }
 
     public void NewGame()
@@ -70,8 +71,8 @@ public class StartMenu : MonoBehaviour
     {
         AudioManager.instance.PlaySound(AudioCategory.UI, false, true);
         PlayerPrefs.SetInt("CurrentLevel", (int)Scenes.Level1 - standardScenes);
-        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1 && PlayerPrefs.GetInt("CurrentLevel") < Application.levelCount - standardScenes);
+        continueButton.SetActive(PlayerPrefs.GetInt("CurrentLevel") > (int)Scenes.Level1 && PlayerPrefs.GetInt("CurrentLevel") < SceneManager.sceneCountInBuildSettings - standardScenes);
         PlayerPrefs.SetInt("LoadLevel", (int)Scenes.Level1);
-        Application.LoadLevel("Loading");
+        SceneManager.LoadScene("Loading");
     }
 }
