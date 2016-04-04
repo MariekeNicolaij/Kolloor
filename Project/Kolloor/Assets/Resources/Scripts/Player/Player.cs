@@ -4,9 +4,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    public LaserGun MajorLazer;
-
     public static Player instance;
+
+    public LaserGun MajorLazer;
     PuzzleObject puzzleObject;
     CharacterController characterController;
 
@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
     float jumpSpeed = 4;
     float gravity = 9.81f;
 
-    Transform t;
 
     void Start()
     {
@@ -45,12 +44,6 @@ public class Player : MonoBehaviour
         Gravity();
         Respawn();
         MajorLazer.Update();
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("Achievement unlocked! : Image fix");
-            t.Translate(Vector3.zero);
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -72,9 +65,7 @@ public class Player : MonoBehaviour
         puzzleObject = other.GetComponent<PuzzleObject>();
 
         if (puzzleObject.active)
-        {
             canPickup = true;
-        }
     }
 
     void PuzzleObjectTriggerExit(Collider other)

@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Options : MonoBehaviour
 {
+    public static Options instance;
+
     public GameObject optionsObject;
     public GameObject audioObject;
     public GameObject controlsObject;
@@ -19,6 +21,8 @@ public class Options : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+
         audioOffSprite = Resources.Load<Sprite>("UI/Audio/audioOff");
         audioOn1Sprite = Resources.Load<Sprite>("UI/Audio/audioOn1");
         audioOn2Sprite = Resources.Load<Sprite>("UI/Audio/audioOn2");
