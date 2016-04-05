@@ -15,7 +15,6 @@ public class PlayerInput : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             Player.instance.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
@@ -27,10 +26,7 @@ public class PlayerInput : MonoBehaviour
 
     void Sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
-            Player.instance.Sprint(true);
-        else if (Input.GetButtonUp("Sprint"))
-            Player.instance.Sprint(false);
+            Player.instance.Sprint(Input.GetButton("Sprint"));
     }
 
     void Interact()

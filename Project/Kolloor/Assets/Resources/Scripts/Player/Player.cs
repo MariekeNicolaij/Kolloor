@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using Managers;
 
 public class Player : MonoBehaviour
 {

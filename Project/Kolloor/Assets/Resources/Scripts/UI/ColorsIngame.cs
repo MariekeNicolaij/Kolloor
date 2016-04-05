@@ -10,7 +10,6 @@ public class ColorsIngame : MonoBehaviour
     Dictionary<string, Color> colorsWithName = new Dictionary<string, Color>();
     List<GameObject> colorObjects = new List<GameObject>();
     List<Color> oldColor = new List<Color>();
-    Color gray = Color.white;
 
     public Material rainbow;
     public Sprite sprite;
@@ -46,7 +45,7 @@ public class ColorsIngame : MonoBehaviour
         {
             GameObject go = new GameObject();
             go.AddComponent<Image>().sprite = sprite;
-            go.GetComponent<Image>().color = gray;
+            go.GetComponent<Image>().color = Color.white;
             oldColor.Add(colorsWithName[ColorManager.instance.colorSpreadList[i].color.ToString()]);
 
             go.name = ColorManager.instance.colorSpreadList[i].color.ToString();
