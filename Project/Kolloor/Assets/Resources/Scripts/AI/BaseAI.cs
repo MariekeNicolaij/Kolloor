@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using AI.States;
-using System.Collections.Generic;
+using System.Collections;
 using Managers;
 
 namespace AI
@@ -35,11 +35,13 @@ namespace AI
         [HideInInspector]
         public StateManager stateManager;
 
-        #region Out of world Care taking
+        #region respawn and Out of world Care taking
         [Range(-100, 0)]
         public float MaxFallDepth = -10;
 
         private Vector3 startPos;
+        public float TimeToRespawn = .2f;
+        public float RespawnEffectTime = .5f;
         #endregion
 
         [HideInInspector]
@@ -48,6 +50,10 @@ namespace AI
         protected Rigidbody rigidBody;
 
         protected Vector3 lookAt;
+
+        protected ParticleSystem pSystem;
+
+        protected bool PickedUp = false;
 
         protected virtual void Start()
         {
@@ -67,6 +73,8 @@ namespace AI
             stateManager.start();
 
             startPos = transform.position;
+
+            pSystem = GetComponentInChildren<ParticleSystem>(true);
         }
 
         protected virtual void Update()
@@ -79,8 +87,33 @@ namespace AI
 
         protected void Respawn()
         {
+            //if (!PickedUp)
+            {
+                pSystem.gameObject.SetActive(true);
+                pSystem.startColor = Color.cyan;
+
+                StartCoroutine(RespawnParticles());
+            }
+        }
+
+        protected IEnumerator RespawnParticles()
+        {
+            float i = 0;
+            while (i <= TimeToRespawn)
+            {
+                i += Time.deltaTime;
+                yield return null;
+            }
+
             rigidBody.velocity = Vector3.zero;
             transform.position = startPos;
+
+            while (i <= RespawnEffectTime)
+            {
+                i += Time.deltaTime;
+                yield return null;
+            }
+            pSystem.gameObject.SetActive(false);
         }
 
         public virtual void Move()
@@ -125,11 +158,13 @@ namespace AI
 
         public virtual void PickUp()
         {
+            PickedUp = true;
             stateManager.ChangeState(new IdleState());
         }
 
         public virtual void DropDown()
         {
+            PickedUp = false;
             stateManager.SwitchToDefault();
         }
 
