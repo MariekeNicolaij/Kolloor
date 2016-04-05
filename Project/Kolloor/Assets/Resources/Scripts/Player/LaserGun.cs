@@ -91,6 +91,13 @@ public class LaserGun
         }
     }
 
+    private Vector3 StandartLaserRotation;
+
+    public void LaserGunStartUp()
+    {
+        StandartLaserRotation = Laser.transform.rotation.eulerAngles;
+    }
+
     public bool Shoot()
     {
         if (HoldingObject == null && RaycastObject != null)
@@ -178,7 +185,7 @@ public class LaserGun
 
                 timer += Time.deltaTime;
 
-                Laser.transform.Rotate(Vector3.zero);
+                Laser.transform.Rotate(StandartLaserRotation);
 
                 yield return null;
             }
@@ -250,9 +257,12 @@ public class LaserGun
                         currentParticleSystem.gameObject.SetActive(false);
 
                     currentParticleSystem = RaycastObject.GetComponentInChildren<ParticleSystem>(true);
-                    currentParticleSystem.gameObject.SetActive(true);
+                    if (currentParticleSystem != null)
+                    {
+                        currentParticleSystem.gameObject.SetActive(true);
 
-                    currentParticleSystem.startColor = Color.yellow;
+                        currentParticleSystem.startColor = Color.yellow;
+                    }
                 }
                 return;
             }

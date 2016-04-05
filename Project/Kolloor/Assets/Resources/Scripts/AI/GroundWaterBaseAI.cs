@@ -57,6 +57,9 @@ namespace AI
 
         public override void Move()
         {
+            if (!agent.isOnNavMesh)
+                Respawn();
+
             if (StopRandom)
             {
                 if (stop)
@@ -92,6 +95,7 @@ namespace AI
 
         protected override void MoveForward()
         {
+
             Debug.DrawLine(transform.position, lookAt, Color.blue);
 
             if (!DestinationSet)

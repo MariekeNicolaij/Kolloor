@@ -14,11 +14,26 @@ namespace AI
         /// </summary>
         public float MinFlighHight = 15;
 
+        public Animation FlyingAnimation;
+
         protected override void Start()
         {
-            type = AITypes.AirAI;
+                        type = AITypes.AirAI;
             base.Start();
+
+            if (FlyingAnimation == null)
+                FlyingAnimation = GetComponentInChildren<Animation>();
         }
 
+        protected override void MoveForward()
+        {
+            if (!FlyingAnimation.isPlaying)
+            {
+                FlyingAnimation.wrapMode = WrapMode.Loop;
+                FlyingAnimation.Play();
+            }
+
+            base.MoveForward();
+        }
     }
 }
