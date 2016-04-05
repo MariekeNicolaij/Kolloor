@@ -63,7 +63,6 @@ GameObject:
   - 33: {fileID: 3391822}
   - 135: {fileID: 13582022}
   - 23: {fileID: 2390200}
-  - 95: {fileID: 9590186}
   - 111: {fileID: 11160104}
   m_Layer: 10
   m_Name: Bird
@@ -285,8 +284,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 37.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.1642685, y: 36.25967, z: 5.577929}
+  m_LocalScale: {x: 2.3619938, y: 2.3619938, z: 2.3619938}
   m_Children:
   - {fileID: 427484}
   m_Father: {fileID: 0}
@@ -696,23 +695,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &9590186
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 116780}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ac5f662a8020a944eb145fe8342bc82f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &11160104
 Animation:
   m_ObjectHideFlags: 1
@@ -746,8 +728,8 @@ MonoBehaviour:
   TimeToRespawn: 0.2
   RespawnEffectTime: 0.5
   type: 0
-  MaxFlighHight: 20
-  MinFlighHight: 15
+  MaxFlighHight: 30
+  MinFlighHight: 20
   FlyingAnimation: {fileID: 0}
 --- !u!135 &13575234
 SphereCollider:
