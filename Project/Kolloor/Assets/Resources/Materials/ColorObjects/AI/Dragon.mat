@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Rock
+  m_Name: Dragon
   m_Shader: {fileID: 4800000, guid: ec0baf733b6bf164e9132c7cd1c6cfd9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -106,7 +106,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0.5
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -147,7 +147,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.42729235, g: 0.37051257, b: 0.6544118, a: 1}
+        second: {r: 0.86764705, g: 0, b: 0.84371215, a: 1}
       data:
         first:
           name: ColorStartPoint

@@ -15,19 +15,24 @@ namespace AI
         public float MinFlighHight = 15;
 
         public Animation FlyingAnimation;
+        private bool HasAnimation = false;
 
         protected override void Start()
         {
-                        type = AITypes.AirAI;
+            type = AITypes.AirAI;
             base.Start();
 
             if (FlyingAnimation == null)
+            {
                 FlyingAnimation = GetComponentInChildren<Animation>();
+                if (FlyingAnimation != null)
+                    HasAnimation = true;
+            }
         }
 
         protected override void MoveForward()
         {
-            if (!FlyingAnimation.isPlaying)
+            if (HasAnimation && !FlyingAnimation.isPlaying)
             {
                 FlyingAnimation.wrapMode = WrapMode.Loop;
                 FlyingAnimation.Play();

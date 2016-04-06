@@ -81867,7 +81867,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 188468, guid: abf9a38f178b4f540936aa1f8a1e82ec, type: 2}
       propertyPath: m_Name
-      value: f (3)
+      value: Turtle (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: abf9a38f178b4f540936aa1f8a1e82ec, type: 2}

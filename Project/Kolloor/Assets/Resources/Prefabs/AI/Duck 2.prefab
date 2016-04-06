@@ -690,9 +690,9 @@ MonoBehaviour:
   RespawnEffectTime: 0.5
   type: 0
   StopRandom: 0
-  MinRandomStopTime: 0
-  MaxRandomStopTime: 1
-  WaitRaid: 2
+  MinRandomStopTime: 1
+  MaxRandomStopTime: 2
+  WaitRaid: 5
   agent: {fileID: 19518584}
   DestinationSet: 0
 --- !u!136 &13679308
