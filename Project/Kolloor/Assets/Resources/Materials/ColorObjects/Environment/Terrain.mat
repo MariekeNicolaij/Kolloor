@@ -104,18 +104,6 @@ Material:
         second: 0.02
       data:
         first:
-          name: Smoothness
-        second: 0
-      data:
-        first:
-          name: Metallicness
-        second: 0
-      data:
-        first:
-          name: ColorRadius
-        second: 0
-      data:
-        first:
           name: _ZWrite
         second: 1
       data:
@@ -146,6 +134,18 @@ Material:
         first:
           name: _Mode
         second: 0
+      data:
+        first:
+          name: Smoothness
+        second: 0
+      data:
+        first:
+          name: Metallicness
+        second: 0
+      data:
+        first:
+          name: ColorRadius
+        second: 0
     m_Colors:
       data:
         first:
@@ -162,4 +162,4 @@ Material:
       data:
         first:
           name: ColorStartPoint
-        second: {r: 4.7696414, g: 2.9738503, b: 23.312267, a: 0}
+        second: {r: 53.32047, g: -1.5252343, b: 53.475433, a: 0}
