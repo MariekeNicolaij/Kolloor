@@ -44,6 +44,8 @@ namespace AI.States
                 case AITypes.AirAI:
                     airAI = Owner.GetComponent<AirAI>();
 
+                    Debug.Log(Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, NavMesh.AllAreas));
+
                     Owner.posToWalkTo = Owner.aiManager.GetRandomPoint(Owner.transform.position, Owner.type, NavMesh.AllAreas);
 
                     Owner.posToWalkTo.y += Random.Range(airAI.MinFlighHight, airAI.MaxFlighHight);

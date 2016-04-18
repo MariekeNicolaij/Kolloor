@@ -20,10 +20,11 @@ namespace AI.States
         {
             player = Player.instance;
 
-            Owner.posToWalkTo = player.transform.position;
-            Owner.LookAt(player.transform.position);
-
             playerPos = player.transform.position;
+            playerPos.y = Owner.transform.position.y;
+
+            Owner.posToWalkTo = playerPos;
+            Owner.LookAt(playerPos);
 
             GroundOwner = Owner.GetComponent<GroundAI>();
 
@@ -35,12 +36,8 @@ namespace AI.States
         {
             Debug.DrawLine(Owner.transform.position, player.transform.position, Color.red);
 
-            if (playerPos != player.transform.position)
-            {
-                GroundOwner.DestinationSet = false;
-                Owner.posToWalkTo = player.transform.position;
-                Owner.LookAt(player.transform.position);
-            }
+            Vector3 playerPosCheck = player.transform.position;
+            playerPosCheck.y = Owner.transform.position.y;
 
             if (Vector3.Distance(Owner.transform.position, player.transform.position) <= Owner.maxPointDistance && !playerFound)
             {
@@ -49,6 +46,12 @@ namespace AI.States
                 puzzleObject = PuzzleObjectManager.instance.GetClosestObject(Owner.transform.position);
                 Owner.LookAt(puzzleObject.transform.position);
                 Owner.posToWalkTo = puzzleObject.transform.position;
+            }
+            else if (!playerFound && playerPos != player.transform.position)
+            {
+                GroundOwner.DestinationSet = false;
+                Owner.posToWalkTo = player.transform.position;
+                Owner.LookAt(player.transform.position);
             }
             else if (playerFound && Vector3.Distance(Owner.transform.position, puzzleObject.transform.position) <= Owner.maxPointDistance)
             {

@@ -127,13 +127,18 @@ namespace Managers
                         Debug.LogError("there is no water in the Ai manager");
                     break;
                 case AITypes.AirAI:
-                    bool r = Random.value > 0.5;
-
-                    if (r)
+                    if (IceLevel)
+                    {
                         list = TerrainWayPoints;
-                    else
-                        list = WaterWayPoints;
+                    }
+                    else {
+                        bool r = Random.value > 0.5;
 
+                        if (r)
+                            list = TerrainWayPoints;
+                        else
+                            list = WaterWayPoints;
+                    }
                     break;
                 default:
                     Debug.LogError("there is no Return for this ai type" + aiType);

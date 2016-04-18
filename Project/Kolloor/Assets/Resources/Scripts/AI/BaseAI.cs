@@ -8,7 +8,7 @@ namespace AI
     public class BaseAI : MonoBehaviour
     {
         #region Moving Properties
-        [Range(1, 10)]
+        [Range(0, 10)]
         public float MovementSpeed = 5;
 
         [Range(0, 2)]
