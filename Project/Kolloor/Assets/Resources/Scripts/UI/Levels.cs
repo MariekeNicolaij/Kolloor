@@ -90,10 +90,6 @@ public class Levels : MonoBehaviour
             LerpImage();
         if (lerpColor)
             LerpColor();
-
-
-        if (Input.GetKeyDown(KeyCode.D))
-            PlayerPrefs.DeleteAll();
     }
 
     /// <summary>
