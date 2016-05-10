@@ -18,10 +18,10 @@ public class Loading : MonoBehaviour
     {
         if (!loadingLevel)
         {
-            operation =  Application.LoadLevelAsync(level);
+            operation = SceneManager.LoadSceneAsync(level);
             loadingLevel = true;
         }
         if (operation.isDone)
-            Application.LoadLevel(level);
+            SceneManager.LoadScene(level);
     }
 }

@@ -8,7 +8,6 @@ public class Levels : MonoBehaviour
 {
     public static Levels instance;
 
-    public Material levelImageMaterial;
     public GameObject playButton;
 
     public GameObject levelsParent;
@@ -25,7 +24,7 @@ public class Levels : MonoBehaviour
 
     float lerpTime = 1;
     float lerpSpeed = 10;
-    float colorRadius;
+    float colorTime;
 
     bool locksSet = false;
     bool lerpPosition, lerpColor;
@@ -90,10 +89,6 @@ public class Levels : MonoBehaviour
             LerpImage();
         if (lerpColor)
             LerpColor();
-
-
-        if (Input.GetKeyDown(KeyCode.D))
-            PlayerPrefs.DeleteAll();
     }
 
     /// <summary>
@@ -124,18 +119,17 @@ public class Levels : MonoBehaviour
     /// </summary>
     void LerpColor()
     {
-        levelImageMaterial.SetVector("ColorStartPoint", levelImages[currentLevelIndex].sprite.bounds.center);
         if (currentLevelIndex < PlayerPrefs.GetInt("CurrentLevel"))
-            levelImageMaterial.SetFloat("ColorRadius", colorRadius);
+            levelImages[currentLevelIndex].color = Color.Lerp(levelImages[currentLevelIndex].color, Color.white, colorTime);
         else
             lerpColor = false;
 
-        float maxRadius = 1500;
-        colorRadius += lerpSpeed;
+        float colorLerpSpeed = 0.001f;
+        colorTime += colorLerpSpeed;
 
-        if (colorRadius > maxRadius)
+        if (levelImages[currentLevelIndex].color == Color.white)
         {
-            colorRadius = 0;
+            colorTime = 0;
             lerpColor = false;
         }
     }
@@ -163,7 +157,7 @@ public class Levels : MonoBehaviour
         levelImages[lastLevelIndex].gameObject.SetActive(true);
         levelImages[currentLevelIndex].transform.SetAsLastSibling();
         levelImages[lastLevelIndex].transform.SetAsLastSibling();
-        levelImageMaterial.SetFloat("ColorRadius", 0);
+        levelImages[currentLevelIndex].color = Color.gray;
     }
 
     /// <summary>
@@ -189,7 +183,7 @@ public class Levels : MonoBehaviour
     public void PlayButton()
     {
         int standardScenes = 3;         // Start, Loading, Credits
-        PlayerPrefs.SetInt("LoadLevel", currentLevelIndex+standardScenes);
+        PlayerPrefs.SetInt("LoadLevel", currentLevelIndex + standardScenes);
         SceneManager.LoadScene("Loading");
     }
 
