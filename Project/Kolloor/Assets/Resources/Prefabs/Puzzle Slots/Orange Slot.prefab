@@ -63,7 +63,7 @@ GameObject:
   - 4: {fileID: 419070}
   - 65: {fileID: 6549284}
   - 114: {fileID: 11471852}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Trigger
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
@@ -217,8 +217,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174442}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.4, y: 3.5086975, z: 47.7}
+  m_LocalRotation: {x: 0, y: 0.73739773, z: 0, w: 0.6754588}
+  m_LocalPosition: {x: 33.09, y: 3.53, z: 61.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 442534}

@@ -39,7 +39,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a69d0cf76b07544804e7b618773734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeTillHelp: 60
+  TimeTillHelp: 30
+  WaypointAmound: 100
+  terrain: {fileID: 0}
+  Water: {fileID: 0}
+  IceLevel: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

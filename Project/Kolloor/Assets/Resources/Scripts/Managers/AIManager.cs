@@ -232,7 +232,8 @@ namespace Managers
             {
                 if (AIIDTypes[i] == AITypes.GroundAI)
                 {
-                    AIs[i].HelpPlayer(help);
+                    if (!AIs[i].PickedUp)
+                        AIs[i].HelpPlayer(help);
                 }
             }
 

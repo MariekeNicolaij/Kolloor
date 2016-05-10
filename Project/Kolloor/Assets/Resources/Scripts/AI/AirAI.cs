@@ -17,7 +17,6 @@ namespace AI
         public Animation FlyingAnimation;
         private bool HasAnimation = false;
 
-        private bool startAnimation = false;
         private bool coroutine = false;
         private int MaxTimeTillStart = 10;
 
@@ -37,31 +36,19 @@ namespace AI
 
         protected override void MoveForward()
         {
-            if (HasAnimation && !FlyingAnimation.isPlaying && startAnimation)
+            if (HasAnimation && !FlyingAnimation.isPlaying)
             {
                 FlyingAnimation.wrapMode = WrapMode.Loop;
+                if (FlyingAnimation["Bird flying"] != null)
+                    FlyingAnimation["Bird flying"].time = Random.Range(0f, 1f);
+                else if(FlyingAnimation["Flying Dragon"] != null)
+                {
+                    FlyingAnimation["Flying Dragon"].time = Random.Range(0f, 1f);
+                }
                 FlyingAnimation.Play();
-            }else if (!coroutine)
-            {
-                StartCoroutine(AnimationCounter());
-                coroutine = true;
             }
 
             base.MoveForward();
-        }
-
-        private IEnumerator AnimationCounter()
-        {
-            float wait = Random.Range(0, MaxTimeTillStart);
-
-            float i = 0;
-
-            while (i < wait)
-            {
-                i += Time.deltaTime;
-                yield return null;
-            }
-            startAnimation = true;
         }
     }
 }

@@ -64,6 +64,7 @@ namespace AI
             {
                 if (stop)
                 {
+
                     counter += Time.smoothDeltaTime;
                     if (counter >= waitFor)
                     {
@@ -134,7 +135,23 @@ namespace AI
         }
         public override void DropDown()
         {
+            PickedUp = false;
             EnableAgent = true;
+        }
+
+        protected override IEnumerator RespawnParticles()
+        {
+            yield return base.RespawnParticles();
+
+            if (EnableAgent)
+            {
+                enableAfterDrop();
+            }
+        }
+
+        protected override void Respawn()
+        {
+            base.Respawn();
         }
     }
 }

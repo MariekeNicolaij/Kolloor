@@ -16,23 +16,23 @@ namespace AI
             base.Start();
         }
 
-        protected override void Update()
-        {
-            base.Update();
+        //protected override void Update()
+        //{
+        //    base.Update();
 
-            if (MoveUp)
-            {
-                if (transform.position.y-aiManager.Water.transform.position.y > -maxPointDistance)
-                {
-                    transform.Translate(Vector3.up * Time.smoothDeltaTime);
-                }
-                else
-                {
-                    MoveUp = false;
-                    MoveUpDone = true;
-                }
-            }
-        }
+        //    if (MoveUp)
+        //    {
+        //        if (transform.position.y-aiManager.Water.transform.position.y > -maxPointDistance)
+        //        {
+        //            transform.Translate(Vector3.up * Time.smoothDeltaTime);
+        //        }
+        //        else
+        //        {
+        //            MoveUp = false;
+        //            MoveUpDone = true;
+        //        }
+        //    }
+        //}
 
         protected override void enableAfterDrop()
         {

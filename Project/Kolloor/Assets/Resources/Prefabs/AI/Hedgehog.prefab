@@ -1305,6 +1305,7 @@ MonoBehaviour:
   TimeToRespawn: 0.2
   RespawnEffectTime: 0.5
   type: 1
+  PickedUp: 0
   StopRandom: 1
   MinRandomStopTime: 1
   MaxRandomStopTime: 2
@@ -1321,7 +1322,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 109210}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

@@ -47,13 +47,14 @@ namespace AI
         [HideInInspector]
         public AITypes type = AITypes.BaseAI;
 
+        [HideInInspector]
+        public bool PickedUp = false;
+
         protected Rigidbody rigidBody;
 
         protected Vector3 lookAt;
 
         protected ParticleSystem pSystem;
-
-        protected bool PickedUp = false;
 
         protected virtual void Start()
         {
@@ -85,9 +86,9 @@ namespace AI
                 Respawn();
         }
 
-        protected void Respawn()
+        protected virtual void Respawn()
         {
-            //if (!PickedUp)
+            if (!PickedUp)
             {
                 pSystem.gameObject.SetActive(true);
                 pSystem.startColor = Color.cyan;
@@ -96,7 +97,7 @@ namespace AI
             }
         }
 
-        protected IEnumerator RespawnParticles()
+        protected virtual IEnumerator RespawnParticles()
         {
             float i = 0;
             while (i <= TimeToRespawn)

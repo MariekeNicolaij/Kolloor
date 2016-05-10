@@ -131,7 +131,7 @@ GameObject:
   - 4: {fileID: 482926}
   - 65: {fileID: 6523244}
   - 114: {fileID: 11473160}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Trigger
   m_TagString: Puzzle Slot
   m_Icon: {fileID: 0}
