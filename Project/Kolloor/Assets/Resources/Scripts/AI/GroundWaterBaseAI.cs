@@ -102,7 +102,14 @@ namespace AI
             if (!DestinationSet)
             {
                 DestinationSet = true;
-                agent.SetDestination(lookAt);
+                try
+                {
+                    agent.SetDestination(lookAt);
+                }
+                catch (System.Exception exc)
+                {
+                    Debug.Log(this + "got exception: " + exc);
+                }
             }
             else
                 agent.Resume();
@@ -147,11 +154,6 @@ namespace AI
             {
                 enableAfterDrop();
             }
-        }
-
-        protected override void Respawn()
-        {
-            base.Respawn();
         }
     }
 }

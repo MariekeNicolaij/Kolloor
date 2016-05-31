@@ -56,10 +56,7 @@ namespace Managers
 
         public void SwitchToDefault()
         {
-            currentState.Exit();
-            currentState = defaultState;
-            currentState.Owner = owner;
-            currentState.Enter();
+            ChangeState(defaultState);
         }
     }
 }

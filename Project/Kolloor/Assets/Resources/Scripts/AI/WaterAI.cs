@@ -34,24 +34,24 @@ namespace AI
         //    }
         //}
 
-        protected override void enableAfterDrop()
-        {
-            if (!MoveUpDone)
-            {
-                if (aiManager.Water.transform.position.y - transform.position.y < 0.1 && aiManager.Water.transform.position.y - transform.position.y > -0.1)
-                    base.enableAfterDrop();
-                else if (aiManager.Water.transform.position.y > transform.position.y)
-                    MoveUp = true;
-                else {
-                    Respawn();
-                    base.enableAfterDrop();
-                }
-            }
-            else
-            {
-                base.enableAfterDrop();
-                MoveUpDone = false;
-            }
-        }
+        //protected override void enableAfterDrop()
+        //{
+        //    if (!MoveUpDone)
+        //    {
+        //        if (aiManager.Water.transform.position.y - transform.position.y < 0.1 && aiManager.Water.transform.position.y - transform.position.y > -0.1)
+        //            base.enableAfterDrop();
+        //        else if (aiManager.Water.transform.position.y > transform.position.y)
+        //            MoveUp = true;
+        //        else {
+        //            Respawn();
+        //            base.enableAfterDrop();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        base.enableAfterDrop();
+        //        MoveUpDone = false;
+        //    }
+        //}
     }
 }

@@ -6,9 +6,6 @@ namespace AI.States
 {
     public class WanderState : State
     {
-        private int corner = 0;
-        private bool wait = false;
-        private float WaitTime = 0;
         private LayerMask areas = new LayerMask();
 
         private GroundWaterBaseAI groundWaterOwner;

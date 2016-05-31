@@ -16,7 +16,7 @@ public class LaserGun
 
     private float dropforceBuilder;
     public float DropforceBuilderDefault = 1;
-    public float MaxDropForce = 50;
+    public float MaxDropforce = 50;
 
     public GameObject Laser;
 
@@ -37,9 +37,11 @@ public class LaserGun
 
     private GameObject RaycastObject;
 
-    private ParticleSystem Line;
+    private ParticleSystem laserparticle;
 
     private bool showLaser = false;
+
+    private Vector3 StandartLaserRotation;
 
     public void Start(Player player)
     {
@@ -58,7 +60,7 @@ public class LaserGun
         if (!Laser.GetComponent<ParticleSystem>())
             Debug.LogError("Laser is not set, it should be a gameobject with only a line renderer");
         else {
-            Line = Laser.GetComponent<ParticleSystem>();
+            laserparticle = Laser.GetComponent<ParticleSystem>();
             if (Laser.activeSelf)
                 Laser.SetActive(false);
         }
@@ -79,7 +81,7 @@ public class LaserGun
         HoldingObject.transform.localPosition = Vector3.Lerp(HoldingObject.transform.localPosition, ObjectHolder.transform.localPosition, Time.smoothDeltaTime);
         HoldingObject.transform.localRotation = Quaternion.Lerp(HoldingObject.transform.localRotation, ObjectHolder.transform.localRotation, Time.smoothDeltaTime);
 
-        if (!(dropforceBuilder > MaxDropForce))
+        if (!(dropforceBuilder > MaxDropforce))
             dropforceBuilder += DropForce;
 
         if (Vector3.Distance(HoldingObject.transform.position, ObjectHolder.transform.position) <= 0.05)
@@ -91,7 +93,6 @@ public class LaserGun
         }
     }
 
-    private Vector3 StandartLaserRotation;
 
     public void LaserGunStartUp()
     {
@@ -161,7 +162,7 @@ public class LaserGun
     {
         Laser.SetActive(true);
 
-        float lifeTime = Line.startLifetime;
+        float lifeTime = laserparticle.startLifetime;
 
         if (ShootSomeThing)
         {
@@ -169,12 +170,12 @@ public class LaserGun
             {
                 Laser.transform.LookAt(HoldingObject.transform.position);
 
-                Line.startLifetime -= Time.deltaTime * .1f;
+                laserparticle.startLifetime -= Time.deltaTime * .1f;
 
                 yield return null;
             }
 
-            Line.startLifetime = lifeTime;
+            laserparticle.startLifetime = lifeTime;
         }
         else
         {

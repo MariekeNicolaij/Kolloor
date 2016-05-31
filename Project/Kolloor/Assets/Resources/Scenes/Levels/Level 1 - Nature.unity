@@ -8019,10 +8019,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5455888, guid: 80cd8af9bb88c7a42a1612bdc682ad09, type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 80cd8af9bb88c7a42a1612bdc682ad09, type: 2}
   m_IsPrefabParent: 0
@@ -17499,7 +17495,7 @@ MonoBehaviour:
     LaserLength: 10
     DropForce: 3
     DropforceBuilderDefault: 1
-    MaxDropForce: 25
+    MaxDropforce: 50
     Laser: {fileID: 1288659535}
     LaserOnFor: 0.2
     layersToPickUp: 0a0000000b000000
@@ -24783,10 +24779,6 @@ Prefab:
       propertyPath: m_Name
       value: Duck 2 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5455888, guid: 80cd8af9bb88c7a42a1612bdc682ad09, type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 80cd8af9bb88c7a42a1612bdc682ad09, type: 2}
   m_IsPrefabParent: 0
@@ -27745,10 +27737,6 @@ Prefab:
     - target: {fileID: 191764, guid: bc25a4a40de5ccd4184dbdef1cb3ba4b, type: 2}
       propertyPath: m_Name
       value: Duck 1 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5469346, guid: bc25a4a40de5ccd4184dbdef1cb3ba4b, type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc25a4a40de5ccd4184dbdef1cb3ba4b, type: 2}
@@ -62846,10 +62834,6 @@ Prefab:
     - target: {fileID: 452388, guid: bc25a4a40de5ccd4184dbdef1cb3ba4b, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5469346, guid: bc25a4a40de5ccd4184dbdef1cb3ba4b, type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc25a4a40de5ccd4184dbdef1cb3ba4b, type: 2}

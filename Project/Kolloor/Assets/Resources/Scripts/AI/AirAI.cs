@@ -17,9 +17,6 @@ namespace AI
         public Animation FlyingAnimation;
         private bool HasAnimation = false;
 
-        private bool coroutine = false;
-        private int MaxTimeTillStart = 10;
-
         protected override void Start()
         {
             type = AITypes.AirAI;
