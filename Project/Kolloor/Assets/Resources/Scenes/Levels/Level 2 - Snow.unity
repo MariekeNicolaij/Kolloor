@@ -35560,11 +35560,11 @@ Transform:
   - {fileID: 1268012052}
   - {fileID: 420087215}
   - {fileID: 1531942420}
-  - {fileID: 1961153773}
   - {fileID: 1837988979}
-  - {fileID: 2071744085}
   - {fileID: 1252340586}
+  - {fileID: 1961153773}
   - {fileID: 741615994}
+  - {fileID: 2071744085}
   - {fileID: 1844896434}
   - {fileID: 1804730906}
   - {fileID: 346965273}
@@ -50822,7 +50822,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11489640, guid: 784882f6d02ba824b983ac2b880a4f1a, type: 2}
       propertyPath: TimeTillHelp
-      value: 1
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 784882f6d02ba824b983ac2b880a4f1a, type: 2}
